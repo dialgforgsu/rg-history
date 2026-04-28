@@ -250,8 +250,22 @@
 
     /* transition node */
     .trans-node { position:relative; flex-shrink:0; width:220px }
-    .trans-in   { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:200px; text-align:center; z-index:4 }
-    .trans-arr  { font-size:1.5rem; color:var(--red); opacity:.5; margin-bottom:.35rem; line-height:1 }
+    .trans-in   {
+      position:absolute; left:50%; transform:translateX(-50%);
+      width:200px; text-align:center; z-index:4;
+      display:flex; flex-direction:column; align-items:center; gap:.3rem;
+    }
+    /* above: bubble sits above the spine; arrow points down toward spine */
+    .trans-node.above .trans-in {
+      bottom:calc(50% + 10px);
+      flex-direction:column-reverse; /* arrow at bottom = nearest spine */
+    }
+    /* below: bubble sits below the spine; arrow points up toward spine */
+    .trans-node.below .trans-in {
+      top:calc(50% + 10px);
+      flex-direction:column; /* arrow at top = nearest spine */
+    }
+    .trans-arr  { font-size:1.3rem; color:var(--red); opacity:.45; line-height:1 }
     .trans-bub  { background:rgba(232,49,42,.07); border:1px solid rgba(232,49,42,.18); border-radius:10px; padding:.7rem .95rem }
     .trans-lbl  { font-size:.6rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:.3rem }
     .trans-txt  { font-size:.72rem; color:var(--muted); line-height:1.55; font-style:italic }
@@ -544,7 +558,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2007</div>
         </div>
 
-        <div class="trans-node">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Restoring a 200 GB backup to give a developer a sandbox took hours and killed storage. Teams needed instant copies."</div></div>
           </div>
@@ -565,7 +579,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2017</div>
         </div>
 
-        <div class="trans-node">
+        <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Fast clones were useless if you couldn't clone production. GDPR in 2018 made masking an urgent requirement, not a nice-to-have."</div></div>
           </div>
@@ -586,7 +600,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
         </div>
 
-        <div class="trans-node">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Customers shouldn't have to stitch together two separate products. We needed to unify the provisioning journey into one workflow."</div></div>
           </div>
@@ -607,7 +621,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
         </div>
 
-        <div class="trans-node">
+        <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Teams were moving to Docker and cloud. A Windows-only virtualisation approach couldn't follow them. We needed to rethink from the ground up."</div></div>
           </div>
@@ -628,7 +642,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2021</div>
         </div>
 
-        <div class="trans-node">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Cloning is one capability in a much larger need. Teams wanted a single platform — not a tool that leaves masking and governance to someone else."</div></div>
           </div>
