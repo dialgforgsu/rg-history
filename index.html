@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redgate — 25 Years of Data Tools</title>
+  <meta name="description" content="An interactive timeline of Redgate's product history — from SQL Compare in 1999 to the world's leading Database DevOps platform.">
+  <meta property="og:title" content="Redgate — 25 Years of Data Tools">
+  <meta property="og:description" content="The story of how Redgate shaped the way teams work with data.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:        #E8312A;
+      --red-dim:    #B02020;
+      --red-glow:   rgba(232, 49, 42, 0.25);
+      --bg:         #07090C;
+      --s1:         #0D1117;
+      --s2:         #141A22;
+      --s3:         #1B2330;
+      --border:     rgba(255,255,255,0.07);
+      --border2:    rgba(255,255,255,0.12);
+      --text:       #EEF2F6;
+      --muted:      #7A8A9A;
+      --dim:        #3A4555;
+      --blue:       #4A9EE8;
+      --teal:       #00C9A7;
+      --gold:       #F5A623;
+      --purple:     #A070D4;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ───────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 54px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      background: rgba(7, 9, 12, 0.82);
+      backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 9px;
+      font-weight: 800; font-size: 0.9rem; letter-spacing: -0.02em;
+      color: var(--text); text-decoration: none;
+    }
+
+    .nav-brand-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 8px var(--red-glow);
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 8px var(--red-glow); }
+      50% { box-shadow: 0 0 16px rgba(232,49,42,0.5), 0 0 32px rgba(232,49,42,0.2); }
+    }
+
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+
+    .nav-links a {
+      display: block; padding: 0.4rem 0.85rem;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.82rem; font-weight: 500;
+      border-radius: 6px; transition: all 0.18s;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--s2); }
+
+    .nav-links a.active { color: var(--text); }
+
+    /* ─── HERO ──────────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 7rem 2rem 5rem;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(232,49,42,0.13) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 15% 90%, rgba(0,201,167,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 85% 80%, rgba(155,89,182,0.04) 0%, transparent 60%);
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 75%);
+      opacity: 0.5;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 1.75rem; position: relative;
+    }
+
+    .hero-eyebrow span { opacity: 0.5; }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 900; line-height: 1.03;
+      letter-spacing: -0.05em; margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .hero-title .line2 {
+      background: linear-gradient(110deg, var(--red) 0%, #FF7066 50%, var(--red) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: var(--muted); max-width: 580px;
+      line-height: 1.75; margin-bottom: 3.5rem; position: relative;
+    }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 3.5rem; position: relative;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-n {
+      font-size: 2.4rem; font-weight: 900;
+      letter-spacing: -0.05em; line-height: 1;
+    }
+
+    .stat-n .u { font-size: 1.4rem; color: var(--red); }
+
+    .stat-l {
+      margin-top: 4px; font-size: 0.68rem; font-weight: 600;
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em;
+    }
+
+    .stat-divider {
+      width: 1px; height: 48px; background: var(--border2);
+      align-self: center;
+    }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.9rem 2.2rem; background: var(--red); color: #fff;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.01em;
+      border-radius: 10px; text-decoration: none; position: relative;
+      box-shadow: 0 4px 24px var(--red-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+      transition: all 0.22s;
+    }
+
+    .hero-cta:hover {
+      background: #cf2a23; transform: translateY(-2px);
+      box-shadow: 0 8px 36px rgba(232,49,42,0.45);
+    }
+
+    .hero-cta svg { transition: transform 0.22s; }
+    .hero-cta:hover svg { transform: translateY(3px); }
+
+    /* ─── TIMELINE WRAP ─────────────────────────── */
+    .tl-outer {
+      max-width: 960px; margin: 0 auto; padding: 4rem 1.5rem 8rem;
+      position: relative;
+    }
+
+    /* The spine */
+    .tl-spine {
+      position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 2px;
+      transform: translateX(-50%);
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--red-dim) 8%,
+        var(--red) 40%,
+        var(--red) 60%,
+        var(--red-dim) 92%,
+        transparent 100%
+      );
+      opacity: 0.6;
+    }
+
+    /* ─── ERA ───────────────────────────────────── */
+    .era { padding: 3rem 0 1rem; }
+
+    .era-hdr {
+      text-align: center; padding: 2.5rem 1rem;
+      position: relative; margin-bottom: 3rem;
+    }
+
+    .era-hdr::before {
+      content: '';
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--bg);
+      border: 2.5px solid currentColor;
+      box-shadow: 0 0 0 5px var(--bg), 0 0 0 7px currentColor;
+      z-index: 5;
+    }
+
+    .era-chip {
+      display: inline-block; margin-bottom: 0.75rem;
+      padding: 0.3rem 1rem; border-radius: 100px;
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      border: 1px solid currentColor;
+    }
+
+    .era-title {
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 900; letter-spacing: -0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .era-years {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+
+    .era-desc {
+      max-width: 500px; margin: 0 auto;
+      font-size: 0.88rem; color: var(--muted); line-height: 1.75;
+    }
+
+    /* ─── PRODUCT ROW ───────────────────────────── */
+    .p-row {
+      display: grid;
+      grid-template-columns: 1fr 56px 1fr;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    /* Connector line from dot to card */
+    .p-connector {
+      position: absolute; top: 50%; height: 1px;
+      background: linear-gradient(to right, transparent, var(--border2));
+      pointer-events: none;
+    }
+
+    .p-row.left  .p-connector { right: calc(50%); left: 0; background: linear-gradient(to right, transparent, var(--border2)); }
+    .p-row.right .p-connector { left: calc(50%); right: 0; background: linear-gradient(to left, transparent, var(--border2)); }
+
+    .p-dot-col {
+      grid-column: 2; grid-row: 1;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 5px; z-index: 3;
+    }
+
+    .p-dot {
+      width: 13px; height: 13px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--muted);
+      flex-shrink: 0; transition: all 0.35s;
+      box-shadow: 0 0 0 4px var(--bg);
+    }
+
+    .p-dot.lit {
+      border-color: var(--dot-color, var(--red));
+      background: var(--dot-color, var(--red));
+      box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--dot-glow, var(--red-glow));
+    }
+
+    .p-year {
+      font-size: 0.65rem; font-weight: 700;
+      color: var(--red); letter-spacing: 0.06em;
+    }
+
+    .p-card-col {
+      grid-row: 1;
+      display: flex;
+    }
+
+    .p-row.left  .p-card-col { grid-column: 1; justify-content: flex-end; padding-right: 20px; }
+    .p-row.right .p-card-col { grid-column: 3; justify-content: flex-start; padding-left: 20px; }
+
+    .p-row.left  .p-empty { grid-column: 3; grid-row: 1; }
+    .p-row.right .p-empty { grid-column: 1; grid-row: 1; }
+
+    /* ─── PRODUCT CARD ──────────────────────────── */
+    .card {
+      background: var(--s1); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.2rem 1.4rem;
+      max-width: 390px; width: 100%;
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease,
+                  border-color 0.25s, background 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+
+    .p-row.left  .card { transform: translateX(-12px) translateY(8px); }
+    .p-row.right .card { transform: translateX(12px) translateY(8px); }
+
+    .card.in {
+      opacity: 1 !important;
+      transform: translateX(0) translateY(0) !important;
+    }
+
+    .card:hover {
+      background: var(--s2);
+      border-color: rgba(232,49,42,0.3);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,49,42,0.15);
+      transform: translateY(-3px) !important;
+    }
+
+    .card-top {
+      display: flex; align-items: flex-start;
+      gap: 0.75rem; margin-bottom: 0.8rem;
+    }
+
+    .card-icon {
+      width: 38px; height: 38px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; flex-shrink: 0;
+    }
+
+    .card-meta { flex: 1; min-width: 0; }
+
+    .card-name {
+      font-size: 0.93rem; font-weight: 700;
+      letter-spacing: -0.02em; line-height: 1.2;
+    }
+
+    .card-tagline {
+      font-size: 0.73rem; color: var(--muted);
+      line-height: 1.4; margin-top: 1px;
+    }
+
+    .badge {
+      flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px;
+      padding: 0.18rem 0.55rem; border-radius: 100px;
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid;
+    }
+
+    .b-active  { color: var(--teal);   border-color: rgba(0,201,167,.3);  background: rgba(0,201,167,.08); }
+    .b-retired { color: var(--dim);    border-color: rgba(255,255,255,.1); background: rgba(255,255,255,.04); }
+    .b-evolved { color: var(--gold);   border-color: rgba(245,166,35,.3);  background: rgba(245,166,35,.08); }
+    .b-acq     { color: var(--purple); border-color: rgba(160,112,212,.3); background: rgba(160,112,212,.08); }
+
+    .b-active::before  { content: '●'; font-size: 0.5em; }
+    .b-evolved::before { content: '▲'; font-size: 0.5em; }
+    .b-acq::before     { content: '★'; font-size: 0.5em; }
+
+    .card-desc {
+      font-size: 0.81rem; color: var(--muted); line-height: 1.65;
+      margin-bottom: 0.85rem;
+    }
+
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .tag {
+      padding: 0.18rem 0.55rem; background: var(--s3);
+      border: 1px solid var(--border); border-radius: 5px;
+      font-size: 0.63rem; font-weight: 600;
+      color: var(--muted); letter-spacing: 0.03em;
+    }
+
+    /* ─── PIVOT ─────────────────────────────────── */
+    .pivot-wrap {
+      padding: 2.5rem 0;
+      position: relative; z-index: 2;
+    }
+
+    .pivot {
+      background: linear-gradient(135deg,
+        rgba(232,49,42,0.09) 0%,
+        rgba(232,49,42,0.04) 60%,
+        rgba(232,49,42,0.07) 100%);
+      border: 1px solid rgba(232,49,42,0.22);
+      border-radius: 18px; padding: 2.25rem 2.75rem;
+      text-align: center; position: relative; overflow: hidden;
+      opacity: 0; transform: scale(0.96);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .pivot.in { opacity: 1; transform: scale(1); }
+
+    .pivot::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%,
+        rgba(232,49,42,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .pivot-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.66rem; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--red);
+      margin-bottom: 0.85rem;
+    }
+
+    .pivot-eyebrow::before { content: '◆'; opacity: 0.8; }
+
+    .pivot-year-badge {
+      display: inline-block; margin-bottom: 0.9rem;
+      padding: 0.22rem 0.9rem; border-radius: 100px;
+      background: rgba(232,49,42,0.12); border: 1px solid rgba(232,49,42,0.25);
+      font-size: 0.72rem; font-weight: 700; color: var(--red);
+      letter-spacing: 0.06em;
+    }
+
+    .pivot-title {
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      font-weight: 900; letter-spacing: -0.03em;
+      margin-bottom: 1rem; line-height: 1.25;
+    }
+
+    .pivot-desc {
+      font-size: 0.88rem; color: var(--muted);
+      max-width: 580px; margin: 0 auto; line-height: 1.75;
+    }
+
+    /* ─── CLOSING ───────────────────────────────── */
+    .closing {
+      text-align: center; padding: 5rem 2rem 3rem;
+      position: relative;
+    }
+
+    .closing-line {
+      width: 2px; height: 80px; background: linear-gradient(to bottom, var(--red-dim), transparent);
+      margin: 0 auto 3rem;
+    }
+
+    .closing h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900;
+      letter-spacing: -0.04em; margin-bottom: 1rem;
+    }
+
+    .closing p {
+      font-size: 0.9rem; color: var(--muted);
+      max-width: 520px; margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+
+    .closing-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.8rem 1.9rem; border-radius: 10px;
+      background: var(--s2); border: 1px solid var(--border2);
+      color: var(--text); font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; transition: all 0.22s;
+    }
+
+    .closing-btn:hover { background: var(--s3); border-color: var(--red); color: var(--text); }
+
+    /* ─── FOOTER ────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    footer p { font-size: 0.78rem; color: var(--dim); line-height: 1.9; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ─── MOBILE ────────────────────────────────── */
+    @media (max-width: 680px) {
+      .tl-spine { left: 22px; transform: none; }
+
+      .p-row {
+        grid-template-columns: 44px 1fr;
+        grid-template-rows: auto;
+      }
+
+      .p-dot-col    { grid-column: 1 !important; grid-row: 1; align-self: start; padding-top: 12px; }
+      .p-card-col   { grid-column: 2 !important; grid-row: 1; padding-left: 14px !important; padding-right: 0 !important; justify-content: flex-start !important; }
+      .p-empty      { display: none !important; }
+      .p-connector  { display: none; }
+
+      .era-hdr::before { left: 22px; transform: translateY(-50%); }
+      .era-hdr { text-align: left; padding-left: 60px; }
+      .era-desc { margin: 0; }
+
+      .pivot { padding: 1.75rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.25rem; }
+      .stat-divider { display: none; }
+    }
+
+    /* ─── SCROLL PROGRESS ───────────────────────── */
+    .progress-bar {
+      position: fixed; top: 54px; left: 0; right: 0;
+      height: 2px; z-index: 199;
+      background: linear-gradient(to right, var(--red) var(--progress, 0%), transparent var(--progress, 0%));
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav-brand">
+      <span class="nav-brand-dot"></span>
+      Redgate History
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#era1" data-section="era1">Origins</a></li>
+        <li><a href="#era2" data-section="era2">Developer Suite</a></li>
+        <li><a href="#era3" data-section="era3">Database DevOps</a></li>
+        <li><a href="#era4" data-section="era4">Open Source</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-eyebrow">
+      Cambridge, UK <span>·</span> Est. 1999 <span>·</span> 25 Years of Data Tools
+    </div>
+
+    <h1 class="hero-title">
+      The History of<br>
+      <span class="line2">Redgate Software</span>
+    </h1>
+
+    <p class="hero-sub">
+      From a single schema comparison utility built to scratch a founder's own itch,
+      to the world's leading Database DevOps platform — this is the story of how
+      Redgate shaped the way teams work with data.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-n"><span class="counter" data-target="25">0</span><span class="u">+</span></div>
+        <div class="stat-l">Years</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-n"><span class="counter" data-target="20">0</span><span class="u">+</span></div>
+        <div class="stat-l">Products</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-n"><span class="counter" data-target="4">0</span></div>
+        <div class="stat-l">Major Pivots</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-n"><span class="counter" data-target="800">0</span><span class="u">k+</span></div>
+        <div class="stat-l">Users</div>
+      </div>
+    </div>
+
+    <a href="#timeline" class="hero-cta">
+      Explore the Timeline
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M7 1v12M1 7l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Timeline -->
+  <main id="timeline">
+    <div class="tl-outer">
+      <div class="tl-spine"></div>
+
+      <!-- ══════════════ ERA 1 ══════════════════ -->
+      <section class="era" id="era1">
+        <div class="era-hdr" style="color: var(--blue)">
+          <div class="era-chip" style="color:var(--blue); border-color:rgba(74,158,232,.3); background:rgba(74,158,232,.08)">Era 01</div>
+          <h2 class="era-title">Building the Toolbox</h2>
+          <div class="era-years">1999 – 2005</div>
+          <p class="era-desc">
+            Simon Galbraith and Anthony Eden found Redgate to solve their own problem:
+            comparing SQL Server schemas was painful and manual. SQL Compare becomes the
+            category-defining tool that funds everything that follows.
+          </p>
+        </div>
+
+        <!-- SQL Compare -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(74,158,232,.12)">🔍</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Compare</div>
+                  <div class="card-tagline">The product that started it all</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Schema comparison and synchronization for SQL Server. Built to scratch the founders' own itch, it became the category-defining tool used by DBAs worldwide — and still ships today.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">Schema Sync</span>
+                <span class="tag">Founding Product</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">1999</div>
+            <div class="p-dot lit" style="--dot-color:var(--blue); --dot-glow:rgba(74,158,232,.3)"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+
+        <!-- SQL Data Compare -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2001</div>
+            <div class="p-dot lit" style="--dot-color:var(--blue); --dot-glow:rgba(74,158,232,.3)"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(74,158,232,.12)">📊</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Data Compare</div>
+                  <div class="card-tagline">Schema's natural companion</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Compare and synchronize table data between SQL Server databases. Customer demand for SQL Compare naturally extended to the data inside — completing the comparison story.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">Data Sync</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANTS Performance Profiler -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(74,158,232,.12)">⚡</div>
+                <div class="card-meta">
+                  <div class="card-name">ANTS Performance Profiler</div>
+                  <div class="card-tagline">Redgate enters the .NET world</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Line-level performance profiling for .NET applications. Redgate's first move beyond SQL Server signalled a broader ambition: serve every developer who fights slow, unpredictable code.</p>
+              <div class="card-tags">
+                <span class="tag">.NET</span>
+                <span class="tag">Performance</span>
+                <span class="tag">First Expansion</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2002</div>
+            <div class="p-dot lit" style="--dot-color:var(--blue); --dot-glow:rgba(74,158,232,.3)"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+
+        <!-- SQL Packager -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2003</div>
+            <div class="p-dot"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(74,158,232,.10)">📦</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Packager</div>
+                  <div class="card-tagline">Package databases for deployment</div>
+                </div>
+                <span class="badge b-retired">Retired</span>
+              </div>
+              <p class="card-desc">Package SQL Server databases into C# applications or executables for distribution. Later superseded as pipeline-based deployments made single-file packages obsolete.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">Deployment</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANTS Memory Profiler -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(74,158,232,.12)">🧠</div>
+                <div class="card-meta">
+                  <div class="card-name">ANTS Memory Profiler</div>
+                  <div class="card-tagline">Hunt memory leaks in .NET</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Detect memory leaks and optimize memory allocation in .NET applications. Paired with the Performance Profiler to create a complete .NET developer diagnostics suite.</p>
+              <div class="card-tags">
+                <span class="tag">.NET</span>
+                <span class="tag">Memory</span>
+                <span class="tag">Diagnostics</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2004</div>
+            <div class="p-dot lit" style="--dot-color:var(--blue); --dot-glow:rgba(74,158,232,.3)"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+      </section>
+      <!-- END ERA 1 -->
+
+      <!-- PIVOT 1 -->
+      <div class="pivot-wrap">
+        <div class="pivot">
+          <div class="pivot-eyebrow">Strategic Pivot</div>
+          <div class="pivot-year-badge">c. 2005 – 2006</div>
+          <h3 class="pivot-title">"One Tool Doesn't Tell the Whole Story"</h3>
+          <p class="pivot-desc">
+            Individual productivity tools were selling well, but customers kept asking for more of the workflow.
+            Redgate's shift: stop shipping isolated utilities and start building a
+            <em>suite</em> — every touchpoint from writing SQL to shipping it safely to production.
+            The next era would expand the product line dramatically.
+          </p>
+        </div>
+      </div>
+
+      <!-- ══════════════ ERA 2 ══════════════════ -->
+      <section class="era" id="era2">
+        <div class="era-hdr" style="color:var(--teal)">
+          <div class="era-chip" style="color:var(--teal); border-color:rgba(0,201,167,.3); background:rgba(0,201,167,.08)">Era 02</div>
+          <h2 class="era-title">The Developer Suite</h2>
+          <div class="era-years">2006 – 2010</div>
+          <p class="era-desc">
+            Redgate expands from a handful of tools to a full suite. SQL Prompt transforms daily
+            productivity; the .NET Reflector acquisition is the first major M&A; SQL Monitor
+            enters real-time operations; and SQL Source Control plants the seed of everything that follows.
+          </p>
+        </div>
+
+        <!-- SQL Prompt -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2006</div>
+            <div class="p-dot lit" style="--dot-color:var(--teal); --dot-glow:rgba(0,201,167,.3)"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(0,201,167,.12)">✍️</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Prompt</div>
+                  <div class="card-tagline">Intelligent SQL autocomplete & formatting</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">IntelliSense-style autocompletion, code formatting, and snippet management inside SSMS and VS. Became one of Redgate's most beloved tools — developers who tried it rarely returned to bare SSMS.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">IDE</span>
+                <span class="tag">Productivity</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQL Backup Pro -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(0,201,167,.10)">💾</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Backup Pro</div>
+                  <div class="card-tagline">Compressed, encrypted SQL Server backups</div>
+                </div>
+                <span class="badge b-retired">Retired</span>
+              </div>
+              <p class="card-desc">Automated, compressed and encrypted backups with built-in verification. As SQL Server's native backup capabilities improved and cloud object storage matured, the niche gradually narrowed to retirement.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">Backup</span>
+                <span class="tag">Operations</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2007</div>
+            <div class="p-dot"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+
+        <!-- .NET Reflector -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2008</div>
+            <div class="p-dot lit" style="--dot-color:var(--purple); --dot-glow:rgba(160,112,212,.3)"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(160,112,212,.12)">🔭</div>
+                <div class="card-meta">
+                  <div class="card-name">.NET Reflector</div>
+                  <div class="card-tagline">The legendary decompiler — acquired</div>
+                </div>
+                <span class="badge b-acq">Acquired</span>
+              </div>
+              <p class="card-desc">Acquired from creator Lutz Roeder, .NET Reflector was the de-facto .NET assembly browser and decompiler used by millions. Redgate's first major acquisition, proving M&A as a viable growth strategy.</p>
+              <div class="card-tags">
+                <span class="tag">.NET</span>
+                <span class="tag">Decompiler</span>
+                <span class="tag">First Acquisition</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQL Monitor -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(0,201,167,.12)">📡</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Monitor</div>
+                  <div class="card-tagline">Real-time SQL Server health monitoring</div>
+                </div>
+                <span class="badge b-evolved">Evolved →</span>
+              </div>
+              <p class="card-desc">Real-time performance monitoring, alerting, and diagnostics for SQL Server estates. Later rebranded as <strong>Redgate Monitor</strong> when it expanded to PostgreSQL and Azure — the name change itself a signal of strategic direction.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">Monitoring</span>
+                <span class="tag">→ Redgate Monitor</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2009</div>
+            <div class="p-dot lit" style="--dot-color:var(--teal); --dot-glow:rgba(0,201,167,.3)"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+
+        <!-- SQL Source Control -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2010</div>
+            <div class="p-dot lit" style="--dot-color:var(--teal); --dot-glow:rgba(0,201,167,.3)"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(0,201,167,.12)">🌿</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Source Control</div>
+                  <div class="card-tagline">Finally — databases in version control</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Version-control SQL Server schemas directly from SSMS. A landmark product that brought databases into the DevOps era — it planted the seed for the entire Database DevOps strategy that defined the next decade.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">Git</span>
+                <span class="tag">DevOps Seed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- END ERA 2 -->
+
+      <!-- PIVOT 2 -->
+      <div class="pivot-wrap">
+        <div class="pivot">
+          <div class="pivot-eyebrow">Strategic Pivot</div>
+          <div class="pivot-year-badge">2011</div>
+          <h3 class="pivot-title">"Databases Got Left Behind in DevOps"</h3>
+          <p class="pivot-desc">
+            The industry had embraced CI/CD for application code — but databases were still managed through
+            risky, manual, Friday-night processes. Redgate's insight: <em>be the company that completes
+            the DevOps story</em> by bringing the database change lifecycle into the same pipelines
+            teams already used for everything else.
+          </p>
+        </div>
+      </div>
+
+      <!-- ══════════════ ERA 3 ══════════════════ -->
+      <section class="era" id="era3">
+        <div class="era-hdr" style="color:var(--gold)">
+          <div class="era-chip" style="color:var(--gold); border-color:rgba(245,166,35,.3); background:rgba(245,166,35,.08)">Era 03</div>
+          <h2 class="era-title">The Database DevOps Era</h2>
+          <div class="era-years">2011 – 2018</div>
+          <p class="era-desc">
+            Redgate plants its flag in Database DevOps — helping teams apply automated testing, CI/CD,
+            and governance to the full database change lifecycle. A key acquisition fills the last missing piece.
+          </p>
+        </div>
+
+        <!-- SQL Test -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(245,166,35,.12)">🧪</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Test</div>
+                  <div class="card-tagline">Unit testing for SQL Server</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Unit testing framework for SQL Server databases, built on the open-source tSQLt. Automated testing was the missing link — without it, no one could confidently automate database deployments.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">Testing</span>
+                <span class="tag">tSQLt</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2011</div>
+            <div class="p-dot lit" style="--dot-color:var(--gold); --dot-glow:rgba(245,166,35,.3)"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+
+        <!-- DLM Dashboard -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2012</div>
+            <div class="p-dot"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(245,166,35,.10)">📈</div>
+                <div class="card-meta">
+                  <div class="card-name">DLM Dashboard</div>
+                  <div class="card-tagline">Database Lifecycle Management visibility</div>
+                </div>
+                <span class="badge b-evolved">Evolved →</span>
+              </div>
+              <p class="card-desc">Track schema drift and enforce database change policies across your SQL Server estate. "Database Lifecycle Management" became Redgate's organising concept — the framework everything else plugged into.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">DLM</span>
+                <span class="tag">Governance</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQL Doc -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(245,166,35,.10)">📄</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Doc</div>
+                  <div class="card-tagline">Automated database documentation</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Automatically generate HTML documentation for SQL Server databases. As database complexity grew, keeping documentation manually up-to-date became untenable — SQL Doc automated the whole thing.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">Documentation</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2013</div>
+            <div class="p-dot"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+
+        <!-- SQL Change Automation / ReadyRoll -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2015</div>
+            <div class="p-dot lit" style="--dot-color:var(--purple); --dot-glow:rgba(160,112,212,.3)"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(160,112,212,.12)">🚀</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Change Automation</div>
+                  <div class="card-tagline">ReadyRoll acquired — migrations-first CI/CD</div>
+                </div>
+                <span class="badge b-acq">Acquired</span>
+              </div>
+              <p class="card-desc">ReadyRoll was acquired and rebranded as SQL Change Automation — a migrations-based pipeline approach that integrated directly with Azure DevOps, TeamCity, and Jenkins, filling the final gap in automated database delivery.</p>
+              <div class="card-tags">
+                <span class="tag">Migrations</span>
+                <span class="tag">CI/CD</span>
+                <span class="tag">Azure DevOps</span>
+                <span class="tag">Acquisition</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQL Data Catalog -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(245,166,35,.12)">🗂️</div>
+                <div class="card-meta">
+                  <div class="card-name">SQL Data Catalog</div>
+                  <div class="card-tagline">Classify and govern sensitive data</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Classify and document sensitive data (PII, financial records) across SQL Server databases — a direct response to GDPR and the growing enterprise demand for data governance visibility.</p>
+              <div class="card-tags">
+                <span class="tag">Data Governance</span>
+                <span class="tag">GDPR</span>
+                <span class="tag">Classification</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2017</div>
+            <div class="p-dot lit" style="--dot-color:var(--gold); --dot-glow:rgba(245,166,35,.3)"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+      </section>
+      <!-- END ERA 3 -->
+
+      <!-- PIVOT 3 -->
+      <div class="pivot-wrap">
+        <div class="pivot">
+          <div class="pivot-eyebrow">Strategic Pivot</div>
+          <div class="pivot-year-badge">2019</div>
+          <h3 class="pivot-title">"Open Source Is a Feature, Not a Threat"</h3>
+          <p class="pivot-desc">
+            The acquisition of Flyway — the world's most popular open-source database migration tool
+            with millions of users across dozens of databases — marked a fundamental philosophical shift.
+            Redgate embraced open source as a growth channel, doubled its total addressable market overnight,
+            and committed to a future that was genuinely cross-platform.
+          </p>
+        </div>
+      </div>
+
+      <!-- ══════════════ ERA 4 ══════════════════ -->
+      <section class="era" id="era4">
+        <div class="era-hdr" style="color:var(--red)">
+          <div class="era-chip" style="color:var(--red); border-color:rgba(232,49,42,.3); background:rgba(232,49,42,.08)">Era 04</div>
+          <h2 class="era-title">Open Source &amp; Multi-Platform</h2>
+          <div class="era-years">2019 – Present</div>
+          <p class="era-desc">
+            Redgate broadens beyond SQL Server, embraces open source, and addresses the full data lifecycle —
+            development, deployment, governance, compliance, and cloud. The portfolio grows from a SQL Server
+            toolbox to a true multi-database DevOps platform.
+          </p>
+        </div>
+
+        <!-- Flyway -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2019</div>
+            <div class="p-dot lit" style="--dot-color:var(--red); --dot-glow:rgba(232,49,42,.35)"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(232,49,42,.12)">🦋</div>
+                <div class="card-meta">
+                  <div class="card-name">Flyway</div>
+                  <div class="card-tagline">World's most popular OSS migration tool — acquired</div>
+                </div>
+                <span class="badge b-acq">Acquired</span>
+              </div>
+              <p class="card-desc">Acquired from creator Axel Fontaine, Flyway had millions of users across PostgreSQL, MySQL, Oracle, SQL Server, and more. The acquisition doubled Redgate's addressable market and gave it a genuine open-source developer community to grow from.</p>
+              <div class="card-tags">
+                <span class="tag">Open Source</span>
+                <span class="tag">Multi-platform</span>
+                <span class="tag">Migrations</span>
+                <span class="tag">Landmark Acquisition</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Redgate Monitor -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(232,49,42,.12)">🖥️</div>
+                <div class="card-meta">
+                  <div class="card-name">Redgate Monitor</div>
+                  <div class="card-tagline">SQL Monitor reborn as multi-platform</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">SQL Monitor was rebranded and expanded to Redgate Monitor, adding PostgreSQL and Azure SQL support. The deliberate name change dropped "SQL" entirely — signalling that the company's future was not SQL Server-only.</p>
+              <div class="card-tags">
+                <span class="tag">SQL Server</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">Azure SQL</span>
+                <span class="tag">Multi-platform</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2020</div>
+            <div class="p-dot lit" style="--dot-color:var(--red); --dot-glow:rgba(232,49,42,.35)"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+
+        <!-- Test Data Manager -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2022</div>
+            <div class="p-dot lit" style="--dot-color:var(--red); --dot-glow:rgba(232,49,42,.35)"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(232,49,42,.12)">🎭</div>
+                <div class="card-meta">
+                  <div class="card-name">Test Data Manager</div>
+                  <div class="card-tagline">Safe, realistic test data at scale</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">Provision masked, synthetic, or subset copies of production data for test environments. Addresses the growing tension between needing realistic test data and complying with GDPR and other privacy regulations.</p>
+              <div class="card-tags">
+                <span class="tag">Data Masking</span>
+                <span class="tag">Privacy</span>
+                <span class="tag">Testing</span>
+                <span class="tag">Synthetic Data</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schema Model -->
+        <div class="p-row left">
+          <div class="p-card-col">
+            <div class="card" data-side="left">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(232,49,42,.12)">🏗️</div>
+                <div class="card-meta">
+                  <div class="card-name">Schema Model</div>
+                  <div class="card-tagline">Visual database design in the browser</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">A web-based, collaborative database design and documentation tool. Expands Redgate's reach earlier in the software development lifecycle — before a single line of DDL has been written.</p>
+              <div class="card-tags">
+                <span class="tag">Web-based</span>
+                <span class="tag">Modeling</span>
+                <span class="tag">Collaboration</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-dot-col">
+            <div class="p-year">2023</div>
+            <div class="p-dot lit" style="--dot-color:var(--red); --dot-glow:rgba(232,49,42,.35)"></div>
+          </div>
+          <div class="p-empty"></div>
+        </div>
+
+        <!-- AI -->
+        <div class="p-row right">
+          <div class="p-empty"></div>
+          <div class="p-dot-col">
+            <div class="p-year">2024</div>
+            <div class="p-dot lit" style="--dot-color:var(--red); --dot-glow:rgba(232,49,42,.45)"></div>
+          </div>
+          <div class="p-card-col">
+            <div class="card" data-side="right">
+              <div class="card-top">
+                <div class="card-icon" style="background:rgba(232,49,42,.14)">🤖</div>
+                <div class="card-meta">
+                  <div class="card-name">AI-Powered Features</div>
+                  <div class="card-tagline">Intelligence woven across the portfolio</div>
+                </div>
+                <span class="badge b-active">Active</span>
+              </div>
+              <p class="card-desc">AI capabilities rolled out across the product line — intelligent query suggestions in SQL Prompt, automated migration generation in Flyway Pipelines, natural-language data exploration. Redgate's next evolution: make every data tool smarter.</p>
+              <div class="card-tags">
+                <span class="tag">AI / LLM</span>
+                <span class="tag">SQL Prompt</span>
+                <span class="tag">Flyway</span>
+                <span class="tag">Platform-wide</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <!-- END ERA 4 -->
+
+    </div>
+  </main>
+
+  <!-- Closing -->
+  <section class="closing">
+    <div class="closing-line"></div>
+    <h2>Still Writing the Story</h2>
+    <p>
+      Twenty-five years after a frustrating afternoon comparing SQL Server schemas gave rise to
+      SQL Compare, Redgate continues to ship tools that make working with data less painful —
+      and a whole lot faster.
+    </p>
+    <a href="https://www.red-gate.com" class="closing-btn" target="_blank" rel="noopener">
+      Visit red-gate.com →
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      Product dates are approximate and sourced from public Redgate announcements, blog posts, and press releases.<br>
+      Built for <a href="https://www.red-gate.com" target="_blank" rel="noopener">Redgate Software</a> ·
+      Cambridge, UK · <a href="https://github.com/dialgforgsu/rg-history" target="_blank" rel="noopener">View source</a>
+    </p>
+  </footer>
+
+  <script>
+    // ─── Scroll progress bar ───────────────────
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      progressBar.style.setProperty('--progress', pct.toFixed(1) + '%');
+    }, { passive: true });
+
+    // ─── Active nav link ───────────────────────
+    const sections = ['era1','era2','era3','era4'];
+    const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.dataset.section === e.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver.observe(el);
+    });
+
+    // ─── Card entrance animations ──────────────
+    const cardObserver = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          // Stagger siblings slightly
+          const delay = (e.target.closest('.p-row') ? 0 : 100);
+          setTimeout(() => e.target.classList.add('in'), delay);
+          cardObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.card, .pivot').forEach(el => cardObserver.observe(el));
+
+    // ─── Counter animation ─────────────────────
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const duration = 1400;
+      let startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        el.textContent = Math.floor(easeOutCubic(t) * target);
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.counter').forEach(animateCounter);
+          counterObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) counterObserver.observe(heroStats);
+  </script>
+</body>
+</html>
