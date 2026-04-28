@@ -167,7 +167,7 @@
     /* ── PROD CARD ────────────────────────────── */
     .prod-card {
       background:var(--s1); border:1px solid var(--bd); border-radius:12px; padding:1rem 1.1rem;
-      opacity:0; transform:translateY(10px);
+      opacity:0; transform:translateY(10px); cursor:pointer;
       transition:opacity .45s, transform .45s, border-color .25s, background .3s, box-shadow .25s, color .3s;
     }
     .prod-card.in { opacity:1; transform:translateY(0) }
@@ -190,13 +190,15 @@
     .pivot-node { position:relative; flex-shrink:0; width:300px }
     .piv-dot    { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; background:var(--red); box-shadow:0 0 0 4px var(--bg),0 0 20px rgba(232,49,42,.6); z-index:5; transition:box-shadow .3s }
     .piv-card   {
-      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      width:274px; z-index:4;
+      position:absolute; left:50%; transform:translateX(-50%);
+      width:274px; z-index:4; cursor:pointer;
       background:linear-gradient(135deg,rgba(232,49,42,.11),rgba(232,49,42,.05) 60%,rgba(232,49,42,.1));
       border:1px solid rgba(232,49,42,.25); border-radius:14px;
       padding:1.25rem 1.5rem; text-align:center;
       opacity:0; scale:.95; transition:opacity .55s, scale .55s, background .3s;
     }
+    .pivot-node.above .piv-card { bottom:calc(50% + 14px) }
+    .pivot-node.below .piv-card { top:calc(50% + 14px) }
     .piv-card.in { opacity:1; scale:1 }
     html.light .piv-card { background:linear-gradient(135deg,rgba(232,49,42,.09),rgba(232,49,42,.03) 60%,rgba(232,49,42,.08)) }
     .piv-eye   { font-size:.62rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:.5rem }
@@ -225,7 +227,7 @@
     /* TDM card inner */
     .tdm-ci {
       background:var(--s1); border:1px solid var(--bd); border-radius:14px; padding:1.25rem 1.4rem;
-      opacity:0; transform:translateY(14px);
+      opacity:0; transform:translateY(14px); cursor:pointer;
       transition:opacity .5s, transform .5s, border-color .25s, background .3s, box-shadow .25s;
     }
     .tdm-ci.in    { opacity:1; transform:translateY(0) }
@@ -263,6 +265,47 @@
     html.light .trans-bub { background:rgba(232,49,42,.06); border-color:rgba(232,49,42,.28) }
     .trans-lbl { font-size:.6rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:.3rem }
     .trans-txt { font-size:.72rem; color:var(--muted); line-height:1.55; font-style:italic }
+
+    /* ── MODAL ────────────────────────────────── */
+    .modal-overlay {
+      display:none; position:fixed; inset:0; z-index:600;
+      background:rgba(0,0,0,.7); backdrop-filter:blur(10px);
+      align-items:center; justify-content:center;
+    }
+    .modal-overlay.open { display:flex; animation:mfade .2s ease }
+    @keyframes mfade { from{opacity:0} to{opacity:1} }
+    .modal-box {
+      background:var(--s1); border:1px solid var(--bd2); border-radius:20px;
+      padding:2.25rem 2.5rem; max-width:560px; width:90%; max-height:82vh;
+      overflow-y:auto; position:relative; user-select:text;
+      animation:mslide .22s ease;
+      transition:background .3s, border-color .3s;
+    }
+    @keyframes mslide { from{transform:translateY(18px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .modal-close {
+      position:absolute; top:1.1rem; right:1.1rem;
+      width:32px; height:32px; border-radius:8px;
+      border:1px solid var(--bd2); background:var(--s2); color:var(--muted);
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-size:.85rem; font-family:inherit; transition:all .15s;
+    }
+    .modal-close:hover { background:var(--s3); color:var(--text) }
+    .modal-eyebrow { font-size:.6rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:.45rem }
+    .modal-title { font-size:1.55rem; font-weight:900; letter-spacing:-.05em; line-height:1.15; margin-bottom:.3rem }
+    .modal-sub { font-size:.8rem; color:var(--muted); padding-bottom:1.25rem; margin-bottom:1.4rem; border-bottom:1px solid var(--bd) }
+    .modal-body p { font-size:.85rem; color:var(--muted); line-height:1.75; margin-bottom:1rem }
+    .modal-body p:last-child { margin-bottom:0 }
+    .modal-body h4 { font-size:.65rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); margin:1.25rem 0 .55rem }
+    .modal-body ul { list-style:none; padding:0; margin-bottom:1rem }
+    .modal-body ul li { font-size:.82rem; color:var(--muted); line-height:1.6; padding:.3rem 0; border-bottom:1px solid var(--bd); display:flex; gap:.6rem }
+    .modal-body ul li::before { content:'→'; color:var(--red); flex-shrink:0; font-weight:700 }
+    .modal-body ul li:last-child { border-bottom:none }
+    .modal-highlight {
+      background:rgba(232,49,42,.07); border:1px solid rgba(232,49,42,.2);
+      border-radius:10px; padding:1rem 1.15rem; margin-bottom:1rem;
+      font-size:.82rem; color:var(--text); line-height:1.7; font-style:italic;
+    }
+    html.light .modal-highlight { background:rgba(232,49,42,.05) }
   </style>
 </head>
 <body>
@@ -279,9 +322,7 @@
       <button class="tab-btn" data-tab="flyway">Flyway</button>
     </div>
     <button class="theme-btn" id="themeBtn" title="Toggle light/dark mode">
-      <!-- Moon (shown in dark mode) -->
       <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
-      <!-- Sun (shown in light mode) -->
       <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     </button>
   </header>
@@ -320,47 +361,110 @@
           <div class="era-bot">One painful problem.<br>One elegant solution.</div>
         </div>
 
-        <div class="prod-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+        <div class="prod-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Era 01 · 1999" data-title="SQL Compare" data-sub="Schema comparison &amp; synchronisation for SQL Server">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🔍</div><div><div class="pc-name">SQL Compare</div><div class="pc-tag">The founding product</div></div></div>
             <div class="pc-desc">Schema comparison and sync for SQL Server. Built to solve the founders' own pain — comparing schemas was manual, slow, and error-prone.</div>
             <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>Originally built by Simon Galbraith and Neil Davidson to solve their own pain while working as contractors. Manually comparing database schemas between environments was slow, error-prone, and ate up hours of every deployment.</p>
+              <p>The first version shipped in 1999 and immediately found product-market fit. The simplicity of the value proposition — "see what's different, sync it" — resonated deeply with DBAs and developers alike.</p>
+              <h4>Why it worked</h4>
+              <ul>
+                <li>Solved a universal, daily pain for every SQL Server team</li>
+                <li>No direct competitor existed at launch</li>
+                <li>Immediate ROI: one deployment saved hours of manual work</li>
+                <li>Created the "elegant tool for a painful problem" template Redgate repeated for 25 years</li>
+              </ul>
+              <p>Today SQL Compare remains one of Redgate's most-used and most-loved products, with continuous active development and a loyal user base spanning thousands of organisations worldwide.</p>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">1999</div>
         </div>
 
-        <div class="prod-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+        <div class="prod-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Era 01 · 2001" data-title="SQL Data Compare" data-sub="Row-level data comparison &amp; synchronisation">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">📊</div><div><div class="pc-name">SQL Data Compare</div><div class="pc-tag">Schema's natural companion</div></div></div>
             <div class="pc-desc">Customer demand for SQL Compare extended to the data inside databases. Compare and sync row-level data between SQL Server instances.</div>
             <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Compare customers kept asking the same follow-up question: "Can I compare the data too?" SQL Data Compare was the direct answer — row-level comparison and synchronisation across SQL Server databases.</p>
+              <p>The two products formed a natural pair: SQL Compare handled structure, SQL Data Compare handled content. Together they covered the complete picture of "what's different between my environments?"</p>
+              <h4>Key use cases</h4>
+              <ul>
+                <li>Synchronising lookup and reference data across environments</li>
+                <li>Verifying deployment results by comparing data before and after</li>
+                <li>Identifying data drift between production and test databases</li>
+                <li>Restoring specific rows from a backup without a full restore</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2001</div>
         </div>
 
-        <div class="prod-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+        <div class="prod-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Era 01 · 2002" data-title="ANTS Performance Profiler" data-sub="Line-level performance profiling for .NET applications">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">⚡</div><div><div class="pc-name">ANTS Perf Profiler</div><div class="pc-tag">Redgate enters .NET</div></div></div>
             <div class="pc-desc">Line-level performance profiling for .NET apps. Same "painful problem, elegant solution" playbook applied to a new developer audience.</div>
             <div class="pc-foot"><span class="tag">.NET</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>ANTS (ANalyse This Software) Performance Profiler marked Redgate's deliberate expansion beyond SQL Server tooling into .NET development. The same philosophy — take a painful, time-consuming problem and make it fast and visual — applied directly to .NET performance investigation.</p>
+              <p>Before ANTS, finding performance bottlenecks in .NET apps required manual instrumentation or expensive enterprise tools. ANTS showed developers exactly which lines of code were slow, and how much time was spent in each method.</p>
+              <h4>What it enabled</h4>
+              <ul>
+                <li>Line-level timing data without manual code instrumentation</li>
+                <li>Call tree visualisation to trace performance through layers</li>
+                <li>SQL query performance visible alongside .NET method calls</li>
+                <li>Proved Redgate could build tools for developers, not just DBAs</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2002</div>
         </div>
 
-        <div class="prod-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+        <div class="prod-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Era 01 · 2004" data-title="ANTS Memory Profiler" data-sub="Memory leak detection and allocation analysis for .NET">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🧠</div><div><div class="pc-name">ANTS Memory Profiler</div><div class="pc-tag">Hunt memory leaks</div></div></div>
             <div class="pc-desc">Detect memory leaks and optimize allocation in .NET. Paired with ANTS Performance Profiler to form a complete diagnostics suite.</div>
             <div class="pc-foot"><span class="tag">.NET</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>The natural companion to ANTS Performance Profiler. While the perf profiler showed where time was spent, the memory profiler showed where memory was being allocated and — crucially — where it was leaking.</p>
+              <p>Memory leaks in .NET were notoriously difficult to diagnose without dedicated tooling. ANTS Memory Profiler provided heap snapshots, object reference graphs, and allocation tracking that made leaks visible and traceable.</p>
+              <h4>Together with ANTS Performance Profiler</h4>
+              <ul>
+                <li>Complete picture of application health: CPU time + memory</li>
+                <li>Object allocation tracking per class and method</li>
+                <li>Heap snapshot comparison to isolate what grew between calls</li>
+                <li>Generation analysis to identify long-lived objects causing GC pressure</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2004</div>
         </div>
 
-        <div class="pivot-node">
+        <!-- PIVOT 1: previous card was "below", so pivot goes below -->
+        <div class="pivot-node below"
+             data-eyebrow="Strategic Pivot · 2006" data-title="Individual tools aren't enough" data-sub="The move from utilities to an integrated developer suite">
           <div class="piv-card">
             <div class="piv-eye">Why We Pivoted</div>
             <div class="piv-title">"Individual tools aren't enough — teams need the whole workflow"</div>
             <div class="piv-desc">Customers were buying SQL Compare, then immediately asking what else existed. The opportunity: build a complete suite, not isolated utilities.</div>
+            <template class="card-detail">
+              <div class="modal-highlight">"Customers were buying SQL Compare and asking us the next day what else they should buy. It wasn't a sales problem — it was a product strategy signal."</div>
+              <p>By 2005, Redgate had several successful standalone tools. But the pattern was clear: customers needed multiple tools and were treating Redgate as their primary SQL Server tooling vendor — even when Redgate wasn't thinking of itself that way.</p>
+              <p>The pivot to a suite model meant deeper investment in cross-product workflows, consistent UX, and bundled licensing. It also meant growing the product portfolio with intention rather than just shipping whatever solved a problem.</p>
+              <h4>What changed</h4>
+              <ul>
+                <li>Deliberate suite strategy: products designed to complement each other</li>
+                <li>SQL Toolbelt bundle — discounted access to multiple products</li>
+                <li>Consistent UI patterns across tools to reduce learning curve</li>
+                <li>Investment in SSMS integration as a shared extensibility platform</li>
+              </ul>
+            </template>
           </div>
           <div class="piv-dot"></div>
         </div>
@@ -373,47 +477,112 @@
           <div class="era-bot">From utilities to an integrated suite.</div>
         </div>
 
-        <div class="prod-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)">
+        <div class="prod-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Era 02 · 2006" data-title="SQL Prompt" data-sub="IntelliSense-style SQL autocompletion for SSMS">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">✍️</div><div><div class="pc-name">SQL Prompt</div><div class="pc-tag">Intelligent SQL autocomplete</div></div></div>
             <div class="pc-desc">IntelliSense-style completion, formatting, and snippets inside SSMS. Developers who tried it once rarely returned to bare SSMS.</div>
             <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Prompt became one of Redgate's most-beloved products almost immediately after launch. It brought IntelliSense-quality autocompletion, smart formatting, and code snippets directly into SQL Server Management Studio — an environment Microsoft had left largely unenhanced.</p>
+              <p>The product had an unusually strong retention effect: developers who tried it once almost never went back to bare SSMS. This made it a powerful top-of-funnel tool that introduced developers to the broader Redgate ecosystem.</p>
+              <h4>Capabilities that made it sticky</h4>
+              <ul>
+                <li>Schema-aware autocompletion across tables, columns, procedures, and functions</li>
+                <li>One-click SQL formatting with configurable style rules</li>
+                <li>Code snippets for common patterns (SELECT *, joins, CTEs)</li>
+                <li>Object renaming with dependency awareness</li>
+                <li>Tab history and query execution shortcuts</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2006</div>
         </div>
 
-        <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
+        <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Era 02 · 2008 · Acquisition" data-title=".NET Reflector" data-sub="The de-facto .NET decompiler — acquired from Lutz Roeder">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🔭</div><div><div class="pc-name">.NET Reflector</div><div class="pc-tag">First major acquisition</div></div></div>
             <div class="pc-desc">Acquired from Lutz Roeder — the de-facto .NET decompiler used by millions. Proved acquisition as a viable growth lever.</div>
             <div class="pc-foot"><span class="tag">.NET</span><span class="badge b-acq">Acquired</span></div>
+            <template class="card-detail">
+              <p>.NET Reflector was not built by Redgate — it was built by Lutz Roeder and had organically become the tool every .NET developer used. Its ability to decompile .NET assemblies back to readable C# or VB.NET made it indispensable for debugging, understanding third-party libraries, and exploring the .NET framework itself.</p>
+              <p>Redgate's acquisition in 2008 was a landmark moment: it proved that acquiring successful developer tools — rather than building everything from scratch — was a viable and potentially faster path to growth. The lesson directly informed future acquisitions including Flyway and ReadyRoll.</p>
+              <h4>Why this acquisition mattered strategically</h4>
+              <ul>
+                <li>Gave Redgate an instant audience of millions of .NET developers</li>
+                <li>Validated the acquisition playbook used for ReadyRoll and Flyway later</li>
+                <li>Demonstrated that beloved community tools could thrive inside a commercial company</li>
+                <li>Extended Redgate's brand deep into .NET — not just SQL Server</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2008</div>
         </div>
 
-        <div class="prod-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)">
+        <div class="prod-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Era 02 · 2009" data-title="SQL Monitor" data-sub="Real-time SQL Server performance monitoring and alerting">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">📡</div><div><div class="pc-name">SQL Monitor</div><div class="pc-tag">Real-time SQL Server health</div></div></div>
             <div class="pc-desc">Real-time performance monitoring and alerting for SQL Server estates. Later rebranded Redgate Monitor when PostgreSQL and Azure support was added.</div>
             <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-evolved">→ RG Monitor</span></div>
+            <template class="card-detail">
+              <p>SQL Monitor filled a critical gap: SQL Server teams had tools for fixing problems and deploying changes, but nothing for knowing about problems before they became crises. SQL Monitor provided continuous, real-time visibility across entire SQL Server estates.</p>
+              <p>Wait statistics, query duration tracking, disk I/O, CPU, blocking sessions — all monitored and alertable from a single dashboard. It became the always-on heartbeat monitor for DBA teams managing multiple servers.</p>
+              <h4>Evolution to Redgate Monitor</h4>
+              <ul>
+                <li>Launched as SQL Monitor in 2009, SQL Server only</li>
+                <li>Added PostgreSQL support as Redgate expanded multi-platform</li>
+                <li>Added Azure SQL monitoring as cloud adoption grew</li>
+                <li>Rebranded Redgate Monitor in 2020 — dropping "SQL" to signal multi-platform intent</li>
+                <li>Now monitors heterogeneous estates mixing SQL Server, PostgreSQL, and Azure SQL</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2009</div>
         </div>
 
-        <div class="prod-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)">
+        <div class="prod-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Era 02 · 2010" data-title="SQL Source Control" data-sub="Version control for SQL Server schemas, directly inside SSMS">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🌿</div><div><div class="pc-name">SQL Source Control</div><div class="pc-tag">Databases in version control</div></div></div>
             <div class="pc-desc">Version-control SQL Server schemas directly from SSMS. The seed for everything that followed — it proved databases could join the DevOps era.</div>
             <div class="pc-foot"><span class="tag">Git</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Source Control was arguably the most strategically important product Redgate shipped in the 2000s. By connecting SSMS directly to Git (and SVN/TFS), it proved that database schemas could be version-controlled just like application code — something the industry had largely assumed was impossible or impractical.</p>
+              <p>This product planted the seed for Redgate's entire Database DevOps narrative. Once teams had schemas in source control, the next logical questions were: how do we automate the deployment? How do we test before we deploy? The DevOps era for databases had begun.</p>
+              <h4>Why it was a turning point</h4>
+              <ul>
+                <li>First time DBAs could track the full history of schema changes in Git</li>
+                <li>Enabled branching and merging of database changes alongside application code</li>
+                <li>Created the foundation for CI/CD pipelines that included the database</li>
+                <li>Directly led to SQL Change Automation and the broader DevOps story</li>
+                <li>Proved databases could participate in modern engineering workflows</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2010</div>
         </div>
 
-        <div class="pivot-node">
+        <!-- PIVOT 2: previous card was "below", so pivot goes below -->
+        <div class="pivot-node below"
+             data-eyebrow="Strategic Pivot · 2011" data-title="Databases got left behind in DevOps" data-sub="Completing the CI/CD story for data teams">
           <div class="piv-card">
             <div class="piv-eye">Why We Pivoted</div>
             <div class="piv-title">"Databases got left behind in DevOps — and nobody was fixing it"</div>
             <div class="piv-desc">Application code had CI/CD. Databases still had risky manual Friday-night deployments. Redgate decided to complete the DevOps story for data teams.</div>
+            <template class="card-detail">
+              <div class="modal-highlight">"Every developer team we talked to had the same problem. The app deployed automatically. The database was still done manually by a DBA at 11pm on a Friday."</div>
+              <p>By 2010, DevOps had transformed application development. Continuous integration, automated testing, and deployment pipelines were standard practice — for application code. Databases were the glaring exception: hand-crafted scripts, manual reviews, and nervous late-night deployments.</p>
+              <p>SQL Source Control had given teams database version control. The next logical step was to close the full DevOps loop: automated testing and automated deployment. Redgate made this its core strategic bet for the next decade.</p>
+              <h4>What Redgate built to close the gap</h4>
+              <ul>
+                <li>SQL Test (2011) — unit testing for SQL Server databases, built on tSQLt</li>
+                <li>SQL Change Automation — pipeline-integrated CI/CD for database deployments</li>
+                <li>SQL Data Catalog — data governance and classification for GDPR compliance</li>
+                <li>Deep integrations with Azure DevOps, Jenkins, and TeamCity</li>
+              </ul>
+            </template>
           </div>
           <div class="piv-dot"></div>
         </div>
@@ -426,38 +595,91 @@
           <div class="era-bot">Bring databases into the pipeline.</div>
         </div>
 
-        <div class="prod-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
+        <div class="prod-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Era 03 · 2011" data-title="SQL Test" data-sub="Automated unit testing for SQL Server, built on tSQLt">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🧪</div><div><div class="pc-name">SQL Test</div><div class="pc-tag">Unit testing for SQL Server</div></div></div>
             <div class="pc-desc">Built on open-source tSQLt. Without automated tests, nobody could confidently automate database deployments — SQL Test closed that gap.</div>
             <div class="pc-foot"><span class="tag">Testing</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>You can't automate what you can't verify. SQL Test provided the automated testing capability that was a prerequisite for truly continuous database delivery — without tests, automated deployments are just automated risk.</p>
+              <p>Built on the open-source tSQLt framework (itself built by Redgate-affiliated developers), SQL Test brought familiar test-driven development patterns to SQL Server: write T-SQL tests, run them in isolation, get pass/fail results in a CI pipeline.</p>
+              <h4>How it fits the DevOps pipeline</h4>
+              <ul>
+                <li>Tests run in transaction rollback so they leave no persistent state</li>
+                <li>Each test class gets its own schema — complete isolation between test sets</li>
+                <li>Integrates with Azure DevOps, Jenkins, TeamCity for CI gate enforcement</li>
+                <li>Test stored procedures, functions, triggers, and constraints with pure T-SQL</li>
+                <li>Mock tables and procedures to isolate the unit under test</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2011</div>
         </div>
 
-        <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
+        <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Era 03 · 2015 · Acquisition" data-title="SQL Change Automation" data-sub="Migrations-based CI/CD for databases (formerly ReadyRoll)">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🚀</div><div><div class="pc-name">SQL Change Automation</div><div class="pc-tag">ReadyRoll acquired</div></div></div>
             <div class="pc-desc">Migrations-based CI/CD for databases, integrating directly with Azure DevOps and Jenkins — filling the final gap in automated delivery pipelines.</div>
             <div class="pc-foot"><span class="tag">CI/CD</span><span class="badge b-acq">Acquired</span></div>
+            <template class="card-detail">
+              <p>ReadyRoll was an independent product that had built a loyal following among developers who wanted migrations-based database deployments — versioned, ordered scripts that gave them explicit control over exactly what ran in each environment.</p>
+              <p>Redgate acquired ReadyRoll in 2015 and rebranded it SQL Change Automation, integrating it deeply with the existing SQL Source Control workflow and adding first-class Azure DevOps and Jenkins pipeline support.</p>
+              <h4>What made it different from state-based deployment</h4>
+              <ul>
+                <li>Migration scripts are explicit and versioned — developers see exactly what will run</li>
+                <li>Works the way developers already think about database changes</li>
+                <li>Each migration runs once and is never re-run — predictable and auditable</li>
+                <li>Deep Azure DevOps integration: deploy as a pipeline step with approvals and gates</li>
+                <li>Complemented SQL Compare's state-based approach for teams with different preferences</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2015</div>
         </div>
 
-        <div class="prod-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
+        <div class="prod-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Era 03 · 2017" data-title="SQL Data Catalog" data-sub="Classify and document sensitive data across SQL Server estates">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🗂️</div><div><div class="pc-name">SQL Data Catalog</div><div class="pc-tag">Classify sensitive data</div></div></div>
             <div class="pc-desc">Classify and document PII and sensitive data across SQL Server estates — a direct response to GDPR and growing enterprise governance demands.</div>
             <div class="pc-foot"><span class="tag">GDPR</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>GDPR's May 2018 enforcement deadline created an urgent, concrete problem for every organisation with SQL Server databases: "Where is our sensitive data? Which columns contain PII? Who has access to it?" SQL Data Catalog was Redgate's answer.</p>
+              <p>It provided automated sensitive data discovery, classification, and documentation across SQL Server estates — turning an otherwise manual, spreadsheet-driven compliance exercise into an automated, continuously-maintained inventory.</p>
+              <h4>Strategic significance beyond GDPR</h4>
+              <ul>
+                <li>Classification output fed directly into SQL Data Masker — know what to mask, then mask it</li>
+                <li>Created Redgate's first foray into data governance — a growing enterprise priority</li>
+                <li>Demonstrated that Redgate products could integrate to form a workflow, not just standalone tools</li>
+                <li>Opened enterprise conversations beyond individual developer tooling purchases</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2017</div>
         </div>
 
-        <div class="pivot-node">
+        <!-- PIVOT 3: previous card was "above", so pivot goes above -->
+        <div class="pivot-node above"
+             data-eyebrow="Strategic Pivot · 2019" data-title="Open source isn't a threat — it's the biggest growth channel" data-sub="Acquiring Flyway to go multi-platform and open source">
           <div class="piv-card">
             <div class="piv-eye">Why We Pivoted</div>
             <div class="piv-title">"Open source isn't a threat — it's the biggest growth channel we've never used"</div>
             <div class="piv-desc">Flyway had millions of users across dozens of databases. Acquiring it doubled Redgate's total addressable market and gave access to a developer community SQL Server-only tools could never reach.</div>
+            <template class="card-detail">
+              <div class="modal-highlight">"Flyway wasn't competing with us — it was succeeding where we weren't even playing. That was the signal."</div>
+              <p>By 2018, Redgate's portfolio was deep but narrow: primarily SQL Server, primarily Windows, primarily proprietary. The broader data landscape had shifted dramatically — PostgreSQL was growing rapidly, cloud databases were proliferating, and developers wanted open-source-first tools.</p>
+              <p>Flyway represented a fundamentally different model: open source core, commercial extensions, millions of community users. Acquiring it was Redgate's declaration that it was no longer just a SQL Server tooling vendor.</p>
+              <h4>What the acquisition unlocked</h4>
+              <ul>
+                <li>Instant presence across 30+ database platforms, not just SQL Server</li>
+                <li>Millions of active users in communities Redgate had no previous access to</li>
+                <li>Open-source credibility and developer trust that commercial-only tools can't buy</li>
+                <li>A template for the open-core business model Redgate began applying more broadly</li>
+                <li>The beginning of Redgate's genuine multi-platform identity</li>
+              </ul>
+            </template>
           </div>
           <div class="piv-dot"></div>
         </div>
@@ -470,38 +692,89 @@
           <div class="era-bot">Multi-platform. Open source. AI-powered.</div>
         </div>
 
-        <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.35)">
+        <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.35)"
+             data-eyebrow="Era 04 · 2019 · Acquisition" data-title="Flyway" data-sub="World's most popular open-source database migration tool">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🦋</div><div><div class="pc-name">Flyway</div><div class="pc-tag">World's #1 OSS migration tool</div></div></div>
             <div class="pc-desc">Acquired from creator Axel Fontaine. Millions of users across PostgreSQL, MySQL, Oracle, SQL Server. The deal that made Redgate genuinely multi-platform.</div>
             <div class="pc-foot"><span class="tag">Open Source</span><span class="badge b-acq">Acquired 2019</span></div>
+            <template class="card-detail">
+              <p>Flyway was created by Axel Fontaine and had grown organically into the world's most widely-used open-source database migration tool — running in production at companies of every size, across every major database platform. It worked by scanning a folder of versioned SQL scripts and running each one exactly once, tracking what had been applied in a schema history table.</p>
+              <p>Redgate acquired Flyway in 2019, keeping it open source and continuing its development. The acquisition was transformative: it gave Redgate an instant community of millions, platform presence across 30+ databases, and a credible open-source identity it had never had before.</p>
+              <h4>What Flyway brought to Redgate</h4>
+              <ul>
+                <li>30+ supported databases including PostgreSQL, MySQL, Oracle, MariaDB, SQLite, and more</li>
+                <li>Millions of active community users and an engaged open-source ecosystem</li>
+                <li>The developer-first, command-line-native migration workflow developers already loved</li>
+                <li>A commercial Flyway Teams/Enterprise tier that created new revenue streams</li>
+                <li>The foundation for Redgate's multi-platform database deployment story</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2019</div>
         </div>
 
-        <div class="prod-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)">
+        <div class="prod-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
+             data-eyebrow="Era 04 · 2020" data-title="Redgate Monitor" data-sub="Multi-platform database monitoring — SQL Monitor, reborn">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🖥️</div><div><div class="pc-name">Redgate Monitor</div><div class="pc-tag">SQL Monitor, reborn</div></div></div>
             <div class="pc-desc">SQL Monitor rebranded with PostgreSQL and Azure SQL support. Dropping "SQL" from the name was deliberate — Redgate's future is not SQL Server-only.</div>
             <div class="pc-foot"><span class="tag">Multi-platform</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Monitor had been Redgate's estate monitoring product since 2009. As Redgate's multi-platform ambitions became concrete strategy, the product expanded beyond SQL Server — adding PostgreSQL and Azure SQL monitoring — and was rebranded Redgate Monitor to match.</p>
+              <p>The name change wasn't cosmetic. It was a deliberate signal: Redgate was no longer a SQL Server tools company. Teams managing heterogeneous estates of SQL Server, PostgreSQL, and Azure SQL could now monitor all of them from a single interface.</p>
+              <h4>Capabilities across platforms</h4>
+              <ul>
+                <li>Real-time performance monitoring for SQL Server, PostgreSQL, and Azure SQL</li>
+                <li>Unified alerting across heterogeneous database estates</li>
+                <li>Wait statistics and query performance analysis per platform</li>
+                <li>Historical trending and capacity planning across all monitored servers</li>
+                <li>Custom metrics and alert thresholds per server or group</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2020</div>
         </div>
 
-        <div class="prod-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)">
+        <div class="prod-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
+             data-eyebrow="Era 04 · 2022" data-title="Test Data Manager" data-sub="The complete test data platform — mask, provision, manage, govern">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🎭</div><div><div class="pc-name">Test Data Manager</div><div class="pc-tag">The complete TDM platform</div></div></div>
             <div class="pc-desc">Provision, mask, and manage test data across SQL Server, PostgreSQL, Oracle, and MySQL. See the TDM tab for the full 6-stage evolution story.</div>
             <div class="pc-foot"><span class="tag">Multi-DB</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>Test Data Manager is the culmination of 15+ years of Redgate's test data journey — from SQL Backup to SQL Clone to SQL Data Masker to SQL Provision to Redgate Clone and finally a unified platform. Every lesson from each prior stage is built in.</p>
+              <p>It addresses the complete test data lifecycle: classify sensitive data (know what you have), mask it (make it safe to use), provision it (deliver it fast to the teams that need it), and govern it (ensure the right people have the right data at the right time).</p>
+              <h4>Full story on the TDM tab</h4>
+              <ul>
+                <li>6 stages of evolution across SQL Server, PostgreSQL, Oracle, and MySQL</li>
+                <li>Unified masking + provisioning + governance in a single platform</li>
+                <li>Container-based virtualisation — fast, cloud-native, no Windows dependency</li>
+                <li>Integrates with SQL Data Catalog for classification-driven masking</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2022</div>
         </div>
 
-        <div class="prod-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)">
+        <div class="prod-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
+             data-eyebrow="Era 04 · 2023" data-title="Redgate Data Modeler" data-sub="Collaborative, web-based visual database design">
           <div class="prod-card">
-            <div class="pc-top"><div class="pc-icon">🏗️</div><div><div class="pc-name">Schema Model</div><div class="pc-tag">Visual database design</div></div></div>
+            <div class="pc-top"><div class="pc-icon">🏗️</div><div><div class="pc-name">Redgate Data Modeler</div><div class="pc-tag">Visual database design</div></div></div>
             <div class="pc-desc">Collaborative, web-based database design and modeling. Extends Redgate's reach earlier in the lifecycle — before a line of DDL has been written.</div>
             <div class="pc-foot"><span class="tag">Web</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>Redgate Data Modeler extends Redgate's tooling to the very start of the database lifecycle — the design phase, before any DDL has been written. Teams can design database schemas visually, collaborate in real time, and generate the DDL when they're ready to build.</p>
+              <p>It represents Redgate's move to capture the full database lifecycle: design → develop → test → deploy → monitor. Data Modeler closes the loop at the beginning, ensuring the schema is right before the first migration script is written.</p>
+              <h4>Where it fits the lifecycle</h4>
+              <ul>
+                <li>Visual, entity-relationship diagram-style schema design</li>
+                <li>Web-based and collaborative — no local install, team can design together</li>
+                <li>Generate DDL scripts ready to use with SQL Source Control or Flyway</li>
+                <li>Positions Redgate earlier in the engineering process than any previous product</li>
+                <li>Supports the shift toward schema-first, design-led database development</li>
+              </ul>
+            </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2023</div>
         </div>
@@ -536,12 +809,25 @@
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Stage 01 · Origin · ~2007" data-title="SQL Backup Pro" data-sub="The original approach to test data: restore from production backup">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 01 · Origin</div><div class="tdm-pn">SQL Backup Pro</div><div class="tdm-per">c. 2007</div>
             <div class="tdm-why">The original approach: take a production backup, restore it to a dev or test environment. Simple, reliable — and painfully slow.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Slow full copies · Huge storage footprint · No masking — can't safely use real production data</span></div>
+            <template class="card-detail">
+              <p>Before dedicated test data tooling existed, the standard approach was simple: take a compressed backup of production using SQL Backup Pro, copy it to a dev or test server, and restore it. Every developer or tester who needed a database copy went through this process.</p>
+              <p>For small databases it worked adequately. For anything over a few gigabytes, it became a serious bottleneck — consuming hours, saturating networks, and filling up disk storage with multiple near-identical copies of the same data.</p>
+              <h4>The core problems this created</h4>
+              <ul>
+                <li>A 200 GB production database meant a 200 GB backup, transfer, and restore for every team member</li>
+                <li>Storage costs multiplied by the number of developers needing a copy</li>
+                <li>Production PII was copied verbatim into non-production environments — a major compliance risk</li>
+                <li>Refresh cycles took hours — teams often worked on stale data to avoid the wait</li>
+                <li>No isolation: changes made in one "copy" could pollute others if processes weren't careful</li>
+              </ul>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2007</div>
         </div>
@@ -552,12 +838,26 @@
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)">
+        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Stage 02 · ~2017" data-title="SQL Clone" data-sub="Virtual database copies using Windows copy-on-write storage">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 02</div><div class="tdm-pn">SQL Clone</div><div class="tdm-per">c. 2017</div>
             <div class="tdm-why">Virtual database cloning using Windows storage virtualisation (copy-on-write). A developer could get a fresh isolated copy in seconds, not hours, using a fraction of the storage.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still no masking — cloning production data means cloning PII. Windows-only, no path to cloud or containers.</span></div>
+            <template class="card-detail">
+              <p>SQL Clone solved the speed and storage problem of backup-restore by using Windows VHD-based copy-on-write virtualisation. A "clone" shared a single read-only image of the database, with writes redirected to a small private difference file. The result: a developer could provision a full isolated copy in seconds, using only megabytes of additional storage.</p>
+              <p>The experience was transformative for teams that adopted it. What had taken hours now took a moment. Storage that had multiplied with each copy was now nearly flat. But the compliance problem remained untouched.</p>
+              <h4>How it worked technically</h4>
+              <ul>
+                <li>One read-only "image" file holds the full database snapshot</li>
+                <li>Each "clone" is a VHD difference disk — only stores changes from the image</li>
+                <li>Clones are attached as SQL Server databases — completely transparent to the application</li>
+                <li>Deleting a clone is instant and releases only the small difference disk</li>
+                <li>Entire workflow manageable via CLI or REST API for automation</li>
+              </ul>
+              <p>The limitation was fundamental: the image was taken from production data. Fast provisioning of real PII was still a compliance risk — just a faster one.</p>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2017</div>
         </div>
@@ -568,12 +868,25 @@
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
+        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Stage 03 · ~2014–2018" data-title="SQL Data Masker" data-sub="Mask and anonymise production data for safe use in non-production">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Data Masker</div><div class="tdm-per">c. 2014 – 2018</div>
             <div class="tdm-why">Mask, anonymise, and obfuscate sensitive production data for safe use in non-production environments. The compliance answer that made SQL Clone's promise real.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>A separate product from SQL Clone — teams had to manually stitch together two tools with no shared workflow.</span></div>
+            <template class="card-detail">
+              <p>SQL Data Masker addressed the compliance gap left by SQL Clone. Before provisioning clones, teams could run Data Masker to replace sensitive columns with realistic but fictitious values — names become random names, email addresses become fake addresses, credit card numbers become invalid test numbers that pass the Luhn algorithm.</p>
+              <p>GDPR's 2018 enforcement deadline elevated masking from a nice-to-have to a legal requirement for any organisation using production data in test environments. SQL Data Masker provided the answer — but as a standalone product with no direct connection to SQL Clone.</p>
+              <h4>What good masking looks like</h4>
+              <ul>
+                <li>Referential integrity preserved — a masked name is the same masked name everywhere it appears</li>
+                <li>Realistic substitution — fake data passes validation rules and looks plausible in test UIs</li>
+                <li>Repeatable masking — same input always produces same output for regression testing consistency</li>
+                <li>Rule-based configuration saved and re-run on each refresh cycle</li>
+              </ul>
+              <p>The workflow gap was real: teams had to manually run Data Masker, then manually create a SQL Clone image from the masked copy. Two separate tools, two separate teams, no unified workflow.</p>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
         </div>
@@ -584,12 +897,25 @@
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
+        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Stage 04 · ~2018–2021" data-title="SQL Provision" data-sub="SQL Data Masker + SQL Clone unified into one workflow">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 04</div><div class="tdm-pn">SQL Provision</div><div class="tdm-per">c. 2018 – 2021</div>
             <div class="tdm-why">SQL Data Masker + SQL Clone unified into a single provisioning workflow. Teams could mask production data <em>and</em> provision virtual copies from one product for the first time.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still SQL Server and Windows only. Cloud adoption and container-based workflows were accelerating — the virtualisation model had a ceiling.</span></div>
+            <template class="card-detail">
+              <p>SQL Provision was the first Redgate product to address the complete test data provisioning workflow in a single tool. It combined the masking capabilities of SQL Data Masker with the cloning capabilities of SQL Clone, orchestrated through a single interface and automation API.</p>
+              <p>A team could now define a masking ruleset, point it at production, run it to produce a masked "gold copy," and then provision virtual clones from that gold copy — all within one product, all scriptable for automation pipelines.</p>
+              <h4>What the unified workflow enabled</h4>
+              <ul>
+                <li>Single product to own the complete mask → provision → refresh cycle</li>
+                <li>Automated refresh pipelines: nightly masked refresh, instant clone provisioning on demand</li>
+                <li>Self-service developer portals: devs request a clone, get it in seconds without DBA involvement</li>
+                <li>Consistent masking across all clones — no risk of one team getting unmasked data</li>
+              </ul>
+              <p>But the architecture had a hard ceiling: VHD-based virtualisation required Windows and SQL Server. As Docker and Kubernetes adoption grew, the question became when — not if — teams would need non-SQL-Server, non-Windows test data.</p>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
         </div>
@@ -600,12 +926,26 @@
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)">
+        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
+             data-eyebrow="Stage 05 · ~2021–2022" data-title="Redgate Clone" data-sub="Container-based database virtualisation — rebuilt from scratch for the cloud era">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 05</div><div class="tdm-pn">Redgate Clone</div><div class="tdm-per">c. 2021 – 2022</div>
             <div class="tdm-why">A rebuild from scratch — container-based database virtualisation using Docker. Fast, cloud-friendly, no longer tied to Windows storage APIs. Opened the door to multi-platform support.</div>
-            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span></div></div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-my">MySQL</span><span class="db db-ora">Oracle</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Cloning alone still isn't the full picture. Customers needed masking, provisioning automation, and governance.</span></div>
+            <template class="card-detail">
+              <p>Redgate Clone was a complete architectural rethink. Rather than using Windows VHD virtualisation, it used Docker-based database containers. A "clone" was a new container spun from a base image, using filesystem-level copy-on-write at the container layer. The result was cross-platform, cloud-native, and not dependent on Windows storage APIs.</p>
+              <p>This architectural shift unlocked multi-platform support: SQL Server running in a container looks the same to Redgate Clone as PostgreSQL, MySQL, or Oracle running in a container. The platform abstraction was now handled by Docker, not the OS.</p>
+              <h4>Why the rebuild was worth it</h4>
+              <ul>
+                <li>Works on Linux, macOS, and Windows — wherever Docker runs</li>
+                <li>Multi-database support unlocked: SQL Server, PostgreSQL, MySQL, and Oracle</li>
+                <li>Cloud-native: runs in Kubernetes, integrates with cloud CI/CD pipelines</li>
+                <li>Same speed advantage as SQL Clone: new database instance in seconds</li>
+                <li>REST API first — designed for automation from the ground up</li>
+              </ul>
+              <p>The remaining gap: Redgate Clone was still a cloning tool. Masking, governance, and the full provisioning workflow still needed to be addressed in a unified platform.</p>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2021</div>
         </div>
@@ -616,12 +956,26 @@
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.5)">
+        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
+             data-eyebrow="Stage 06 · 2022 – Present · Current Platform" data-title="Test Data Manager" data-sub="The complete test data platform: mask, provision, manage, govern">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="cur-badge">Current Platform</div>
             <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Test Data Manager</div><div class="tdm-per">2022 – Present</div>
             <div class="tdm-why">The complete test data platform: mask, provision, manage, govern — all unified. Every previous stage's lesson built in.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-ora">Oracle</span><span class="db db-my">MySQL</span></div></div>
+            <template class="card-detail">
+              <p>Test Data Manager brings together every capability Redgate developed across 15 years of test data tooling: classification-driven masking, container-based provisioning, self-service developer access, and governance controls — in a single unified platform.</p>
+              <p>The journey from SQL Backup Pro to TDM represents one of the most complete product evolution stories in Redgate's history. Each limitation of each stage directly informed the next, culminating in a platform that addresses the full test data lifecycle across multiple database platforms.</p>
+              <h4>The complete lifecycle TDM addresses</h4>
+              <ul>
+                <li>Classify — discover and tag sensitive columns (integrates with SQL Data Catalog)</li>
+                <li>Mask — transform production data into safe, realistic test data</li>
+                <li>Provision — deliver masked database copies to teams in seconds via container cloning</li>
+                <li>Govern — control who can provision what, with audit trails and approval workflows</li>
+                <li>Refresh — automate the cycle so teams always have current, safe test data</li>
+              </ul>
+              <p>Supported across SQL Server, PostgreSQL, Oracle, and MySQL — the four databases that represent the vast majority of enterprise application stacks.</p>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2022</div>
         </div>
@@ -657,13 +1011,24 @@
           </div>
         </div>
 
-        <!-- Stage 1: SQL Compare -->
-        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Stage 01 · Origin · 1999" data-title="SQL Compare" data-sub="Schema comparison — the foundation of all database change management">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 01 · Origin</div><div class="tdm-pn">SQL Compare</div><div class="tdm-per">1999</div>
             <div class="tdm-why">The foundation of all database change management — understanding what is different between two schemas. Before you can deploy a change, you have to know what the change is.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Passive comparison only — showed what was different but didn't help manage or automate what to do about it.</span></div>
+            <template class="card-detail">
+              <p>SQL Compare was Redgate's founding product — and while its primary use case was schema synchronisation, it was also the conceptual starting point for the entire database deployment story. If you want to deploy a database change, you first need to understand what the change is. SQL Compare answered that question.</p>
+              <p>At launch, the alternative was entirely manual: open two SSMS windows, visually compare object definitions, write the ALTER scripts by hand, and pray you didn't miss anything. SQL Compare replaced all of that with a visual diff and one-click sync.</p>
+              <h4>What it established for the Flyway journey</h4>
+              <ul>
+                <li>The "compare source to target and generate a sync script" model that underpins state-based deployment</li>
+                <li>The first tool to make database changes visible and manageable — a prerequisite for automation</li>
+                <li>Proof that SQL Server deployment tooling had a market willing to pay for good solutions</li>
+                <li>The beginning of Redgate's long relationship with DBAs wrestling with deployment complexity</li>
+              </ul>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">1999</div>
         </div>
@@ -674,13 +1039,23 @@
           </div>
         </div>
 
-        <!-- Stage 2: SQL Data Compare -->
-        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Stage 02 · 2001" data-title="SQL Data Compare" data-sub="Row-level data comparison — extending the story from schema to content">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 02</div><div class="tdm-pn">SQL Data Compare</div><div class="tdm-per">2001</div>
             <div class="tdm-why">Extended the comparison story to row-level data. Teams could now understand and synchronise not just the structure of databases, but their contents across environments.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still reactive tools — showing differences rather than managing or tracking the change process itself over time.</span></div>
+            <template class="card-detail">
+              <p>SQL Compare customers quickly identified the next missing piece: schema comparison was powerful, but database deployments also needed reference data — lookup tables, seed data, configuration values — to stay in sync across environments. SQL Data Compare addressed this.</p>
+              <p>Together, SQL Compare and SQL Data Compare gave teams a complete picture of the differences between database environments. But the tools were fundamentally reactive: they showed the current state of differences. They didn't track how those differences accumulated over time, who made them, or why.</p>
+              <h4>In the context of the Flyway journey</h4>
+              <ul>
+                <li>Introduced the idea that deployments involve both structure and data — not just DDL</li>
+                <li>Reference data sync became a standard part of the Redgate deployment workflow</li>
+                <li>The absence of history and tracking pointed directly toward the need for version control</li>
+              </ul>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2001</div>
         </div>
@@ -691,13 +1066,25 @@
           </div>
         </div>
 
-        <!-- Stage 3: SQL Source Control -->
-        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)">
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Stage 03 · 2010" data-title="SQL Source Control" data-sub="Database schemas in Git — version control for the database, inside SSMS">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Source Control</div><div class="tdm-per">2010</div>
             <div class="tdm-why">Version-control SQL Server schemas directly from SSMS. Database changes could now be tracked, branched, and reviewed the same way application code was — for the first time.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Captured history but didn't automate deployments — teams still manually applied changes in each environment down the pipeline.</span></div>
+            <template class="card-detail">
+              <p>SQL Source Control was a genuinely transformative product. For the first time, database schema changes could be committed to Git (or SVN/TFS) directly from SSMS — the tool DBAs already lived in. The full history of every schema change was now tracked, attributable, and reversible.</p>
+              <p>This broke the pattern where application code had a complete history in source control and the database was a black box of "it's always been like this." With SQL Source Control, code reviews could include database changes, branching strategies could apply to schema development, and rollbacks were possible.</p>
+              <h4>What it enabled — and what it still left unsolved</h4>
+              <ul>
+                <li>Complete Git history of every schema change — who changed what and when</li>
+                <li>Branch-and-merge workflows for database development alongside application code</li>
+                <li>Code review processes extended to include T-SQL object changes</li>
+                <li>Still required manual deployment: a DBA still had to apply changes environment by environment</li>
+                <li>The automation gap — the pipeline — was the clear next problem to solve</li>
+              </ul>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2010</div>
         </div>
@@ -708,13 +1095,25 @@
           </div>
         </div>
 
-        <!-- Stage 4: SQL Change Automation -->
-        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
+        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Stage 04 · ~2013" data-title="SQL Change Automation" data-sub="State-based CI/CD — automated database deployments integrated with pipelines">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 04</div><div class="tdm-pn">SQL Change Automation</div><div class="tdm-per">c. 2013</div>
             <div class="tdm-why">State-based CI/CD for databases — automatically compare source to target and deploy the difference. Integrated with Azure DevOps, TeamCity, and Jenkins to bring database changes into the same pipelines as application code.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>State-based deployment worked well for DBAs but didn't match how many developers thought — they wanted ordered, versioned migration scripts.</span></div>
+            <template class="card-detail">
+              <p>SQL Change Automation closed the automation gap left by SQL Source Control. Using the same comparison engine as SQL Compare, it could automatically generate and deploy the difference between a source-controlled schema and a target database — as a step in an Azure DevOps, Jenkins, or TeamCity pipeline.</p>
+              <p>For DBA-heavy teams, this was the missing piece. Database deployments could now run automatically as part of the same pipeline that deployed application code, with approvals, gates, and audit trails.</p>
+              <h4>The state-based model — and its limits</h4>
+              <ul>
+                <li>Compares the desired state (source-controlled schema) to the current state (target database)</li>
+                <li>Generates the minimal change script needed to bring target in line with source</li>
+                <li>Works well when DBAs own the schema and think in terms of current state</li>
+                <li>Developers often prefer explicit migration scripts — ordered, named, and versioned</li>
+                <li>The developer mental model mismatch was the opening ReadyRoll had been filling independently</li>
+              </ul>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2013</div>
         </div>
@@ -725,13 +1124,25 @@
           </div>
         </div>
 
-        <!-- Stage 5: ReadyRoll -->
-        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
+        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Stage 05 · Acquired · ~2015" data-title="ReadyRoll" data-sub="Migrations-based deployments — acquired to bring the developer model in-house">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 05 · Acquired</div><div class="tdm-pn">ReadyRoll</div><div class="tdm-per">c. 2015</div>
             <div class="tdm-why">Migrations-based database deployments — ordered, versioned scripts that gave developers full control over exactly what ran, in what order, in every environment. Acquired to complement SQL Change Automation's state-based approach.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>A standalone acquisition that needed deeper platform integration and expansion beyond SQL Server to realise its full potential.</span></div>
+            <template class="card-detail">
+              <p>ReadyRoll was an independent product that had built strong traction among developers who preferred the migrations model over state-based comparison. Each migration was an explicit, numbered script: V1__create_users.sql, V2__add_index.sql. Flyway's open-source community had popularised exactly this approach.</p>
+              <p>Redgate acquired ReadyRoll to bring the migrations model inside the Redgate platform — giving customers a choice between state-based (SQL Change Automation) and migrations-based (ReadyRoll) deployment strategies.</p>
+              <h4>Why the migrations model resonates with developers</h4>
+              <ul>
+                <li>Every migration is explicit — no surprises about what will run</li>
+                <li>Migrations run exactly once and are never re-calculated — predictable and auditable</li>
+                <li>Version numbers create a clear, human-readable history of database evolution</li>
+                <li>Works exactly like application code versioning — familiar mental model for developers</li>
+                <li>Integrates naturally with Git — each migration script is a discrete, reviewable commit</li>
+              </ul>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
         </div>
@@ -742,13 +1153,24 @@
           </div>
         </div>
 
-        <!-- Stage 6: Redgate Deploy -->
-        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)">
+        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
+             data-eyebrow="Stage 06 · ~2018" data-title="Redgate Deploy" data-sub="ReadyRoll rebranded as Redgate's unified database deployment product">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Redgate Deploy</div><div class="tdm-per">c. 2018</div>
             <div class="tdm-why">ReadyRoll rebranded and evolved into Redgate Deploy — Redgate's unified database deployment product, combining migrations-based and state-based approaches with deep CI/CD pipeline integrations.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-az">Azure SQL</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still primarily SQL Server-focused. The open-source community had already chosen Flyway as the standard for cross-platform, developer-first migrations.</span></div>
+            <template class="card-detail">
+              <p>Redgate Deploy was ReadyRoll grown up — integrated into the Redgate platform, branded consistently, and expanded to include Azure SQL alongside SQL Server. It represented Redgate's best answer to automated database deployment in the 2018 timeframe.</p>
+              <p>But outside Redgate's customer base, a different story was playing out. The open-source community had coalesced around Flyway as the standard for database migrations — it was language-agnostic, database-agnostic, and had millions of active users Redgate had no reach into.</p>
+              <h4>The gap Redgate Deploy couldn't close</h4>
+              <ul>
+                <li>SQL Server and Azure SQL only — no PostgreSQL, MySQL, Oracle, or other platforms</li>
+                <li>Commercial product — no open-source community, no developer grassroots adoption</li>
+                <li>Flyway was already winning in the communities Redgate wasn't present in</li>
+                <li>Acquiring Flyway was the only path to genuine multi-platform, community-backed deployment tooling</li>
+              </ul>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
         </div>
@@ -759,19 +1181,45 @@
           </div>
         </div>
 
-        <!-- Stage 7: Flyway -->
-        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.5)">
+        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
+             data-eyebrow="Stage 07 · Acquired · 2019 – Present · Current Platform" data-title="Flyway" data-sub="World's most popular open-source database migration tool — acquired 2019">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="cur-badge">Current Platform</div>
             <div class="tdm-sn">Stage 07 · Acquired</div><div class="tdm-pn">Flyway</div><div class="tdm-per">2019 – Present</div>
             <div class="tdm-why">Acquired from creator Axel Fontaine — the world's most popular open-source database migration tool. Flyway completed Redgate's deployment story: developer-first, open-source, running on every major database platform.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-my">MySQL</span><span class="db db-ora">Oracle</span><span class="db db-more">+ 26 more</span></div></div>
+            <template class="card-detail">
+              <p>Flyway was created by Axel Fontaine as an open-source project and grew organically into the world's most widely-used database migration tool. Its simplicity was its superpower: point it at a folder of numbered SQL scripts, point it at a database, and it runs whichever scripts haven't been applied yet. No XML configuration, no GUI required.</p>
+              <p>Redgate acquired Flyway in 2019, keeping the core open source under the Apache 2 license and building commercial Flyway Teams and Enterprise tiers for larger organisations needing features like undo migrations, dry runs, and enterprise support.</p>
+              <h4>What 30+ database support actually means</h4>
+              <ul>
+                <li>SQL Server, PostgreSQL, MySQL, Oracle, MariaDB, SQLite as the primary platforms</li>
+                <li>DB2, CockroachDB, Snowflake, Redshift, BigQuery, and 20+ more community-supported</li>
+                <li>Same migration script format works across all platforms — true portability</li>
+                <li>Java, Python, Node.js, .NET, Go — Flyway integrations for every major ecosystem</li>
+                <li>Docker image, CLI, Maven/Gradle plugins, and GitHub Actions support out of the box</li>
+              </ul>
+              <p>For Redgate, Flyway completed the deployment story that started with SQL Compare in 1999 — and opened the door to every database platform the previous 20 years of SQL Server-focused products had never reached.</p>
+            </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2019</div>
         </div>
 
         <div class="end-cap"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+    <div class="modal-box" id="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      <div class="modal-eyebrow" id="modal-eyebrow"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-sub" id="modal-sub"></div>
+      <div class="modal-body" id="modal-body"></div>
     </div>
   </div>
 
@@ -879,6 +1327,38 @@
 
     document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
     document.getElementById('navBrand').addEventListener('click', e => { e.preventDefault(); switchTab('company'); });
+
+    // ─── Modal ─────────────────────────────────
+    const modal      = document.getElementById('modal');
+    const modalClose = document.getElementById('modal-close');
+    const modalEye   = document.getElementById('modal-eyebrow');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSub   = document.getElementById('modal-sub');
+    const modalBody  = document.getElementById('modal-body');
+
+    function openModal(node) {
+      const tmpl = node.querySelector('template.card-detail');
+      if (!tmpl) return;
+      modalEye.textContent   = node.dataset.eyebrow || '';
+      modalTitle.textContent = node.dataset.title   || '';
+      modalSub.textContent   = node.dataset.sub     || '';
+      modalBody.innerHTML    = '';
+      modalBody.appendChild(tmpl.content.cloneNode(true));
+      modal.classList.add('open');
+    }
+
+    function closeModal() { modal.classList.remove('open'); }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Wire up clickable cards — find the data-* parent node for each card
+    document.querySelectorAll('.prod-card, .tdm-ci, .piv-card').forEach(card => {
+      const node = card.closest('[data-title]');
+      if (!node) return;
+      card.addEventListener('click', e => { e.stopPropagation(); openModal(node); });
+    });
 
     // ─── Boot ─────────────────────────────────
     window.addEventListener('load', () => {
