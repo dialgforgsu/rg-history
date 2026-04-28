@@ -8,157 +8,154 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    /* ── DARK (default) ──────────────────────── */
     :root {
-      --red:    #E8312A;
-      --red2:   #B02020;
-      --rglow:  rgba(232,49,42,.28);
-      --bg:     #07090C;
-      --s1:     #0C1016;
-      --s2:     #131920;
-      --s3:     #1A222D;
-      --bd:     rgba(255,255,255,.07);
-      --bd2:    rgba(255,255,255,.13);
-      --text:   #EDF1F6;
-      --muted:  #78899A;
-      --dim:    #36455A;
-      --blue:   #4A9EE8;
-      --teal:   #00C9A7;
-      --gold:   #F5A623;
-      --purple: #A070D4;
+      --red:     #E8312A;
+      --red2:    #B02020;
+      --rglow:   rgba(232,49,42,.28);
+      --bg:      #07090C;
+      --s1:      #0C1016;
+      --s2:      #131920;
+      --s3:      #1A222D;
+      --bd:      rgba(255,255,255,.07);
+      --bd2:     rgba(255,255,255,.13);
+      --text:    #EDF1F6;
+      --muted:   #78899A;
+      --dim:     #36455A;
+      --nav-bg:  rgba(7,9,12,.92);
+      --blue:    #4A9EE8;
+      --teal:    #00C9A7;
+      --gold:    #F5A623;
+      --purple:  #A070D4;
+    }
+
+    /* ── LIGHT ───────────────────────────────── */
+    html.light {
+      --bg:      #F0F4F8;
+      --s1:      #FFFFFF;
+      --s2:      #E6ECF2;
+      --s3:      #D8E0EA;
+      --bd:      rgba(0,0,0,.09);
+      --bd2:     rgba(0,0,0,.15);
+      --text:    #0D1117;
+      --muted:   #4A5568;
+      --dim:     #94A3B8;
+      --nav-bg:  rgba(240,244,248,.93);
     }
 
     *,*::before,*::after { margin:0; padding:0; box-sizing:border-box }
-    html, body { height:100%; overflow:hidden }
+    html,body { height:100%; overflow:hidden }
     body {
       font-family:'Inter',system-ui,sans-serif;
       background:var(--bg); color:var(--text);
       line-height:1.6; user-select:none;
+      transition:background .3s, color .3s;
     }
 
     /* ── NAV ─────────────────────────────────── */
     .nav {
       position:fixed; top:0; left:0; right:0; z-index:300;
-      height:54px; display:flex; align-items:center; justify-content:space-between;
-      padding:0 1.75rem;
-      background:rgba(7,9,12,.92);
+      height:54px; display:flex; align-items:center; gap:1rem;
+      padding:0 1.5rem;
+      background:var(--nav-bg);
       backdrop-filter:blur(24px);
       border-bottom:1px solid var(--bd);
+      transition:background .3s, border-color .3s;
     }
-    .nav-brand { display:flex; align-items:center; gap:9px; font-weight:800; font-size:.9rem; letter-spacing:-.02em; color:var(--text); text-decoration:none }
-    .brand-dot { width:9px; height:9px; border-radius:50%; background:var(--red); animation:pdot 2.5s ease-in-out infinite }
-    @keyframes pdot {
-      0%,100% { box-shadow:0 0 8px rgba(232,49,42,.4) }
-      50%      { box-shadow:0 0 18px rgba(232,49,42,.7), 0 0 36px rgba(232,49,42,.2) }
-    }
+    .nav-brand { display:flex; align-items:center; gap:9px; font-weight:800; font-size:.9rem; letter-spacing:-.02em; color:var(--text); text-decoration:none; flex-shrink:0 }
+    .brand-dot  { width:9px; height:9px; border-radius:50%; background:var(--red); animation:pdot 2.5s ease-in-out infinite }
+    @keyframes pdot { 0%,100%{box-shadow:0 0 8px rgba(232,49,42,.4)} 50%{box-shadow:0 0 18px rgba(232,49,42,.7),0 0 36px rgba(232,49,42,.2)} }
+    .nav-spacer { flex:1 }
 
     /* ── TABS ─────────────────────────────────── */
-    .tab-bar { display:flex; gap:4px; background:var(--s2); border:1px solid var(--bd2); border-radius:10px; padding:4px }
-    .tab-btn { padding:.4rem 1.1rem; border-radius:7px; border:none; font-family:inherit; font-size:.8rem; font-weight:600; cursor:pointer; transition:all .2s; background:transparent; color:var(--muted) }
+    .tab-bar  { display:flex; gap:4px; background:var(--s2); border:1px solid var(--bd2); border-radius:10px; padding:4px; transition:background .3s, border-color .3s }
+    .tab-btn  { padding:.38rem 1rem; border-radius:7px; border:none; font-family:inherit; font-size:.79rem; font-weight:600; cursor:pointer; transition:all .2s; background:transparent; color:var(--muted); white-space:nowrap }
     .tab-btn.active { background:var(--red); color:#fff; box-shadow:0 2px 12px var(--rglow) }
     .tab-btn:not(.active):hover { color:var(--text); background:var(--s3) }
+
+    /* ── THEME TOGGLE ─────────────────────────── */
+    .theme-btn {
+      width:36px; height:36px; border-radius:9px; border:1px solid var(--bd2);
+      background:var(--s2); color:var(--muted); cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; transition:all .2s;
+    }
+    .theme-btn:hover { color:var(--text); background:var(--s3); border-color:var(--bd2) }
+    .theme-btn svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round }
+    .icon-sun  { display:none }
+    .icon-moon { display:block }
+    html.light .icon-sun  { display:block }
+    html.light .icon-moon { display:none }
 
     /* ── PANE ─────────────────────────────────── */
     .pane { display:none; position:fixed; top:54px; left:0; right:0; bottom:0 }
     .pane.active { display:block }
 
     /* ── TIMELINE CONTAINER ───────────────────── */
-    /* overflow:hidden — we drive scrolling via transform */
-    .tl-container {
-      width:100%; height:100%;
-      overflow:hidden; position:relative;
-      cursor:default;
-    }
+    .tl-container { width:100%; height:100%; overflow:hidden; position:relative }
 
     /* ── TRACK ────────────────────────────────── */
     .tl-track {
       display:flex; align-items:stretch;
       height:100%; position:relative;
-      min-width:max-content;
-      padding:0 6vw;
+      min-width:max-content; padding:0 6vw;
       will-change:transform;
     }
 
-    /* spine */
+    /* ── SPINE ────────────────────────────────── */
     .spine {
       position:absolute; top:50%; left:0; right:0;
       height:2px; transform:translateY(-50%);
-      background:linear-gradient(to right,
-        transparent 0%, var(--red2) 2%, var(--red) 10%,
-        var(--red) 90%, var(--red2) 98%, transparent 100%);
+      background:linear-gradient(to right,transparent 0%,var(--red2) 2%,var(--red) 10%,var(--red) 90%,var(--red2) 98%,transparent 100%);
       opacity:.5; pointer-events:none; z-index:1;
     }
 
     /* ── PROGRESS BAR ─────────────────────────── */
-    .tl-progress {
-      position:absolute; bottom:0; left:0; right:0; height:2px;
-      background:rgba(255,255,255,.04); z-index:10;
-    }
-    .tl-progress-fill { height:100%; width:0%; background:var(--red); opacity:.6; transition:width .05s linear }
+    .tl-progress { position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--bd) }
+    .tl-pfill    { height:100%; width:0%; background:var(--red); opacity:.6; transition:width .05s linear }
 
     /* ── SCROLL HINT ──────────────────────────── */
     .tl-hint {
-      position:absolute; bottom:20px; left:50%;
-      transform:translateX(-50%);
+      position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
       display:flex; align-items:center; gap:.55rem;
-      background:rgba(7,9,12,.7); backdrop-filter:blur(12px);
+      background:var(--s2); backdrop-filter:blur(12px);
       border:1px solid var(--bd2); border-radius:100px;
       padding:.38rem 1rem;
       font-size:.68rem; color:var(--muted); letter-spacing:.07em; text-transform:uppercase;
-      pointer-events:none; z-index:10;
+      pointer-events:none; z-index:10; white-space:nowrap;
       animation:fadeHint 4s ease forwards;
+      transition:background .3s, border-color .3s;
     }
-    @keyframes fadeHint { 0%,60%{ opacity:1 } 100%{ opacity:0 } }
+    @keyframes fadeHint { 0%,60%{opacity:1} 100%{opacity:0} }
     .tl-hint svg { animation:nudge 1.4s ease-in-out infinite }
-    @keyframes nudge { 0%,100%{ transform:translateX(0) } 50%{ transform:translateX(5px) } }
+    @keyframes nudge { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
 
     /* ── INTRO NODE ───────────────────────────── */
-    .intro-node { position:relative; flex-shrink:0; width:320px }
-    .intro-inner {
-      position:absolute; top:50%; left:50%;
-      transform:translate(-50%,-50%);
-      width:280px;
-    }
-    .intro-kicker {
-      font-size:.65rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
-      color:var(--red); margin-bottom:.65rem;
-      display:flex; align-items:center; gap:.5rem;
-    }
-    .intro-kicker::before { content:''; width:20px; height:1.5px; background:var(--red); opacity:.6 }
-    .intro-title {
-      font-size:clamp(1.6rem,3vw,2.4rem); font-weight:900;
-      letter-spacing:-.05em; line-height:1.1; margin-bottom:.75rem;
-    }
-    .intro-title .accent {
-      background:linear-gradient(110deg,var(--red) 0%,#FF7066 50%,var(--red) 100%);
-      background-size:200% auto;
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-      animation:shimmer 4s linear infinite;
-    }
-    @keyframes shimmer { 0%{ background-position:0% center } 100%{ background-position:200% center } }
-    .intro-sub { font-size:.8rem; color:var(--muted); line-height:1.65; margin-bottom:1.1rem }
-    .intro-meta {
-      display:flex; flex-wrap:wrap; gap:.4rem;
-    }
-    .intro-pill {
-      padding:.25rem .75rem; border-radius:100px;
-      background:var(--s2); border:1px solid var(--bd2);
-      font-size:.67rem; font-weight:600; color:var(--muted);
-    }
+    .intro-node  { position:relative; flex-shrink:0; width:320px }
+    .intro-inner { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:280px }
+    .intro-kick  { font-size:.65rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:.65rem; display:flex; align-items:center; gap:.5rem }
+    .intro-kick::before { content:''; width:20px; height:1.5px; background:var(--red); opacity:.6 }
+    .intro-title { font-size:clamp(1.6rem,3vw,2.4rem); font-weight:900; letter-spacing:-.05em; line-height:1.1; margin-bottom:.75rem }
+    .intro-title .accent { background:linear-gradient(110deg,var(--red) 0%,#FF7066 50%,var(--red) 100%); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer 4s linear infinite }
+    @keyframes shimmer { 0%{background-position:0% center} 100%{background-position:200% center} }
+    .intro-sub  { font-size:.8rem; color:var(--muted); line-height:1.65; margin-bottom:1.1rem }
+    .intro-meta { display:flex; flex-wrap:wrap; gap:.4rem }
+    .intro-pill { padding:.25rem .75rem; border-radius:100px; background:var(--s2); border:1px solid var(--bd2); font-size:.67rem; font-weight:600; color:var(--muted); transition:background .3s, border-color .3s }
     .intro-pill.hot { color:var(--red); border-color:rgba(232,49,42,.3); background:rgba(232,49,42,.07) }
 
     /* ── ERA NODE ─────────────────────────────── */
     .era-node { position:relative; flex-shrink:0; width:148px }
     .era-vline { position:absolute; left:50%; top:6%; bottom:6%; width:1px; transform:translateX(-50%); background:linear-gradient(to bottom,transparent,currentColor 20%,currentColor 80%,transparent); opacity:.15 }
-    .era-top { position:absolute; bottom:calc(50% + 22px); left:50%; transform:translateX(-50%); text-align:center; white-space:nowrap }
+    .era-top  { position:absolute; bottom:calc(50% + 22px); left:50%; transform:translateX(-50%); text-align:center; white-space:nowrap }
     .era-chip { display:inline-block; padding:.25rem .75rem; border-radius:100px; font-size:.6rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; border:1px solid currentColor; margin-bottom:.4rem }
     .era-name { font-size:.82rem; font-weight:800; letter-spacing:-.02em }
     .era-yrs  { font-size:.65rem; color:var(--muted); font-weight:600; margin-top:2px }
     .era-bot  { position:absolute; top:calc(50% + 22px); left:50%; transform:translateX(-50%); font-size:.65rem; color:var(--muted); text-align:center; max-width:130px; line-height:1.5 }
-    .era-dot  { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(45deg); width:12px; height:12px; background:currentColor; box-shadow:0 0 0 3px var(--bg),0 0 14px currentColor; z-index:5; border-radius:2px }
+    .era-dot  { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(45deg); width:12px; height:12px; background:currentColor; box-shadow:0 0 0 3px var(--bg),0 0 14px currentColor; z-index:5; border-radius:2px; transition:box-shadow .3s }
 
     /* ── PRODUCT NODE ─────────────────────────── */
     .prod-node { position:relative; flex-shrink:0; width:195px }
-    .prod-dot  { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; background:var(--dc,var(--muted)); border:2px solid var(--dc,var(--muted)); box-shadow:0 0 0 3px var(--bg),0 0 10px var(--dg,transparent); z-index:5 }
+    .prod-dot  { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; background:var(--dc,var(--muted)); border:2px solid var(--dc,var(--muted)); box-shadow:0 0 0 3px var(--bg),0 0 10px var(--dg,transparent); z-index:5; transition:box-shadow .3s }
     .prod-node.above .prod-card { position:absolute; bottom:calc(50% + 22px); left:50%; transform:translateX(-50%); width:178px }
     .prod-node.above .yr        { position:absolute; top:calc(50% + 14px); left:50%; transform:translateX(-50%) }
     .prod-node.above .stub      { position:absolute; bottom:calc(50% + 13px); height:18px; left:calc(50% - 1px); width:1.5px; background:linear-gradient(to top,var(--dc,var(--muted)),transparent); opacity:.4 }
@@ -171,39 +168,41 @@
     .prod-card {
       background:var(--s1); border:1px solid var(--bd); border-radius:12px; padding:1rem 1.1rem;
       opacity:0; transform:translateY(10px);
-      transition:opacity .45s, transform .45s, border-color .25s, background .25s, box-shadow .25s;
+      transition:opacity .45s, transform .45s, border-color .25s, background .3s, box-shadow .25s, color .3s;
     }
     .prod-card.in { opacity:1; transform:translateY(0) }
-    .prod-card:hover { background:var(--s2); border-color:rgba(232,49,42,.3); box-shadow:0 10px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(232,49,42,.15) }
-    .pc-top   { display:flex; align-items:flex-start; gap:.6rem; margin-bottom:.6rem }
-    .pc-icon  { font-size:1.1rem; line-height:1; flex-shrink:0; margin-top:1px }
-    .pc-name  { font-size:.82rem; font-weight:700; letter-spacing:-.02em; line-height:1.2 }
-    .pc-tag   { font-size:.68rem; color:var(--muted); line-height:1.35; margin-top:1px }
-    .pc-desc  { font-size:.75rem; color:var(--muted); line-height:1.55; margin-bottom:.65rem }
-    .pc-foot  { display:flex; flex-wrap:wrap; gap:4px; align-items:center }
-    .tag      { padding:.16rem .5rem; background:var(--s3); border:1px solid var(--bd); border-radius:4px; font-size:.6rem; font-weight:600; color:var(--muted) }
-    .badge    { padding:.14rem .5rem; border-radius:100px; font-size:.59rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; border:1px solid }
-    .b-active { color:var(--teal);   border-color:rgba(0,201,167,.3);  background:rgba(0,201,167,.08) }
-    .b-retired{ color:var(--dim);    border-color:rgba(255,255,255,.1); background:rgba(255,255,255,.04) }
-    .b-evolved{ color:var(--gold);   border-color:rgba(245,166,35,.3);  background:rgba(245,166,35,.08) }
-    .b-acq    { color:var(--purple); border-color:rgba(160,112,212,.3); background:rgba(160,112,212,.08) }
+    .prod-card:hover { background:var(--s2); border-color:rgba(232,49,42,.3); box-shadow:0 10px 32px rgba(0,0,0,.2),0 0 0 1px rgba(232,49,42,.15) }
+    .pc-top  { display:flex; align-items:flex-start; gap:.6rem; margin-bottom:.6rem }
+    .pc-icon { font-size:1.1rem; line-height:1; flex-shrink:0; margin-top:1px }
+    .pc-name { font-size:.82rem; font-weight:700; letter-spacing:-.02em; line-height:1.2 }
+    .pc-tag  { font-size:.68rem; color:var(--muted); line-height:1.35; margin-top:1px }
+    .pc-desc { font-size:.75rem; color:var(--muted); line-height:1.55; margin-bottom:.65rem }
+    .pc-foot { display:flex; flex-wrap:wrap; gap:4px; align-items:center }
+    .tag   { padding:.16rem .5rem; background:var(--s3); border:1px solid var(--bd); border-radius:4px; font-size:.6rem; font-weight:600; color:var(--muted); transition:background .3s, border-color .3s }
+    .badge { padding:.14rem .5rem; border-radius:100px; font-size:.59rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; border:1px solid }
+    .b-active  { color:var(--teal);   border-color:rgba(0,201,167,.3);  background:rgba(0,201,167,.08) }
+    .b-retired { color:var(--dim);    border-color:rgba(255,255,255,.1); background:rgba(255,255,255,.04) }
+    .b-evolved { color:var(--gold);   border-color:rgba(245,166,35,.3);  background:rgba(245,166,35,.08) }
+    .b-acq     { color:var(--purple); border-color:rgba(160,112,212,.3); background:rgba(160,112,212,.08) }
+    html.light .b-retired { border-color:rgba(0,0,0,.12); background:rgba(0,0,0,.04) }
 
     /* ── PIVOT NODE ───────────────────────────── */
     .pivot-node { position:relative; flex-shrink:0; width:300px }
-    .piv-dot    { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; background:var(--red); box-shadow:0 0 0 4px var(--bg),0 0 20px rgba(232,49,42,.6); z-index:5 }
+    .piv-dot    { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; background:var(--red); box-shadow:0 0 0 4px var(--bg),0 0 20px rgba(232,49,42,.6); z-index:5; transition:box-shadow .3s }
     .piv-card   {
       position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
       width:274px; z-index:4;
       background:linear-gradient(135deg,rgba(232,49,42,.11),rgba(232,49,42,.05) 60%,rgba(232,49,42,.1));
       border:1px solid rgba(232,49,42,.25); border-radius:14px;
       padding:1.25rem 1.5rem; text-align:center;
-      opacity:0; scale:.95; transition:opacity .55s, scale .55s;
+      opacity:0; scale:.95; transition:opacity .55s, scale .55s, background .3s;
     }
     .piv-card.in { opacity:1; scale:1 }
-    .piv-eye    { font-size:.62rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:.5rem }
+    html.light .piv-card { background:linear-gradient(135deg,rgba(232,49,42,.09),rgba(232,49,42,.03) 60%,rgba(232,49,42,.08)) }
+    .piv-eye   { font-size:.62rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:.5rem }
     .piv-eye::before { content:'◆ '; opacity:.8 }
-    .piv-title  { font-size:.95rem; font-weight:900; letter-spacing:-.03em; margin-bottom:.6rem; line-height:1.3 }
-    .piv-desc   { font-size:.75rem; color:var(--muted); line-height:1.65 }
+    .piv-title { font-size:.95rem; font-weight:900; letter-spacing:-.03em; margin-bottom:.6rem; line-height:1.3 }
+    .piv-desc  { font-size:.75rem; color:var(--muted); line-height:1.65 }
 
     /* end cap */
     .end-cap { position:relative; flex-shrink:0; width:8vw }
@@ -212,7 +211,7 @@
        TDM NODES
     ═══════════════════════════════════════════ */
     .tdm-node { position:relative; flex-shrink:0; width:280px }
-    .tdm-dot  { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:16px; height:16px; border-radius:50%; background:var(--dc,var(--muted)); border:2.5px solid var(--dc,var(--muted)); box-shadow:0 0 0 4px var(--bg),0 0 16px var(--dg,transparent); z-index:5 }
+    .tdm-dot  { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:16px; height:16px; border-radius:50%; background:var(--dc,var(--muted)); border:2.5px solid var(--dc,var(--muted)); box-shadow:0 0 0 4px var(--bg),0 0 16px var(--dg,transparent); z-index:5; transition:box-shadow .3s }
     .tdm-yr   { position:absolute; font-size:.66rem; font-weight:700; color:var(--red); letter-spacing:.05em; left:50%; transform:translateX(-50%); white-space:nowrap }
     .tdm-node.above .tdm-yr   { top:calc(50% + 18px) }
     .tdm-node.below .tdm-yr   { bottom:calc(50% + 18px) }
@@ -227,48 +226,43 @@
     .tdm-ci {
       background:var(--s1); border:1px solid var(--bd); border-radius:14px; padding:1.25rem 1.4rem;
       opacity:0; transform:translateY(14px);
-      transition:opacity .5s, transform .5s, border-color .25s, background .25s, box-shadow .25s;
+      transition:opacity .5s, transform .5s, border-color .25s, background .3s, box-shadow .25s;
     }
-    .tdm-ci.in  { opacity:1; transform:translateY(0) }
-    .tdm-ci:hover { background:var(--s2); border-color:rgba(232,49,42,.3); box-shadow:0 12px 40px rgba(0,0,0,.45) }
-    .tdm-sn   { font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:.4rem }
-    .tdm-pn   { font-size:1.05rem; font-weight:900; letter-spacing:-.03em; margin-bottom:.15rem }
-    .tdm-per  { font-size:.68rem; color:var(--muted); margin-bottom:.75rem }
-    .tdm-why  { font-size:.76rem; color:var(--muted); line-height:1.6; border-left:2px solid var(--red); padding-left:.65rem; margin-bottom:.85rem }
-    .db-list  { margin-bottom:.85rem }
-    .db-lbl   { font-size:.6rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); margin-bottom:.4rem }
-    .db-row   { display:flex; flex-wrap:wrap; gap:4px }
-    .db       { padding:.2rem .6rem; border-radius:5px; font-size:.62rem; font-weight:700; letter-spacing:.04em; border:1px solid }
-    .db-ss    { color:#00ADEF; border-color:rgba(0,173,239,.3);  background:rgba(0,173,239,.08) }
-    .db-ora   { color:#F80000; border-color:rgba(248,0,0,.25);   background:rgba(248,0,0,.07) }
-    .db-pg    { color:#6FA8DC; border-color:rgba(111,168,220,.3); background:rgba(111,168,220,.08) }
-    .db-my    { color:#F29111; border-color:rgba(242,145,17,.3);  background:rgba(242,145,17,.08) }
-    .tdm-lim  { display:flex; align-items:flex-start; gap:.4rem; font-size:.7rem; color:var(--dim); line-height:1.5 }
-    .lim-i    { color:var(--gold); flex-shrink:0; font-size:.8rem; margin-top:.05rem }
-    .cur-badge{ display:inline-flex; align-items:center; gap:5px; padding:.22rem .75rem; border-radius:100px; background:rgba(0,201,167,.1); border:1px solid rgba(0,201,167,.3); color:var(--teal); font-size:.65rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-bottom:.5rem }
+    .tdm-ci.in    { opacity:1; transform:translateY(0) }
+    .tdm-ci:hover { background:var(--s2); border-color:rgba(232,49,42,.3); box-shadow:0 12px 40px rgba(0,0,0,.2) }
+    .tdm-sn  { font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:.4rem }
+    .tdm-pn  { font-size:1.05rem; font-weight:900; letter-spacing:-.03em; margin-bottom:.15rem }
+    .tdm-per { font-size:.68rem; color:var(--muted); margin-bottom:.75rem }
+    .tdm-why { font-size:.76rem; color:var(--muted); line-height:1.6; border-left:2px solid var(--red); padding-left:.65rem; margin-bottom:.85rem }
+    .db-list { margin-bottom:.85rem }
+    .db-lbl  { font-size:.6rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); margin-bottom:.4rem }
+    .db-row  { display:flex; flex-wrap:wrap; gap:4px }
+    .db      { padding:.2rem .6rem; border-radius:5px; font-size:.62rem; font-weight:700; letter-spacing:.04em; border:1px solid }
+    .db-ss   { color:#00ADEF; border-color:rgba(0,173,239,.3);  background:rgba(0,173,239,.08) }
+    .db-ora  { color:#F80000; border-color:rgba(248,0,0,.25);   background:rgba(248,0,0,.07) }
+    .db-pg   { color:#6FA8DC; border-color:rgba(111,168,220,.3); background:rgba(111,168,220,.08) }
+    .db-my   { color:#F29111; border-color:rgba(242,145,17,.3);  background:rgba(242,145,17,.08) }
+    .db-az   { color:#0089D6; border-color:rgba(0,137,214,.3);  background:rgba(0,137,214,.08) }
+    .db-more { color:var(--muted); border-color:var(--bd2); background:var(--s3) }
+    .tdm-lim { display:flex; align-items:flex-start; gap:.4rem; font-size:.7rem; color:var(--dim); line-height:1.5 }
+    .lim-i   { color:var(--gold); flex-shrink:0; font-size:.8rem; margin-top:.05rem }
+    .cur-badge { display:inline-flex; align-items:center; gap:5px; padding:.22rem .75rem; border-radius:100px; background:rgba(0,201,167,.1); border:1px solid rgba(0,201,167,.3); color:var(--teal); font-size:.65rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-bottom:.5rem }
     .cur-badge::before { content:'●'; font-size:.5em }
 
-    /* transition node */
+    /* ── TRANSITION NODE ──────────────────────── */
     .trans-node { position:relative; flex-shrink:0; width:220px }
     .trans-in   {
       position:absolute; left:50%; transform:translateX(-50%);
       width:200px; text-align:center; z-index:4;
       display:flex; flex-direction:column; align-items:center; gap:.3rem;
     }
-    /* above: bubble sits above the spine; arrow points down toward spine */
-    .trans-node.above .trans-in {
-      bottom:calc(50% + 10px);
-      flex-direction:column-reverse; /* arrow at bottom = nearest spine */
-    }
-    /* below: bubble sits below the spine; arrow points up toward spine */
-    .trans-node.below .trans-in {
-      top:calc(50% + 10px);
-      flex-direction:column; /* arrow at top = nearest spine */
-    }
-    .trans-arr  { font-size:1.3rem; color:var(--red); opacity:.45; line-height:1 }
-    .trans-bub  { background:rgba(232,49,42,.07); border:1px solid rgba(232,49,42,.18); border-radius:10px; padding:.7rem .95rem }
-    .trans-lbl  { font-size:.6rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:.3rem }
-    .trans-txt  { font-size:.72rem; color:var(--muted); line-height:1.55; font-style:italic }
+    .trans-node.above .trans-in { bottom:calc(50% + 10px); flex-direction:column-reverse }
+    .trans-node.below .trans-in { top:calc(50% + 10px);    flex-direction:column }
+    .trans-arr { font-size:1.3rem; color:var(--red); opacity:.45; line-height:1 }
+    .trans-bub { background:rgba(232,49,42,.08); border:1px solid rgba(232,49,42,.22); border-radius:10px; padding:.7rem .95rem; transition:background .3s }
+    html.light .trans-bub { background:rgba(232,49,42,.06); border-color:rgba(232,49,42,.28) }
+    .trans-lbl { font-size:.6rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:.3rem }
+    .trans-txt { font-size:.72rem; color:var(--muted); line-height:1.55; font-style:italic }
   </style>
 </head>
 <body>
@@ -278,10 +272,18 @@
       <span class="brand-dot"></span>
       Redgate History
     </a>
+    <div class="nav-spacer"></div>
     <div class="tab-bar">
       <button class="tab-btn active" data-tab="company">Company Timeline</button>
       <button class="tab-btn" data-tab="tdm">Test Data Manager</button>
+      <button class="tab-btn" data-tab="flyway">Flyway</button>
     </div>
+    <button class="theme-btn" id="themeBtn" title="Toggle light/dark mode">
+      <!-- Moon (shown in dark mode) -->
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+      <!-- Sun (shown in light mode) -->
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
   </header>
 
   <!-- ═══════════════════════════════════════════
@@ -289,20 +291,17 @@
   ═══════════════════════════════════════════ -->
   <div class="pane active" id="pane-company">
     <div class="tl-container" id="company-container">
-      <div class="tl-progress"><div class="tl-progress-fill" id="company-prog"></div></div>
-
+      <div class="tl-progress"><div class="tl-pfill" id="company-prog"></div></div>
       <div class="tl-hint">
-        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6h14M9 1l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
         Scroll to explore
       </div>
-
       <div class="tl-track" id="company-track">
         <div class="spine"></div>
 
-        <!-- INTRO -->
         <div class="intro-node">
           <div class="intro-inner">
-            <div class="intro-kicker">Cambridge, UK · Est. 1999</div>
+            <div class="intro-kick">Cambridge, UK · Est. 1999</div>
             <div class="intro-title">Why Redgate<br><span class="accent">Kept Pivoting</span></div>
             <div class="intro-sub">Every product Redgate shipped was a response to a real problem. This is the story of those decisions — and why they were made.</div>
             <div class="intro-meta">
@@ -333,7 +332,7 @@
         <div class="prod-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">📊</div><div><div class="pc-name">SQL Data Compare</div><div class="pc-tag">Schema's natural companion</div></div></div>
-            <div class="pc-desc">Customer demand for SQL Compare immediately extended to the data inside databases. Compare and sync row-level data between SQL Server instances.</div>
+            <div class="pc-desc">Customer demand for SQL Compare extended to the data inside databases. Compare and sync row-level data between SQL Server instances.</div>
             <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2001</div>
@@ -342,7 +341,7 @@
         <div class="prod-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">⚡</div><div><div class="pc-name">ANTS Perf Profiler</div><div class="pc-tag">Redgate enters .NET</div></div></div>
-            <div class="pc-desc">Line-level performance profiling for .NET apps. The same "painful problem, elegant solution" playbook applied to a new developer audience.</div>
+            <div class="pc-desc">Line-level performance profiling for .NET apps. Same "painful problem, elegant solution" playbook applied to a new developer audience.</div>
             <div class="pc-foot"><span class="tag">.NET</span><span class="badge b-active">Active</span></div>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2002</div>
@@ -357,7 +356,6 @@
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2004</div>
         </div>
 
-        <!-- PIVOT 1 -->
         <div class="pivot-node">
           <div class="piv-card">
             <div class="piv-eye">Why We Pivoted</div>
@@ -387,7 +385,7 @@
         <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🔭</div><div><div class="pc-name">.NET Reflector</div><div class="pc-tag">First major acquisition</div></div></div>
-            <div class="pc-desc">Acquired from Lutz Roeder — the de-facto .NET decompiler used by millions. Proved acquisition as a viable growth lever alongside organic product development.</div>
+            <div class="pc-desc">Acquired from Lutz Roeder — the de-facto .NET decompiler used by millions. Proved acquisition as a viable growth lever.</div>
             <div class="pc-foot"><span class="tag">.NET</span><span class="badge b-acq">Acquired</span></div>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2008</div>
@@ -411,12 +409,11 @@
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2010</div>
         </div>
 
-        <!-- PIVOT 2 -->
         <div class="pivot-node">
           <div class="piv-card">
             <div class="piv-eye">Why We Pivoted</div>
             <div class="piv-title">"Databases got left behind in DevOps — and nobody was fixing it"</div>
-            <div class="piv-desc">Application code had CI/CD. Databases still had risky manual Friday-night deployments. Redgate decided to be the company that completes the DevOps story for data teams.</div>
+            <div class="piv-desc">Application code had CI/CD. Databases still had risky manual Friday-night deployments. Redgate decided to complete the DevOps story for data teams.</div>
           </div>
           <div class="piv-dot"></div>
         </div>
@@ -441,7 +438,7 @@
         <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🚀</div><div><div class="pc-name">SQL Change Automation</div><div class="pc-tag">ReadyRoll acquired</div></div></div>
-            <div class="pc-desc">Migrations-based CI/CD for databases, integrating directly with Azure DevOps and Jenkins — filling the final gap in automated database delivery pipelines.</div>
+            <div class="pc-desc">Migrations-based CI/CD for databases, integrating directly with Azure DevOps and Jenkins — filling the final gap in automated delivery pipelines.</div>
             <div class="pc-foot"><span class="tag">CI/CD</span><span class="badge b-acq">Acquired</span></div>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2015</div>
@@ -456,7 +453,6 @@
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2017</div>
         </div>
 
-        <!-- PIVOT 3 -->
         <div class="pivot-node">
           <div class="piv-card">
             <div class="piv-eye">Why We Pivoted</div>
@@ -486,7 +482,7 @@
         <div class="prod-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)">
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🖥️</div><div><div class="pc-name">Redgate Monitor</div><div class="pc-tag">SQL Monitor, reborn</div></div></div>
-            <div class="pc-desc">SQL Monitor rebranded and expanded with PostgreSQL and Azure SQL support. Dropping "SQL" from the name was deliberate — Redgate's future is not SQL Server-only.</div>
+            <div class="pc-desc">SQL Monitor rebranded with PostgreSQL and Azure SQL support. Dropping "SQL" from the name was deliberate — Redgate's future is not SQL Server-only.</div>
             <div class="pc-foot"><span class="tag">Multi-platform</span><span class="badge b-active">Active</span></div>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2020</div>
@@ -511,29 +507,26 @@
         </div>
 
         <div class="end-cap"></div>
-      </div><!-- /tl-track -->
-    </div><!-- /tl-container -->
-  </div><!-- /pane-company -->
+      </div>
+    </div>
+  </div>
 
   <!-- ═══════════════════════════════════════════
        TDM TIMELINE
   ═══════════════════════════════════════════ -->
   <div class="pane" id="pane-tdm">
     <div class="tl-container" id="tdm-container">
-      <div class="tl-progress"><div class="tl-progress-fill" id="tdm-prog"></div></div>
-
+      <div class="tl-progress"><div class="tl-pfill" id="tdm-prog"></div></div>
       <div class="tl-hint">
-        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6h14M9 1l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
         Scroll to follow the evolution
       </div>
-
       <div class="tl-track" id="tdm-track">
         <div class="spine"></div>
 
-        <!-- INTRO -->
         <div class="intro-node">
           <div class="intro-inner">
-            <div class="intro-kicker">Product Evolution</div>
+            <div class="intro-kick">Product Evolution</div>
             <div class="intro-title">The Road to<br><span class="accent">Test Data Manager</span></div>
             <div class="intro-sub">Six stages across 15+ years. Each one solved the problem the previous product left behind.</div>
             <div class="intro-meta">
@@ -543,18 +536,13 @@
           </div>
         </div>
 
-        <!-- STAGE 1: SQL Backup Pro -->
         <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
-          <div class="tdm-card">
-            <div class="tdm-ci">
-              <div class="tdm-sn">Stage 01 · Origin</div>
-              <div class="tdm-pn">SQL Backup Pro</div>
-              <div class="tdm-per">c. 2007</div>
-              <div class="tdm-why">The original approach: take a production backup, restore it to a dev or test environment. Simple, reliable — and painfully slow.</div>
-              <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-              <div class="tdm-lim"><span class="lim-i">⚠</span><span>Slow full copies · Huge storage footprint · No masking — can't safely use real production data</span></div>
-            </div>
-          </div>
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 01 · Origin</div><div class="tdm-pn">SQL Backup Pro</div><div class="tdm-per">c. 2007</div>
+            <div class="tdm-why">The original approach: take a production backup, restore it to a dev or test environment. Simple, reliable — and painfully slow.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Slow full copies · Huge storage footprint · No masking — can't safely use real production data</span></div>
+          </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2007</div>
         </div>
 
@@ -564,60 +552,45 @@
           </div>
         </div>
 
-        <!-- STAGE 2: SQL Clone -->
         <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)">
-          <div class="tdm-card">
-            <div class="tdm-ci">
-              <div class="tdm-sn">Stage 02</div>
-              <div class="tdm-pn">SQL Clone</div>
-              <div class="tdm-per">c. 2017</div>
-              <div class="tdm-why">Virtual database cloning using Windows storage virtualisation (copy-on-write). A developer could get a fresh isolated copy in seconds, not hours, using a fraction of the storage.</div>
-              <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-              <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still no masking — cloning production data means cloning PII. Windows-only, no path to cloud or containers.</span></div>
-            </div>
-          </div>
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 02</div><div class="tdm-pn">SQL Clone</div><div class="tdm-per">c. 2017</div>
+            <div class="tdm-why">Virtual database cloning using Windows storage virtualisation (copy-on-write). A developer could get a fresh isolated copy in seconds, not hours, using a fraction of the storage.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still no masking — cloning production data means cloning PII. Windows-only, no path to cloud or containers.</span></div>
+          </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2017</div>
         </div>
 
         <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Fast clones were useless if you couldn't clone production. GDPR in 2018 made masking an urgent requirement, not a nice-to-have."</div></div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Fast clones were useless if you couldn't clone production. GDPR in 2018 made masking urgent, not a nice-to-have."</div></div>
           </div>
         </div>
 
-        <!-- STAGE 3: SQL Data Masker -->
         <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
-          <div class="tdm-card">
-            <div class="tdm-ci">
-              <div class="tdm-sn">Stage 03</div>
-              <div class="tdm-pn">SQL Data Masker</div>
-              <div class="tdm-per">c. 2014 – 2018</div>
-              <div class="tdm-why">Mask, anonymise, and obfuscate sensitive production data so it could be safely used in non-production environments. The compliance answer that made SQL Clone's promise real.</div>
-              <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-              <div class="tdm-lim"><span class="lim-i">⚠</span><span>A separate product from SQL Clone — teams had to manually stitch together two tools with no shared workflow.</span></div>
-            </div>
-          </div>
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Data Masker</div><div class="tdm-per">c. 2014 – 2018</div>
+            <div class="tdm-why">Mask, anonymise, and obfuscate sensitive production data for safe use in non-production environments. The compliance answer that made SQL Clone's promise real.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>A separate product from SQL Clone — teams had to manually stitch together two tools with no shared workflow.</span></div>
+          </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
         </div>
 
         <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Customers shouldn't have to stitch together two separate products. We needed to unify the provisioning journey into one workflow."</div></div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Customers shouldn't stitch together two separate products. We needed to unify the provisioning journey into one workflow."</div></div>
           </div>
         </div>
 
-        <!-- STAGE 4: SQL Provision -->
         <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
-          <div class="tdm-card">
-            <div class="tdm-ci">
-              <div class="tdm-sn">Stage 04</div>
-              <div class="tdm-pn">SQL Provision</div>
-              <div class="tdm-per">c. 2018 – 2021</div>
-              <div class="tdm-why">SQL Data Masker + SQL Clone unified into a single provisioning workflow. Teams could mask production data <em>and</em> provision virtual copies from one product for the first time.</div>
-              <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-              <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still SQL Server and Windows only. Cloud adoption and container-based workflows were accelerating — the virtualisation model had a ceiling.</span></div>
-            </div>
-          </div>
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 04</div><div class="tdm-pn">SQL Provision</div><div class="tdm-per">c. 2018 – 2021</div>
+            <div class="tdm-why">SQL Data Masker + SQL Clone unified into a single provisioning workflow. Teams could mask production data <em>and</em> provision virtual copies from one product for the first time.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still SQL Server and Windows only. Cloud adoption and container-based workflows were accelerating — the virtualisation model had a ceiling.</span></div>
+          </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
         </div>
 
@@ -627,18 +600,13 @@
           </div>
         </div>
 
-        <!-- STAGE 5: Redgate Clone -->
         <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)">
-          <div class="tdm-card">
-            <div class="tdm-ci">
-              <div class="tdm-sn">Stage 05</div>
-              <div class="tdm-pn">Redgate Clone</div>
-              <div class="tdm-per">c. 2021 – 2022</div>
-              <div class="tdm-why">A rebuild from scratch — container-based database virtualisation using Docker. Fast, cloud-friendly, no longer tied to Windows storage APIs. Opened the door to multi-platform support.</div>
-              <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span></div></div>
-              <div class="tdm-lim"><span class="lim-i">⚠</span><span>Cloning alone still isn't the full picture. Customers needed masking, provisioning automation, and governance — not just one piece.</span></div>
-            </div>
-          </div>
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 05</div><div class="tdm-pn">Redgate Clone</div><div class="tdm-per">c. 2021 – 2022</div>
+            <div class="tdm-why">A rebuild from scratch — container-based database virtualisation using Docker. Fast, cloud-friendly, no longer tied to Windows storage APIs. Opened the door to multi-platform support.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Cloning alone still isn't the full picture. Customers needed masking, provisioning automation, and governance.</span></div>
+          </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2021</div>
         </div>
 
@@ -648,51 +616,196 @@
           </div>
         </div>
 
-        <!-- STAGE 6: Test Data Manager -->
         <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.5)">
-          <div class="tdm-card">
-            <div class="tdm-ci">
-              <div class="cur-badge">Current Platform</div>
-              <div class="tdm-sn">Stage 06</div>
-              <div class="tdm-pn">Test Data Manager</div>
-              <div class="tdm-per">2022 – Present</div>
-              <div class="tdm-why">The complete test data platform: mask production data, provision virtual copies, manage data across environments, enforce governance — all unified. Every previous stage's lesson built in.</div>
-              <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-ora">Oracle</span><span class="db db-my">MySQL</span></div></div>
-            </div>
-          </div>
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="cur-badge">Current Platform</div>
+            <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Test Data Manager</div><div class="tdm-per">2022 – Present</div>
+            <div class="tdm-why">The complete test data platform: mask, provision, manage, govern — all unified. Every previous stage's lesson built in.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-ora">Oracle</span><span class="db db-my">MySQL</span></div></div>
+          </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2022</div>
         </div>
 
         <div class="end-cap"></div>
-      </div><!-- /tl-track -->
-    </div><!-- /tl-container -->
-  </div><!-- /pane-tdm -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FLYWAY TIMELINE
+  ═══════════════════════════════════════════ -->
+  <div class="pane" id="pane-flyway">
+    <div class="tl-container" id="flyway-container">
+      <div class="tl-progress"><div class="tl-pfill" id="flyway-prog"></div></div>
+      <div class="tl-hint">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
+        Scroll to follow the evolution
+      </div>
+      <div class="tl-track" id="flyway-track">
+        <div class="spine"></div>
+
+        <div class="intro-node">
+          <div class="intro-inner">
+            <div class="intro-kick">Database Deployment Evolution</div>
+            <div class="intro-title">The Path to<br><span class="accent">Flyway</span></div>
+            <div class="intro-sub">From schema comparison to the world's most popular open-source database migration tool — how Redgate's deployment story evolved over 20 years.</div>
+            <div class="intro-meta">
+              <span class="intro-pill hot">7 stages</span>
+              <span class="intro-pill">1999 – 2019</span>
+              <span class="intro-pill">30+ databases</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 1: SQL Compare -->
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 01 · Origin</div><div class="tdm-pn">SQL Compare</div><div class="tdm-per">1999</div>
+            <div class="tdm-why">The foundation of all database change management — understanding what is different between two schemas. Before you can deploy a change, you have to know what the change is.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Passive comparison only — showed what was different but didn't help manage or automate what to do about it.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">1999</div>
+        </div>
+
+        <div class="trans-node above">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Schema differences didn't exist in isolation — teams needed to understand and sync the data inside the databases too."</div></div>
+          </div>
+        </div>
+
+        <!-- Stage 2: SQL Data Compare -->
+        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 02</div><div class="tdm-pn">SQL Data Compare</div><div class="tdm-per">2001</div>
+            <div class="tdm-why">Extended the comparison story to row-level data. Teams could now understand and synchronise not just the structure of databases, but their contents across environments.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still reactive tools — showing differences rather than managing or tracking the change process itself over time.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2001</div>
+        </div>
+
+        <div class="trans-node below">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Teams could compare databases but had no way to track how they got that way. They needed version control — history, accountability, rollback."</div></div>
+          </div>
+        </div>
+
+        <!-- Stage 3: SQL Source Control -->
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Source Control</div><div class="tdm-per">2010</div>
+            <div class="tdm-why">Version-control SQL Server schemas directly from SSMS. Database changes could now be tracked, branched, and reviewed the same way application code was — for the first time.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Captured history but didn't automate deployments — teams still manually applied changes in each environment down the pipeline.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2010</div>
+        </div>
+
+        <div class="trans-node above">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Source control gave you history. But teams needed the pipeline to automatically deploy those changes from dev through to production."</div></div>
+          </div>
+        </div>
+
+        <!-- Stage 4: SQL Change Automation -->
+        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 04</div><div class="tdm-pn">SQL Change Automation</div><div class="tdm-per">c. 2013</div>
+            <div class="tdm-why">State-based CI/CD for databases — automatically compare source to target and deploy the difference. Integrated with Azure DevOps, TeamCity, and Jenkins to bring database changes into the same pipelines as application code.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>State-based deployment worked well for DBAs but didn't match how many developers thought — they wanted ordered, versioned migration scripts.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2013</div>
+        </div>
+
+        <div class="trans-node below">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Developers wanted migrations — explicit, versioned scripts they controlled. ReadyRoll already had this. We acquired it to bring that approach in-house."</div></div>
+          </div>
+        </div>
+
+        <!-- Stage 5: ReadyRoll -->
+        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 05 · Acquired</div><div class="tdm-pn">ReadyRoll</div><div class="tdm-per">c. 2015</div>
+            <div class="tdm-why">Migrations-based database deployments — ordered, versioned scripts that gave developers full control over exactly what ran, in what order, in every environment. Acquired to complement SQL Change Automation's state-based approach.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>A standalone acquisition that needed deeper platform integration and expansion beyond SQL Server to realise its full potential.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
+        </div>
+
+        <div class="trans-node above">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"ReadyRoll needed to become a first-class Redgate product — integrated with the full platform and positioned as Redgate's unified deployment answer."</div></div>
+          </div>
+        </div>
+
+        <!-- Stage 6: Redgate Deploy -->
+        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Redgate Deploy</div><div class="tdm-per">c. 2018</div>
+            <div class="tdm-why">ReadyRoll rebranded and evolved into Redgate Deploy — Redgate's unified database deployment product, combining migrations-based and state-based approaches with deep CI/CD pipeline integrations.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-az">Azure SQL</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still primarily SQL Server-focused. The open-source community had already chosen Flyway as the standard for cross-platform, developer-first migrations.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
+        </div>
+
+        <div class="trans-node below">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Flyway had millions of users across every major database. Acquiring it gave us the platform-agnostic, developer-first migration tool — and the community that came with it."</div></div>
+          </div>
+        </div>
+
+        <!-- Stage 7: Flyway -->
+        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.5)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="cur-badge">Current Platform</div>
+            <div class="tdm-sn">Stage 07 · Acquired</div><div class="tdm-pn">Flyway</div><div class="tdm-per">2019 – Present</div>
+            <div class="tdm-why">Acquired from creator Axel Fontaine — the world's most popular open-source database migration tool. Flyway completed Redgate's deployment story: developer-first, open-source, running on every major database platform.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-my">MySQL</span><span class="db db-ora">Oracle</span><span class="db db-more">+ 26 more</span></div></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2019</div>
+        </div>
+
+        <div class="end-cap"></div>
+      </div>
+    </div>
+  </div>
 
   <script>
+    // ─── Theme toggle ──────────────────────────
+    const html     = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+
+    if (localStorage.getItem('rg-theme') === 'light') html.classList.add('light');
+
+    themeBtn.addEventListener('click', () => {
+      html.classList.toggle('light');
+      localStorage.setItem('rg-theme', html.classList.contains('light') ? 'light' : 'dark');
+    });
+
     // ─── Wheel-driven smooth horizontal scroll ─
     class Timeline {
       constructor(containerId, trackId, progId) {
         this.container = document.getElementById(containerId);
         this.track     = document.getElementById(trackId);
         this.progFill  = document.getElementById(progId);
-        this.x         = 0;   // current visual position
-        this.target    = 0;   // where we're headed
-        this.maxX      = 0;
-        this.raf       = null;
+        this.x = 0; this.target = 0; this.maxX = 0; this.raf = null;
 
-        // Wheel: redirect deltaY to horizontal movement
         this.container.addEventListener('wheel', e => {
           e.preventDefault();
           this.target = Math.max(-this.maxX, Math.min(0, this.target - e.deltaY * 1.4));
           this.kick();
         }, { passive: false });
 
-        // Touch support
-        let touchX = 0;
-        this.container.addEventListener('touchstart', e => { touchX = e.touches[0].clientX }, { passive: true });
-        this.container.addEventListener('touchmove', e => {
-          const dx = e.touches[0].clientX - touchX;
-          touchX = e.touches[0].clientX;
+        let tx = 0;
+        this.container.addEventListener('touchstart', e => { tx = e.touches[0].clientX }, { passive: true });
+        this.container.addEventListener('touchmove',  e => {
+          const dx = e.touches[0].clientX - tx;
+          tx = e.touches[0].clientX;
           this.target = Math.max(-this.maxX, Math.min(0, this.target + dx));
           this.kick();
         }, { passive: true });
@@ -701,10 +814,9 @@
       }
 
       measure() {
-        this.maxX = Math.max(0, this.track.scrollWidth - this.container.clientWidth);
-        // Clamp position after resize
+        this.maxX   = Math.max(0, this.track.scrollWidth - this.container.clientWidth);
         this.target = Math.max(-this.maxX, this.target);
-        this.x = this.target;
+        this.x      = this.target;
         this.track.style.transform = `translateX(${this.x}px)`;
         this.updateProg();
       }
@@ -715,19 +827,12 @@
         if (this.progFill) this.progFill.style.width = '0%';
       }
 
-      kick() {
-        if (!this.raf) this.raf = requestAnimationFrame(() => this.tick());
-      }
+      kick() { if (!this.raf) this.raf = requestAnimationFrame(() => this.tick()) }
 
       tick() {
         const diff = this.target - this.x;
-        if (Math.abs(diff) < 0.4) {
-          this.x = this.target;
-          this.raf = null;
-        } else {
-          this.x += diff * 0.11;
-          this.raf = requestAnimationFrame(() => this.tick());
-        }
+        if (Math.abs(diff) < 0.4) { this.x = this.target; this.raf = null; }
+        else { this.x += diff * 0.11; this.raf = requestAnimationFrame(() => this.tick()); }
         this.track.style.transform = `translateX(${this.x}px)`;
         this.updateProg();
         this.revealCards();
@@ -735,41 +840,36 @@
 
       updateProg() {
         if (!this.progFill || !this.maxX) return;
-        const pct = this.maxX ? (-this.x / this.maxX * 100) : 0;
-        this.progFill.style.width = pct.toFixed(1) + '%';
+        this.progFill.style.width = (-this.x / this.maxX * 100).toFixed(1) + '%';
       }
 
       revealCards() {
         const vw = this.container.clientWidth;
         this.track.querySelectorAll('.prod-card, .piv-card, .tdm-ci').forEach(card => {
           if (card.classList.contains('in')) return;
-          const rect = card.getBoundingClientRect();
-          if (rect.left < vw + 80 && rect.right > -80) card.classList.add('in');
+          const r = card.getBoundingClientRect();
+          if (r.left < vw + 80 && r.right > -80) card.classList.add('in');
         });
       }
     }
 
-    // ─── Init timelines ────────────────────────
+    // ─── Tab switching ─────────────────────────
     const timelines = {};
 
     function getOrInit(tab) {
       if (timelines[tab]) return timelines[tab];
-      const ids = {
+      const map = {
         company: ['company-container', 'company-track', 'company-prog'],
         tdm:     ['tdm-container',     'tdm-track',     'tdm-prog'],
+        flyway:  ['flyway-container',  'flyway-track',  'flyway-prog'],
       };
-      const tl = new Timeline(...ids[tab]);
-      timelines[tab] = tl;
-      return tl;
+      return (timelines[tab] = new Timeline(...map[tab]));
     }
 
-    // ─── Tabs ─────────────────────────────────
     function switchTab(name) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
       document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
       document.getElementById('pane-' + name).classList.add('active');
-
-      // Double-rAF ensures the pane is painted before we measure
       requestAnimationFrame(() => requestAnimationFrame(() => {
         const tl = getOrInit(name);
         tl.measure();
