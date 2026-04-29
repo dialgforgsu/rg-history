@@ -721,7 +721,7 @@
           <div class="prod-card">
             <div class="pc-top"><div class="pc-icon">🦋</div><div><div class="pc-name">Flyway</div><div class="pc-tag">World's #1 OSS migration tool</div></div></div>
             <div class="pc-desc">Acquired from creator Axel Fontaine. Millions of users across PostgreSQL, MySQL, Oracle, SQL Server. The deal that made Redgate genuinely multi-platform.</div>
-            <div class="pc-foot"><span class="tag">Open Source</span><span class="badge b-acq">Acquired 2019</span></div>
+            <div class="pc-foot"><span class="tag">Multi-DB</span><span class="badge b-acq">Acquired 2019</span></div>
             <template class="card-detail">
               <p>Flyway was created by Axel Fontaine and had grown organically into the world's most widely-used open-source database migration tool — running in production at companies of every size, across every major database platform. It worked by scanning a folder of versioned SQL scripts and running each one exactly once, tracking what had been applied in a schema history table.</p>
               <p>Redgate acquired Flyway in 2019, keeping it open source and continuing its development. The acquisition was transformative: it gave Redgate an instant community of millions, platform presence across 30+ databases, and a credible open-source identity it had never had before.</p>
@@ -913,6 +913,28 @@
             </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Supporting Tool · 2017" data-title="SQL Data Catalog" data-sub="Classify sensitive data — the missing foundation for safe masking">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Supporting Tool · 2017</div><div class="tdm-pn">SQL Data Catalog</div><div class="tdm-per">2017</div>
+            <div class="tdm-why">Before you can mask sensitive data, you need to know where it lives. SQL Data Catalog automated the discovery and classification of PII across SQL Server estates — becoming the essential input to any masking workflow.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Classification and masking were still separate products — teams had to manually map catalog output into Data Masker rules.</span></div>
+            <template class="card-detail">
+              <p>GDPR's 2018 enforcement deadline made one question urgent for every organisation: "Where is our sensitive data?" SQL Data Catalog answered it — automatically scanning SQL Server databases, identifying likely-sensitive columns, and letting teams apply and document classification tags.</p>
+              <p>In the TDM story, SQL Data Catalog filled a critical gap in the masking workflow: you can't write masking rules for data you haven't found yet. Catalog output fed directly into SQL Data Masker to drive policy-based, automated masking.</p>
+              <h4>How it fit the TDM workflow</h4>
+              <ul>
+                <li>Automated sensitive data discovery across large, poorly-documented SQL Server estates</li>
+                <li>Classification tags (PII, PCI, HIPAA) drove downstream Data Masker rule generation</li>
+                <li>Audit-ready documentation of data holdings for compliance reporting</li>
+                <li>Eventually integrated into Test Data Manager as the governance and classification layer</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2017</div>
         </div>
 
         <div class="trans-node above">
@@ -1551,27 +1573,6 @@
             </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
-        </div>
-
-        <!-- 15 · SQL Data Catalog · 2017 · Toolbelt -->
-        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
-             data-eyebrow="SQL Toolbelt · 2017" data-title="SQL Data Catalog" data-sub="Classify and document sensitive data across SQL Server estates">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Toolbelt · 2017</div><div class="tdm-pn">SQL Data Catalog</div>
-            <div class="tdm-why">Discover, classify, and document sensitive columns across SQL Server estates. Built for GDPR — know what PII you hold, where it lives, and who has access to it.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
-            <template class="card-detail">
-              <p>SQL Data Catalog turns the compliance question "where is our sensitive data?" from a manual spreadsheet exercise into an automated, continuously-maintained inventory. It scans SQL Server databases, surfaces likely-sensitive columns, and lets teams apply classification tags that drive downstream masking rules.</p>
-              <h4>Toolbelt-only — not in Essentials</h4>
-              <ul>
-                <li>Enterprise and compliance-focused — most relevant for regulated industries</li>
-                <li>Classification output feeds directly into SQL Data Masker for automated, policy-driven masking</li>
-                <li>Audit-ready documentation of sensitive data holdings for GDPR, HIPAA, PCI DSS</li>
-                <li>Teams managing large SQL Server estates with many databases benefit most</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2017</div>
         </div>
 
         <div class="end-cap"></div>
