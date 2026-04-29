@@ -266,6 +266,29 @@
     .trans-lbl { font-size:.6rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:.3rem }
     .trans-txt { font-size:.72rem; color:var(--muted); line-height:1.55; font-style:italic }
 
+    /* ── TOOLBELT BADGES ─────────────────────── */
+    .b-ess  { color:var(--teal);  border-color:rgba(0,201,167,.3); background:rgba(0,201,167,.08) }
+    .b-tb   { color:var(--blue);  border-color:rgba(74,158,232,.3); background:rgba(74,158,232,.08) }
+    .b-free { color:var(--gold);  border-color:rgba(245,166,35,.3);  background:rgba(245,166,35,.08) }
+
+    /* ── TOOLBELT SECTION DIVIDER ─────────────── */
+    .tb-divider { position:relative; flex-shrink:0; width:240px }
+    .tb-div-in  {
+      position:absolute; left:50%; transform:translateX(-50%);
+      width:220px; text-align:center; z-index:4;
+      display:flex; flex-direction:column; align-items:center; gap:.4rem;
+    }
+    .tb-divider.above .tb-div-in { bottom:calc(50% + 10px); flex-direction:column-reverse }
+    .tb-divider.below .tb-div-in { top:calc(50% + 10px);    flex-direction:column }
+    .tb-div-arr  { font-size:1.3rem; color:var(--blue); opacity:.45; line-height:1 }
+    .tb-div-box  {
+      background:rgba(74,158,232,.08); border:1px solid rgba(74,158,232,.22);
+      border-radius:10px; padding:.7rem .95rem; transition:background .3s;
+    }
+    html.light .tb-div-box { background:rgba(74,158,232,.06); border-color:rgba(74,158,232,.28) }
+    .tb-div-lbl  { font-size:.6rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:.3rem }
+    .tb-div-txt  { font-size:.72rem; color:var(--muted); line-height:1.55 }
+
     /* ── MODAL ────────────────────────────────── */
     .modal-overlay {
       display:none; position:fixed; inset:0; z-index:600;
@@ -320,6 +343,7 @@
       <button class="tab-btn active" data-tab="company">Company Timeline</button>
       <button class="tab-btn" data-tab="tdm">Test Data Manager</button>
       <button class="tab-btn" data-tab="flyway">Flyway</button>
+      <button class="tab-btn" data-tab="toolbelt">SQL Toolbelt</button>
     </div>
     <button class="theme-btn" id="themeBtn" title="Toggle light/dark mode">
       <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
@@ -662,22 +686,22 @@
 
         <!-- PIVOT 3: previous card was "above", so pivot goes above -->
         <div class="pivot-node above"
-             data-eyebrow="Strategic Pivot · 2019" data-title="Open source isn't a threat — it's the biggest growth channel" data-sub="Acquiring Flyway to go multi-platform and open source">
+             data-eyebrow="Strategic Pivot · 2019" data-title="SQL Server isn't the whole market" data-sub="Expanding beyond SQL Server to reach the databases where growth was happening">
           <div class="piv-card">
             <div class="piv-eye">Why We Pivoted</div>
-            <div class="piv-title">"Open source isn't a threat — it's the biggest growth channel we've never used"</div>
-            <div class="piv-desc">Flyway had millions of users across dozens of databases. Acquiring it doubled Redgate's total addressable market and gave access to a developer community SQL Server-only tools could never reach.</div>
+            <div class="piv-title">"SQL Server isn't the whole market — and we were leaving most of it untouched"</div>
+            <div class="piv-desc">PostgreSQL was exploding. MySQL was everywhere. Cloud databases were proliferating. Redgate's entire portfolio served one platform. Acquiring Flyway was the fastest way to fix that.</div>
             <template class="card-detail">
-              <div class="modal-highlight">"Flyway wasn't competing with us — it was succeeding where we weren't even playing. That was the signal."</div>
-              <p>By 2018, Redgate's portfolio was deep but narrow: primarily SQL Server, primarily Windows, primarily proprietary. The broader data landscape had shifted dramatically — PostgreSQL was growing rapidly, cloud databases were proliferating, and developers wanted open-source-first tools.</p>
-              <p>Flyway represented a fundamentally different model: open source core, commercial extensions, millions of community users. Acquiring it was Redgate's declaration that it was no longer just a SQL Server tooling vendor.</p>
-              <h4>What the acquisition unlocked</h4>
+              <div class="modal-highlight">"We had deep expertise in SQL Server. But the world's databases weren't waiting for us to catch up — they were already running on PostgreSQL, MySQL, Oracle, and everything in between."</div>
+              <p>By 2018, the database landscape had fundamentally shifted. PostgreSQL adoption was growing rapidly across cloud-native and startup stacks. MySQL powered much of the web. Enterprise Oracle estates were enormous. Redgate's entire product portfolio — built over 20 years — supported essentially one platform.</p>
+              <p>The total addressable market Redgate was competing in was a fraction of the actual market for database tooling. Acquiring Flyway was the most direct path to multi-platform presence: it already ran on 30+ databases and had millions of users Redgate had never been able to reach.</p>
+              <h4>What drove the decision</h4>
               <ul>
-                <li>Instant presence across 30+ database platforms, not just SQL Server</li>
-                <li>Millions of active users in communities Redgate had no previous access to</li>
-                <li>Open-source credibility and developer trust that commercial-only tools can't buy</li>
-                <li>A template for the open-core business model Redgate began applying more broadly</li>
-                <li>The beginning of Redgate's genuine multi-platform identity</li>
+                <li>Redgate customers were already running PostgreSQL and MySQL alongside SQL Server — and had no Redgate tooling for them</li>
+                <li>Flyway already solved the cross-platform deployment problem with millions of active users</li>
+                <li>Building multi-platform support organically would have taken years; acquiring it took one deal</li>
+                <li>The acquisition gave Redgate a credible presence in developer communities it had no previous foothold in</li>
+                <li>Platform expansion became the strategic lens for everything Redgate built or acquired after 2019</li>
               </ul>
             </template>
           </div>
@@ -687,9 +711,9 @@
         <!-- ERA 4 -->
         <div class="era-node" style="color:var(--red)">
           <div class="era-vline"></div>
-          <div class="era-top"><div class="era-chip">Era 04</div><div class="era-name">Open Source &amp; Beyond</div><div class="era-yrs">2019 – Present</div></div>
+          <div class="era-top"><div class="era-chip">Era 04</div><div class="era-name">Multi-Platform Era</div><div class="era-yrs">2019 – Present</div></div>
           <div class="era-dot"></div>
-          <div class="era-bot">Multi-platform. Open source. AI-powered.</div>
+          <div class="era-bot">Beyond SQL Server.<br>Every database.</div>
         </div>
 
         <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.35)"
@@ -1211,6 +1235,363 @@
   </div>
 
   <!-- ═══════════════════════════════════════════
+       SQL TOOLBELT TIMELINE
+  ═══════════════════════════════════════════ -->
+  <div class="pane" id="pane-toolbelt">
+    <div class="tl-container" id="toolbelt-container">
+      <div class="tl-progress"><div class="tl-pfill" id="toolbelt-prog"></div></div>
+      <div class="tl-hint">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
+        Scroll to explore the bundles
+      </div>
+      <div class="tl-track" id="toolbelt-track">
+        <div class="spine"></div>
+
+        <div class="intro-node">
+          <div class="intro-inner">
+            <div class="intro-kick">Product Bundles</div>
+            <div class="intro-title">The SQL<br><span class="accent">Toolbelt</span></div>
+            <div class="intro-sub">Redgate's curated bundles of SQL Server tools — designed so teams could get everything they need without buying tool by tool.</div>
+            <div class="intro-meta">
+              <span class="intro-pill hot">Essentials</span>
+              <span class="intro-pill">Full Toolbelt</span>
+              <span class="intro-pill">6 core tools → 15+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SQL TOOLBELT ESSENTIALS ── -->
+        <div class="era-node" style="color:var(--teal)">
+          <div class="era-vline"></div>
+          <div class="era-top"><div class="era-chip" style="font-size:.55rem">Essentials</div><div class="era-name">SQL Toolbelt Essentials</div><div class="era-yrs">Core developer tools</div></div>
+          <div class="era-dot"></div>
+          <div class="era-bot">The everyday essentials for every SQL Server developer.</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · 1999" data-title="SQL Compare" data-sub="Schema comparison and synchronisation — the tool that started it all">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · 1999</div><div class="tdm-pn">SQL Compare</div>
+            <div class="tdm-why">Compare and synchronise SQL Server database schemas. The founding product — and still one of the most-used tools Redgate ships.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Compare is the product Redgate was founded to build. Schema comparison was manual, slow, and error-prone before it existed. It compares two SQL Server databases and generates the exact script needed to synchronise them — in seconds.</p>
+              <p>It anchors the Essentials bundle because it solves the most universal problem every SQL Server team faces: knowing what's different between environments and deploying those differences safely.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>Universal problem: every SQL Server team compares schemas — to deploy, to verify, to troubleshoot</li>
+                <li>Immediate ROI: one prevented deployment incident pays for a year's licence</li>
+                <li>Works standalone or as part of a CI/CD pipeline</li>
+                <li>Active development since 1999 — still the gold standard for SQL Server schema comparison</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">1999</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · 2001" data-title="SQL Data Compare" data-sub="Row-level data comparison and synchronisation across SQL Server databases">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · 2001</div><div class="tdm-pn">SQL Data Compare</div>
+            <div class="tdm-why">Compare and synchronise the data inside SQL Server databases. The natural companion to SQL Compare — covers structure and content together.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>Schema comparison tells you the structure is different. SQL Data Compare tells you the data is different — row by row, table by table, across environments. It covers lookup tables, reference data, seed data, and configuration values that need to stay in sync alongside schema changes.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>Deployments aren't complete without data — reference data must travel with schema changes</li>
+                <li>Instantly identifies data drift between production and test environments</li>
+                <li>Can restore specific rows from a backup without a full restore</li>
+                <li>Works alongside SQL Compare to give a complete view of database differences</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2001</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · 2006" data-title="SQL Prompt" data-sub="IntelliSense-style autocompletion, formatting, and snippets inside SSMS">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · 2006</div><div class="tdm-pn">SQL Prompt</div>
+            <div class="tdm-why">Schema-aware SQL autocompletion, smart formatting, and code snippets inside SSMS. The tool that makes writing SQL faster and less error-prone every single day.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Prompt is the daily-driver in the Essentials bundle — the tool developers have open every time they write SQL. Once adopted, almost no one goes back to bare SSMS. It reduces typos, surfaces the right columns, and enforces consistent formatting automatically.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>Used every day by every developer writing SQL — the highest-frequency tool in the bundle</li>
+                <li>Reduces simple errors: correct column names, table aliases, and syntax before execution</li>
+                <li>Consistent code formatting enforced automatically — no style debates</li>
+                <li>Code snippets eliminate repetitive boilerplate for common query patterns</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2006</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · ~2006" data-title="SQL Doc" data-sub="Auto-generate comprehensive documentation for SQL Server databases">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · ~2006</div><div class="tdm-pn">SQL Doc</div>
+            <div class="tdm-why">Generate searchable HTML documentation for SQL Server databases automatically. Turns the implicit knowledge locked inside a schema into shareable, maintainable documentation.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>Database documentation is the work that always gets deferred — until someone asks "what does this column mean?" or "who uses this table?" SQL Doc generates comprehensive, browsable HTML documentation from the database itself, including extended properties, dependencies, and column definitions.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>Documentation that stays current — regenerate from the live database any time</li>
+                <li>Extended properties in SSMS become searchable documentation pages</li>
+                <li>Reduces onboarding time for developers joining a team or inheriting a database</li>
+                <li>Can be integrated into build pipelines to publish fresh docs on every deployment</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2006</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · 2010" data-title="SQL Source Control" data-sub="Version control for SQL Server schemas — Git integration inside SSMS">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · 2010</div><div class="tdm-pn">SQL Source Control</div>
+            <div class="tdm-why">Version-control SQL Server schemas directly from SSMS. Every schema change tracked, attributed, and reversible — the missing link between databases and modern engineering workflows.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Source Control brought databases into the Git era. Schema changes are committed, branched, and reviewed the same way application code is — removing the "the database is different and we don't know why" problem that every SQL Server team had.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>The foundation for database DevOps — you can't automate what you can't track</li>
+                <li>Full history of every schema change: who changed what, when, and in which branch</li>
+                <li>Code reviews can now include database object changes alongside application code</li>
+                <li>Pairs directly with SQL Compare to deploy source-controlled changes to any environment</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2010</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · ~2010 · Free" data-title="SQL Search" data-sub="Free full-text search across SQL Server objects inside SSMS">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · ~2010 · Free</div><div class="tdm-pn">SQL Search</div>
+            <div class="tdm-why">Search for text in stored procedures, views, functions, and jobs across SQL Server databases — instantly, from inside SSMS. A free tool bundled into Essentials.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-free">Free</span></div>
+            <template class="card-detail">
+              <p>SQL Search solves a simple but maddening problem: finding all the places a table, column, or string is referenced across your database. SSMS's native search barely exists. SQL Search does it instantly across every object in every database on the server.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>Free — no licence cost, easy to adopt across an entire team</li>
+                <li>Searches procedure bodies, view definitions, job steps, and trigger code</li>
+                <li>Essential for impact analysis: "if I change this column, what breaks?"</li>
+                <li>Great entry point for developers new to Redgate's tools</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2010</div>
+        </div>
+
+        <!-- Divider: Essentials → Full Toolbelt -->
+        <div class="tb-divider below">
+          <div class="tb-div-in">
+            <div class="tb-div-arr">→</div>
+            <div class="tb-div-box">
+              <div class="tb-div-lbl">SQL Toolbelt adds</div>
+              <div class="tb-div-txt">The full Toolbelt extends Essentials with deeper specialist tools — monitoring, testing, performance, .NET, backup, data masking, and CI/CD.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SQL TOOLBELT (additional tools) ── -->
+        <div class="era-node" style="color:var(--blue)">
+          <div class="era-vline"></div>
+          <div class="era-top"><div class="era-chip" style="font-size:.55rem">Full Bundle</div><div class="era-name">SQL Toolbelt</div><div class="era-yrs">All tools included</div></div>
+          <div class="era-dot"></div>
+          <div class="era-bot">Everything in Essentials, plus the specialist tools.</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="SQL Toolbelt · 2002" data-title="ANTS Performance Profiler" data-sub="Line-level performance profiling for .NET applications">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · 2002</div><div class="tdm-pn">ANTS Performance Profiler</div>
+            <div class="tdm-why">Find performance bottlenecks in .NET applications with line-level timing data and call-tree visualisation — no manual instrumentation required.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>ANTS Performance Profiler shows exactly which lines of .NET code are slow and how much time is spent in each method — replacing guesswork with data. It's the specialist tool for teams who need to go beyond SQL Server tooling into application performance.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Most SQL Server teams don't need .NET profiling tools day-to-day — hence Toolbelt-only</li>
+                <li>For full-stack teams who own both the database and the application, it's invaluable</li>
+                <li>Includes SQL query performance data alongside .NET method timing — bridge between app and DB</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2002</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="SQL Toolbelt · 2004" data-title="ANTS Memory Profiler" data-sub="Memory leak detection and heap analysis for .NET applications">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · 2004</div><div class="tdm-pn">ANTS Memory Profiler</div>
+            <div class="tdm-why">Track down memory leaks in .NET applications with heap snapshots, object reference graphs, and allocation tracking. Pairs with ANTS Performance Profiler for complete .NET diagnostics.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>Memory leaks in .NET are notoriously difficult to find without tooling. ANTS Memory Profiler provides heap snapshots that show exactly what's in memory, how objects reference each other, and what's grown between two points in time.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Specialist tool for teams experiencing memory growth or OutOfMemoryException issues</li>
+                <li>Snapshot comparison isolates what appeared between two points in time</li>
+                <li>Generation analysis identifies objects surviving GC collections unnecessarily</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2004</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="SQL Toolbelt · ~2007" data-title="SQL Backup Pro" data-sub="Fast, compressed SQL Server backups with encryption and verification">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · ~2007</div><div class="tdm-pn">SQL Backup Pro</div>
+            <div class="tdm-why">Compressed, encrypted SQL Server backups with built-in verification and multi-threading. Smaller backup files, faster restores, and confidence that backups are actually restorable.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Backup Pro addresses the painful reality that native SQL Server backups are uncompressed, unencrypted, and unverified by default. Backup Pro adds compression (smaller files, faster network transfers), encryption (compliance), and automatic integrity verification (backups you can trust).</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>More relevant to DBAs managing backup strategy than everyday developers</li>
+                <li>Compression ratios of 10:1 on typical OLTP databases</li>
+                <li>Backup verification ensures a restore is possible before a crisis demands it</li>
+                <li>Scheduling, alerts, and reporting for complete backup lifecycle management</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2007</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="SQL Toolbelt · 2008 · Acquisition" data-title=".NET Reflector" data-sub="The de-facto .NET decompiler — decompile any .NET assembly to readable code">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · 2008 · Acquired</div><div class="tdm-pn">.NET Reflector</div>
+            <div class="tdm-why">Decompile any .NET assembly back to readable C# or VB.NET. Debug third-party libraries, understand framework internals, and navigate compiled code without source. Acquired from Lutz Roeder.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-acq" style="margin-left:4px">Acquired</span></div>
+            <template class="card-detail">
+              <p>.NET Reflector was the tool every .NET developer used before Redgate acquired it — built by Lutz Roeder as a free community tool and grown into an industry standard. Redgate commercialised it and built it into the Toolbelt for teams that work across both SQL Server and .NET.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Specialist tool for debugging compiled code — most valuable when you need it, not needed daily</li>
+                <li>Visual Studio integration: step-through decompiled code as if you had the source</li>
+                <li>Essential for debugging third-party libraries when you hit an unexplained exception</li>
+                <li>The acquisition that proved Redgate could successfully commercialise community tools</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2008</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="SQL Toolbelt · 2009" data-title="SQL Monitor" data-sub="Real-time SQL Server estate monitoring, alerting, and performance history">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · 2009</div><div class="tdm-pn">SQL Monitor</div>
+            <div class="tdm-why">Real-time performance monitoring and alerting for SQL Server estates. Wait statistics, query duration, blocking, disk, CPU — all visible and alertable from a single dashboard.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-evolved" style="margin-left:4px">→ RG Monitor</span></div>
+            <template class="card-detail">
+              <p>SQL Monitor gives DBA teams always-on visibility across their SQL Server estates. Rather than reacting to incidents, teams can set alert thresholds and catch problems before users are impacted. Later rebranded Redgate Monitor when PostgreSQL and Azure SQL support was added.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Estate-level tool — most valuable for teams managing multiple SQL Server instances</li>
+                <li>Historical baseline tracking: know what "normal" looks like and alert on deviations</li>
+                <li>Wait statistics analysis to identify the root cause of performance degradation</li>
+                <li>Evolved into Redgate Monitor with multi-platform support in Era 04</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2009</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="SQL Toolbelt · 2011" data-title="SQL Test" data-sub="Automated unit testing for SQL Server databases, built on tSQLt">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · 2011</div><div class="tdm-pn">SQL Test</div>
+            <div class="tdm-why">Write and run automated T-SQL unit tests inside SSMS. Built on tSQLt — the prerequisite for confident, automated database deployments in a CI/CD pipeline.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Test brings test-driven development to SQL Server. Tests are pure T-SQL, run in isolated transactions so they leave no state, and produce pass/fail output that CI pipelines can enforce as a quality gate before deployment.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>More advanced workflow — teams need source control and CI/CD in place first</li>
+                <li>Tests run in rollback transactions — completely isolated, no cleanup required</li>
+                <li>Mock tables and procedures to test stored procs in isolation</li>
+                <li>Azure DevOps, Jenkins, and TeamCity integration for CI pipeline quality gates</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2011</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="SQL Toolbelt · ~2014" data-title="SQL Data Masker" data-sub="Mask and anonymise sensitive production data for safe use in non-production environments">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · ~2014</div><div class="tdm-pn">SQL Data Masker</div>
+            <div class="tdm-why">Replace sensitive column data with realistic but fictitious values — names, emails, credit cards — while preserving referential integrity. The compliance answer for non-production environments.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Data Masker is the tool that makes it safe to use production data in development and test environments. It substitutes sensitive values with realistic-looking fake data that passes validation rules — a masked email looks like a real email, a masked credit card passes the Luhn check — while preserving referential integrity across tables.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Specialist compliance tool — most critical for teams under GDPR, HIPAA, or PCI DSS</li>
+                <li>Referential integrity preservation: the same masked value appears everywhere it should</li>
+                <li>Repeatable masking: same input always produces same output for regression test consistency</li>
+                <li>Rule-based configuration saved and re-applied on each data refresh cycle</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="SQL Toolbelt · ~2015 · Acquisition" data-title="SQL Change Automation" data-sub="Migrations-based CI/CD for SQL Server — formerly ReadyRoll">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · ~2015 · Acquired</div><div class="tdm-pn">SQL Change Automation</div>
+            <div class="tdm-why">Versioned, ordered migration scripts automatically deployed through Azure DevOps, Jenkins, or TeamCity pipelines. Closes the loop between SQL Source Control and automated delivery.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-acq" style="margin-left:4px">Acquired</span></div>
+            <template class="card-detail">
+              <p>SQL Change Automation (formerly ReadyRoll) is the pipeline automation layer — it takes the database changes tracked in SQL Source Control and deploys them automatically through CI/CD pipelines. Each migration is an explicit, versioned script that runs exactly once.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Requires an established CI/CD pipeline — more advanced teams need this first</li>
+                <li>Migrations-based: explicit numbered scripts give developers full control over what runs</li>
+                <li>Deep Azure DevOps integration: database deployments as pipeline steps with approvals</li>
+                <li>Completes the database DevOps workflow: source control → test → automated deploy</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="SQL Toolbelt · 2017" data-title="SQL Data Catalog" data-sub="Classify and document sensitive data across SQL Server estates">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · 2017</div><div class="tdm-pn">SQL Data Catalog</div>
+            <div class="tdm-why">Discover, classify, and document sensitive columns across SQL Server estates. Built for GDPR — know what PII you hold, where it lives, and who has access to it.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Data Catalog turns the compliance question "where is our sensitive data?" from a manual spreadsheet exercise into an automated, continuously-maintained inventory. It scans SQL Server databases, surfaces likely-sensitive columns, and lets teams apply classification tags that drive downstream masking rules.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Enterprise and compliance-focused — most relevant for regulated industries</li>
+                <li>Classification output feeds directly into SQL Data Masker for automated, policy-driven masking</li>
+                <li>Audit-ready documentation of sensitive data holdings for GDPR, HIPAA, PCI DSS</li>
+                <li>Teams managing large SQL Server estates with many databases benefit most</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2017</div>
+        </div>
+
+        <div class="end-cap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
        MODAL
   ═══════════════════════════════════════════ -->
   <div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
@@ -1307,9 +1688,10 @@
     function getOrInit(tab) {
       if (timelines[tab]) return timelines[tab];
       const map = {
-        company: ['company-container', 'company-track', 'company-prog'],
-        tdm:     ['tdm-container',     'tdm-track',     'tdm-prog'],
-        flyway:  ['flyway-container',  'flyway-track',  'flyway-prog'],
+        company:  ['company-container',  'company-track',  'company-prog'],
+        tdm:      ['tdm-container',      'tdm-track',      'tdm-prog'],
+        flyway:   ['flyway-container',   'flyway-track',   'flyway-prog'],
+        toolbelt: ['toolbelt-container', 'toolbelt-track', 'toolbelt-prog'],
       };
       return (timelines[tab] = new Timeline(...map[tab]));
     }
