@@ -1000,19 +1000,20 @@
             <div class="tdm-sn">Stage 05</div><div class="tdm-pn">Redgate Clone</div><div class="tdm-per">c. 2021 – 2022</div>
             <div class="tdm-why">A rebuild from scratch — container-based database virtualisation using Docker. Fast, cloud-friendly, no longer tied to Windows storage APIs. Opened the door to multi-platform support.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-my">MySQL</span><span class="db db-ora">Oracle</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Cloning alone still isn't the full picture. Customers needed masking, provisioning automation, and governance.</span></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Installation required Spoon containerisation and Kubernetes clusters — infrastructure most customers didn't have or couldn't operate. Cloning alone also left masking and governance unsolved.</span></div>
             <template class="card-detail">
-              <p>Redgate Clone was a complete architectural rethink. Rather than using Windows VHD virtualisation, it used Docker-based database containers. A "clone" was a new container spun from a base image, using filesystem-level copy-on-write at the container layer. The result was cross-platform, cloud-native, and not dependent on Windows storage APIs.</p>
-              <p>This architectural shift unlocked multi-platform support: SQL Server running in a container looks the same to Redgate Clone as PostgreSQL, MySQL, or Oracle running in a container. The platform abstraction was now handled by Docker, not the OS.</p>
-              <h4>Why the rebuild was worth it</h4>
+              <p>Redgate Clone was a complete architectural rethink. Rather than using Windows VHD virtualisation, it used container-based database virtualisation built on Spoon technology, deployable via Kubernetes clusters. A "clone" was a new container spun from a base image — cross-platform, cloud-native, and no longer tied to Windows storage APIs.</p>
+              <p>This architectural shift unlocked genuine multi-platform support: SQL Server, PostgreSQL, MySQL, and Oracle could all be cloned through the same mechanism. The platform abstraction was now handled at the container layer, not the OS.</p>
+              <h4>The installation problem</h4>
+              <p>The technology worked — but getting there was a significant undertaking. Redgate Clone required customers to provision and manage Kubernetes clusters just to run it, and the underlying Spoon containerisation layer added further complexity that most database teams hadn't encountered before.</p>
               <ul>
-                <li>Works on Linux, macOS, and Windows — wherever Docker runs</li>
-                <li>Multi-database support unlocked: SQL Server, PostgreSQL, MySQL, and Oracle</li>
-                <li>Cloud-native: runs in Kubernetes, integrates with cloud CI/CD pipelines</li>
-                <li>Same speed advantage as SQL Clone: new database instance in seconds</li>
-                <li>REST API first — designed for automation from the ground up</li>
+                <li>Kubernetes cluster required for deployment — a high bar for teams without dedicated platform engineering</li>
+                <li>Spoon-based containerisation was unfamiliar technology outside specialist DevOps teams</li>
+                <li>Many customers had the problem Redgate Clone solved but not the infrastructure to run it</li>
+                <li>Installation complexity meant the product rarely reached the developers it was designed for</li>
+                <li>Support burden was high — troubleshooting Kubernetes networking and container configuration was outside Redgate's core expertise</li>
               </ul>
-              <p>The remaining gap: Redgate Clone was still a cloning tool. Masking, governance, and the full provisioning workflow still needed to be addressed in a unified platform.</p>
+              <p>The gap between what Redgate Clone promised and what customers could actually deploy pointed directly toward the need for a fully managed, platform-level solution — the foundation for Test Data Manager.</p>
             </template>
           </div></div>
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2021</div>
@@ -1020,7 +1021,7 @@
 
         <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Cloning is one capability in a much larger need. Teams wanted a single platform — not a tool that leaves masking and governance to someone else."</div></div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"The technology was right but the installation was too hard. Most customers couldn't run Kubernetes just to get a clone. And cloning alone still wasn't the full answer."</div></div>
           </div>
         </div>
 
