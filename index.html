@@ -311,6 +311,174 @@
     .tb-div-lbl  { font-size:.6rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:.3rem }
     .tb-div-txt  { font-size:.72rem; color:var(--muted); line-height:1.55 }
 
+    /* ── LAYOUT TOGGLE ────────────────────────── */
+    .layout-btn {
+      width:36px; height:36px; border-radius:9px; border:1px solid var(--bd2);
+      background:var(--s2); color:var(--muted); cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; transition:all .2s;
+    }
+    .layout-btn:hover { color:var(--text); background:var(--s3) }
+    .layout-btn svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round }
+    .icon-vert  { display:none }
+    .icon-horiz { display:block }
+    html.vertical .icon-vert  { display:block }
+    html.vertical .icon-horiz { display:none }
+
+    /* Track fade on layout switch */
+    .tl-track { transition:opacity .18s ease }
+
+    /* ═══════════════════════════════════════════
+       VERTICAL LAYOUT MODE
+    ═══════════════════════════════════════════ */
+    html.vertical .tl-container {
+      overflow-y:auto; overflow-x:hidden;
+      scrollbar-width:thin; scrollbar-color:rgba(232,49,42,.3) transparent;
+    }
+    html.vertical .tl-container::-webkit-scrollbar { width:4px }
+    html.vertical .tl-container::-webkit-scrollbar-track { background:transparent }
+    html.vertical .tl-container::-webkit-scrollbar-thumb { background:rgba(232,49,42,.3); border-radius:4px }
+
+    html.vertical .tl-track {
+      flex-direction:column; align-items:stretch;
+      height:auto; min-height:100%; min-width:100%; width:100%;
+      transform:none !important; will-change:auto;
+      padding:2rem 0 6rem;
+    }
+    html.vertical .tl-progress { display:none }
+    html.vertical .tl-hint     { display:none }
+
+    /* Spine — vertical */
+    html.vertical .spine {
+      top:0; bottom:0; left:50%; right:auto;
+      width:2px; height:auto;
+      transform:translateX(-50%);
+      background:linear-gradient(to bottom,transparent 0%,var(--red2) 2%,var(--red) 10%,var(--red) 90%,var(--red2) 98%,transparent 100%);
+    }
+
+    /* Intro node */
+    html.vertical .intro-node {
+      width:100%; height:auto; min-height:200px;
+      display:flex; align-items:center; justify-content:center;
+      padding:2.5rem 0;
+    }
+    html.vertical .intro-inner {
+      position:static; transform:none; left:auto; top:auto;
+      text-align:center; width:auto; max-width:540px;
+    }
+
+    /* Era node */
+    html.vertical .era-node {
+      width:100%; height:auto;
+      display:flex; align-items:center; justify-content:center;
+      padding:2.25rem 0 1.25rem;
+    }
+    html.vertical .era-vline,
+    html.vertical .era-dot,
+    html.vertical .era-bot { display:none }
+    html.vertical .era-top {
+      position:static; transform:none; bottom:auto;
+      text-align:center; white-space:normal;
+    }
+
+    /* Product node — above = card LEFT, below = card RIGHT */
+    html.vertical .prod-node { width:100%; height:190px; flex-shrink:0 }
+
+    html.vertical .prod-node.above .prod-card {
+      position:absolute; right:calc(50% + 26px); left:auto;
+      width:min(360px,calc(50% - 52px));
+      top:50%; transform:translateY(-50%); bottom:auto;
+    }
+    html.vertical .prod-node.above .yr {
+      position:absolute; left:calc(50% + 18px);
+      top:50%; transform:translateY(-50%); right:auto; bottom:auto;
+    }
+    html.vertical .prod-node.above .stub {
+      position:absolute; right:calc(50% + 13px); top:50%;
+      height:1.5px; width:18px; left:auto; bottom:auto;
+      background:linear-gradient(to left,var(--dc,var(--muted)),transparent);
+      transform:translateY(-50%);
+    }
+    html.vertical .prod-node.below .prod-card {
+      position:absolute; left:calc(50% + 26px); right:auto;
+      width:min(360px,calc(50% - 52px));
+      top:50%; transform:translateY(-50%); bottom:auto;
+    }
+    html.vertical .prod-node.below .yr {
+      position:absolute; right:calc(50% + 18px);
+      top:50%; transform:translateY(-50%); left:auto; bottom:auto;
+    }
+    html.vertical .prod-node.below .stub {
+      position:absolute; left:calc(50% + 13px); top:50%;
+      height:1.5px; width:18px; right:auto; bottom:auto;
+      background:linear-gradient(to right,var(--dc,var(--muted)),transparent);
+      transform:translateY(-50%);
+    }
+
+    /* Pivot node — centered */
+    html.vertical .pivot-node {
+      width:100%; height:auto; padding:1rem 0;
+      display:flex; flex-direction:column; align-items:center;
+    }
+    html.vertical .pivot-node .piv-dot {
+      position:static; transform:none; margin:.5rem auto;
+    }
+    html.vertical .pivot-node .piv-card {
+      position:static; transform:none;
+      left:auto; top:auto; bottom:auto;
+      max-width:480px; width:90%; margin:0 auto;
+    }
+
+    /* End cap */
+    html.vertical .end-cap { width:100%; height:2rem }
+
+    /* TDM / Toolbelt nodes — above = card LEFT, below = card RIGHT */
+    html.vertical .tdm-node { width:100%; height:290px; flex-shrink:0 }
+
+    html.vertical .tdm-node.above .tdm-card {
+      position:absolute; right:calc(50% + 30px); left:auto;
+      width:min(400px,calc(50% - 58px));
+      top:50%; transform:translateY(-50%); bottom:auto;
+    }
+    html.vertical .tdm-node.above .tdm-yr {
+      left:calc(50% + 20px); top:50%;
+      transform:translateY(-50%); bottom:auto; right:auto;
+    }
+    html.vertical .tdm-node.above .tdm-stub {
+      left:calc(50% + 14px); top:50%;
+      height:1.5px; width:18px;
+      background:linear-gradient(to right,var(--dc,var(--muted)),transparent);
+      transform:translateY(-50%); bottom:auto;
+    }
+    html.vertical .tdm-node.below .tdm-card {
+      position:absolute; left:calc(50% + 30px); right:auto;
+      width:min(400px,calc(50% - 58px));
+      top:50%; transform:translateY(-50%); bottom:auto;
+    }
+    html.vertical .tdm-node.below .tdm-yr {
+      right:calc(50% + 20px); top:50%;
+      transform:translateY(-50%); bottom:auto; left:auto;
+    }
+    html.vertical .tdm-node.below .tdm-stub {
+      right:calc(50% + 14px); top:50%;
+      height:1.5px; width:18px;
+      background:linear-gradient(to left,var(--dc,var(--muted)),transparent);
+      transform:translateY(-50%); bottom:auto; left:auto;
+    }
+
+    /* Transition node */
+    html.vertical .trans-node {
+      width:100%; height:auto; padding:.5rem 0;
+      display:flex; justify-content:center;
+    }
+    html.vertical .trans-in {
+      position:static; transform:none; left:auto;
+      max-width:380px; width:90%;
+      flex-direction:column; align-items:center;
+    }
+    html.vertical .trans-node.above .trans-in,
+    html.vertical .trans-node.below .trans-in { flex-direction:column }
+
     /* ── MODAL ────────────────────────────────── */
     .modal-overlay {
       display:none; position:fixed; inset:0; z-index:600;
@@ -367,6 +535,22 @@
       <button class="tab-btn" data-tab="flyway">Flyway</button>
       <button class="tab-btn" data-tab="toolbelt">SQL Toolbelt/Essentials</button>
     </div>
+    <button class="layout-btn" id="layoutBtn" title="Toggle vertical / horizontal layout">
+      <svg class="icon-horiz" viewBox="0 0 16 16">
+        <line x1="1" y1="8" x2="15" y2="8"/>
+        <rect x="2" y="3.5" width="5" height="3" rx="0.7"/>
+        <rect x="9" y="3.5" width="5" height="3" rx="0.7"/>
+        <rect x="2" y="9.5" width="5" height="3" rx="0.7"/>
+        <rect x="9" y="9.5" width="5" height="3" rx="0.7"/>
+      </svg>
+      <svg class="icon-vert" viewBox="0 0 16 16">
+        <line x1="8" y1="1" x2="8" y2="15"/>
+        <rect x="1" y="2.5" width="5.5" height="3" rx="0.7"/>
+        <rect x="1" y="8" width="5.5" height="3" rx="0.7"/>
+        <rect x="9.5" y="2.5" width="5.5" height="3" rx="0.7"/>
+        <rect x="9.5" y="8" width="5.5" height="3" rx="0.7"/>
+      </svg>
+    </button>
     <button class="theme-btn" id="themeBtn" title="Toggle light/dark mode">
       <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
       <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -1810,6 +1994,10 @@
       localStorage.setItem('rg-theme', html.classList.contains('light') ? 'light' : 'dark');
     });
 
+    // ─── Layout state ──────────────────────────
+    let isVertical = localStorage.getItem('rg-layout') === 'vertical';
+    if (isVertical) html.classList.add('vertical');
+
     // ─── Wheel-driven smooth horizontal scroll ─
     class Timeline {
       constructor(containerId, trackId, progId) {
@@ -1819,6 +2007,7 @@
         this.x = 0; this.target = 0; this.maxX = 0; this.raf = null;
 
         this.container.addEventListener('wheel', e => {
+          if (isVertical) return;
           e.preventDefault();
           this.target = Math.max(-this.maxX, Math.min(0, this.target - e.deltaY * 1.4));
           this.kick();
@@ -1827,16 +2016,27 @@
         let tx = 0;
         this.container.addEventListener('touchstart', e => { tx = e.touches[0].clientX }, { passive: true });
         this.container.addEventListener('touchmove',  e => {
+          if (isVertical) return;
           const dx = e.touches[0].clientX - tx;
           tx = e.touches[0].clientX;
           this.target = Math.max(-this.maxX, Math.min(0, this.target + dx));
           this.kick();
         }, { passive: true });
 
+        this.container.addEventListener('scroll', () => {
+          if (isVertical) this.revealCards();
+        }, { passive: true });
+
         window.addEventListener('resize', () => this.measure(), { passive: true });
       }
 
       measure() {
+        if (isVertical) {
+          this.track.style.transform = 'none';
+          if (this.progFill) this.progFill.style.width = '0%';
+          requestAnimationFrame(() => this.revealCards());
+          return;
+        }
         this.maxX   = Math.max(0, this.track.scrollWidth - this.container.clientWidth);
         this.target = Math.max(-this.maxX, this.target);
         this.x      = this.target;
@@ -1848,6 +2048,23 @@
         this.x = 0; this.target = 0;
         this.track.style.transform = 'translateX(0)';
         if (this.progFill) this.progFill.style.width = '0%';
+      }
+
+      enterVertical() {
+        this.x = 0; this.target = 0;
+        this.track.style.transform = 'none';
+        if (this.progFill) this.progFill.style.width = '0%';
+        this.container.scrollTop = 0;
+        requestAnimationFrame(() => this.revealCards());
+      }
+
+      enterHorizontal() {
+        this.container.scrollTop = 0;
+        this.x = 0; this.target = 0;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          this.measure();
+          this.revealCards();
+        }));
       }
 
       kick() { if (!this.raf) this.raf = requestAnimationFrame(() => this.tick()) }
@@ -1867,11 +2084,14 @@
       }
 
       revealCards() {
-        const vw = this.container.clientWidth;
+        const cr = this.container.getBoundingClientRect();
         this.track.querySelectorAll('.prod-card, .piv-card, .tdm-ci').forEach(card => {
           if (card.classList.contains('in')) return;
           const r = card.getBoundingClientRect();
-          if (r.left < vw + 80 && r.right > -80) card.classList.add('in');
+          const visible = isVertical
+            ? (r.top < cr.bottom + 80 && r.bottom > cr.top - 80)
+            : (r.left < cr.right + 80 && r.right > cr.left - 80);
+          if (visible) card.classList.add('in');
         });
       }
     }
@@ -1903,6 +2123,28 @@
 
     document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
     document.getElementById('navBrand').addEventListener('click', e => { e.preventDefault(); switchTab('company'); });
+
+    // ─── Layout toggle ─────────────────────────
+    const layoutBtn = document.getElementById('layoutBtn');
+    layoutBtn.addEventListener('click', () => {
+      const tracks = document.querySelectorAll('.tl-track');
+      tracks.forEach(t => { t.style.opacity = '0' });
+
+      setTimeout(() => {
+        isVertical = !isVertical;
+        html.classList.toggle('vertical', isVertical);
+        localStorage.setItem('rg-layout', isVertical ? 'vertical' : 'horizontal');
+
+        Object.values(timelines).forEach(tl => {
+          if (isVertical) tl.enterVertical();
+          else tl.enterHorizontal();
+        });
+
+        requestAnimationFrame(() => {
+          tracks.forEach(t => { t.style.opacity = '1' });
+        });
+      }, 180);
+    });
 
     // ─── Modal ─────────────────────────────────
     const modal      = document.getElementById('modal');
