@@ -143,6 +143,43 @@ Ultimate monitoring and administration solutions for SharePoint and Office 365.
 
 ---
 
+---
+
+## SQL Toolbelt Essentials
+
+Source: red-gate.com/products/sql-toolbelt-essentials · Retrieved 2026-04-29
+
+**Tagline:** AI-augmented SQL Server development for database teams, from schema design to safe deployment.
+
+**Platform:** SQL Server
+
+**Positioning:** A curated bundle of 11 tools covering the full SQL Server development lifecycle — design, develop, version control, test, and deploy. Positioned as the essential starting point for any SQL Server team.
+
+### Included Tools
+
+| Tool | Purpose |
+|------|---------|
+| Redgate Data Modeler | Visual, collaborative database schema design |
+| SQL Compare Pro | Schema comparison and synchronisation |
+| SQL Data Compare Pro | Row-level data comparison and synchronisation |
+| SQL Data Generator | Generate realistic test data |
+| SQL Dependency Tracker | Visualise object dependencies |
+| SQL Doc | Auto-generate database documentation |
+| SQL Multi Script | Execute scripts across multiple servers simultaneously |
+| SQL Prompt | IntelliSense-style autocompletion and formatting inside SSMS |
+| SQL Search | Full-text search across SQL Server objects (free) |
+| SQL Source Control | Connect SQL Server databases to Git |
+| SQL Test | Automated unit testing built on tSQLt |
+
+### Key Differentiators
+
+- AI-augmented SQL writing via SQL Prompt
+- Covers the full lifecycle: design → develop → version control → test → deploy
+- All tools work inside SSMS or as standalone applications
+- SQL Search included free
+
+---
+
 ## Notes
 
 - No products were labeled as **"New"** on the page at the time of retrieval.
