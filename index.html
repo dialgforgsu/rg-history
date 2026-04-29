@@ -1251,23 +1251,16 @@
           <div class="intro-inner">
             <div class="intro-kick">Product Bundles</div>
             <div class="intro-title">The SQL<br><span class="accent">Toolbelt</span></div>
-            <div class="intro-sub">Redgate's curated bundles of SQL Server tools — designed so teams could get everything they need without buying tool by tool.</div>
+            <div class="intro-sub">15 tools in chronological order. Teal = SQL Toolbelt Essentials. Blue/gold/purple = full Toolbelt only. Click any card to learn more.</div>
             <div class="intro-meta">
-              <span class="intro-pill hot">Essentials</span>
+              <span class="intro-pill hot" style="color:var(--teal);border-color:rgba(0,201,167,.3);background:rgba(0,201,167,.08)">Essentials</span>
               <span class="intro-pill">Full Toolbelt</span>
-              <span class="intro-pill">6 core tools → 15+</span>
+              <span class="intro-pill">1999 – 2017</span>
             </div>
           </div>
         </div>
 
-        <!-- ── SQL TOOLBELT ESSENTIALS ── -->
-        <div class="era-node" style="color:var(--teal)">
-          <div class="era-vline"></div>
-          <div class="era-top"><div class="era-chip" style="font-size:.55rem">Essentials</div><div class="era-name">SQL Toolbelt Essentials</div><div class="era-yrs">Core developer tools</div></div>
-          <div class="era-dot"></div>
-          <div class="era-bot">The everyday essentials for every SQL Server developer.</div>
-        </div>
-
+        <!-- 1 · SQL Compare · 1999 · Essentials -->
         <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
              data-eyebrow="SQL Toolbelt Essentials · 1999" data-title="SQL Compare" data-sub="Schema comparison and synchronisation — the tool that started it all">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1289,6 +1282,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">1999</div>
         </div>
 
+        <!-- 2 · SQL Data Compare · 2001 · Essentials -->
         <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
              data-eyebrow="SQL Toolbelt Essentials · 2001" data-title="SQL Data Compare" data-sub="Row-level data comparison and synchronisation across SQL Server databases">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1309,6 +1303,47 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2001</div>
         </div>
 
+        <!-- 3 · ANTS Performance Profiler · 2002 · Toolbelt -->
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="SQL Toolbelt · 2002" data-title="ANTS Performance Profiler" data-sub="Line-level performance profiling for .NET applications">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · 2002</div><div class="tdm-pn">ANTS Performance Profiler</div>
+            <div class="tdm-why">Find performance bottlenecks in .NET applications with line-level timing data and call-tree visualisation — no manual instrumentation required.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>ANTS Performance Profiler shows exactly which lines of .NET code are slow and how much time is spent in each method — replacing guesswork with data. It's the specialist tool for teams who need to go beyond SQL Server tooling into application performance.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Most SQL Server teams don't need .NET profiling tools day-to-day — hence Toolbelt-only</li>
+                <li>For full-stack teams who own both the database and the application, it's invaluable</li>
+                <li>Includes SQL query performance data alongside .NET method timing — bridge between app and DB</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2002</div>
+        </div>
+
+        <!-- 4 · ANTS Memory Profiler · 2004 · Toolbelt -->
+        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="SQL Toolbelt · 2004" data-title="ANTS Memory Profiler" data-sub="Memory leak detection and heap analysis for .NET applications">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Toolbelt · 2004</div><div class="tdm-pn">ANTS Memory Profiler</div>
+            <div class="tdm-why">Track down memory leaks in .NET applications with heap snapshots, object reference graphs, and allocation tracking. Pairs with ANTS Performance Profiler for complete .NET diagnostics.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>Memory leaks in .NET are notoriously difficult to find without tooling. ANTS Memory Profiler provides heap snapshots that show exactly what's in memory, how objects reference each other, and what's grown between two points in time.</p>
+              <h4>Toolbelt-only — not in Essentials</h4>
+              <ul>
+                <li>Specialist tool for teams experiencing memory growth or OutOfMemoryException issues</li>
+                <li>Snapshot comparison isolates what appeared between two points in time</li>
+                <li>Generation analysis identifies objects surviving GC collections unnecessarily</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2004</div>
+        </div>
+
+        <!-- 5 · SQL Prompt · 2006 · Essentials -->
         <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
              data-eyebrow="SQL Toolbelt Essentials · 2006" data-title="SQL Prompt" data-sub="IntelliSense-style autocompletion, formatting, and snippets inside SSMS">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1329,6 +1364,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2006</div>
         </div>
 
+        <!-- 6 · SQL Doc · ~2006 · Essentials -->
         <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
              data-eyebrow="SQL Toolbelt Essentials · ~2006" data-title="SQL Doc" data-sub="Auto-generate comprehensive documentation for SQL Server databases">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1349,103 +1385,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2006</div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
-             data-eyebrow="SQL Toolbelt Essentials · 2010" data-title="SQL Source Control" data-sub="Version control for SQL Server schemas — Git integration inside SSMS">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Essentials · 2010</div><div class="tdm-pn">SQL Source Control</div>
-            <div class="tdm-why">Version-control SQL Server schemas directly from SSMS. Every schema change tracked, attributed, and reversible — the missing link between databases and modern engineering workflows.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
-            <template class="card-detail">
-              <p>SQL Source Control brought databases into the Git era. Schema changes are committed, branched, and reviewed the same way application code is — removing the "the database is different and we don't know why" problem that every SQL Server team had.</p>
-              <h4>Why it's in Essentials</h4>
-              <ul>
-                <li>The foundation for database DevOps — you can't automate what you can't track</li>
-                <li>Full history of every schema change: who changed what, when, and in which branch</li>
-                <li>Code reviews can now include database object changes alongside application code</li>
-                <li>Pairs directly with SQL Compare to deploy source-controlled changes to any environment</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2010</div>
-        </div>
-
-        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
-             data-eyebrow="SQL Toolbelt Essentials · ~2010 · Free" data-title="SQL Search" data-sub="Free full-text search across SQL Server objects inside SSMS">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Essentials · ~2010 · Free</div><div class="tdm-pn">SQL Search</div>
-            <div class="tdm-why">Search for text in stored procedures, views, functions, and jobs across SQL Server databases — instantly, from inside SSMS. A free tool bundled into Essentials.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-free">Free</span></div>
-            <template class="card-detail">
-              <p>SQL Search solves a simple but maddening problem: finding all the places a table, column, or string is referenced across your database. SSMS's native search barely exists. SQL Search does it instantly across every object in every database on the server.</p>
-              <h4>Why it's in Essentials</h4>
-              <ul>
-                <li>Free — no licence cost, easy to adopt across an entire team</li>
-                <li>Searches procedure bodies, view definitions, job steps, and trigger code</li>
-                <li>Essential for impact analysis: "if I change this column, what breaks?"</li>
-                <li>Great entry point for developers new to Redgate's tools</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2010</div>
-        </div>
-
-        <!-- Divider: Essentials → Full Toolbelt -->
-        <div class="tb-divider below">
-          <div class="tb-div-in">
-            <div class="tb-div-arr">→</div>
-            <div class="tb-div-box">
-              <div class="tb-div-lbl">SQL Toolbelt adds</div>
-              <div class="tb-div-txt">The full Toolbelt extends Essentials with deeper specialist tools — monitoring, testing, performance, .NET, backup, data masking, and CI/CD.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── SQL TOOLBELT (additional tools) ── -->
-        <div class="era-node" style="color:var(--blue)">
-          <div class="era-vline"></div>
-          <div class="era-top"><div class="era-chip" style="font-size:.55rem">Full Bundle</div><div class="era-name">SQL Toolbelt</div><div class="era-yrs">All tools included</div></div>
-          <div class="era-dot"></div>
-          <div class="era-bot">Everything in Essentials, plus the specialist tools.</div>
-        </div>
-
-        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
-             data-eyebrow="SQL Toolbelt · 2002" data-title="ANTS Performance Profiler" data-sub="Line-level performance profiling for .NET applications">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Toolbelt · 2002</div><div class="tdm-pn">ANTS Performance Profiler</div>
-            <div class="tdm-why">Find performance bottlenecks in .NET applications with line-level timing data and call-tree visualisation — no manual instrumentation required.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
-            <template class="card-detail">
-              <p>ANTS Performance Profiler shows exactly which lines of .NET code are slow and how much time is spent in each method — replacing guesswork with data. It's the specialist tool for teams who need to go beyond SQL Server tooling into application performance.</p>
-              <h4>Toolbelt-only — not in Essentials</h4>
-              <ul>
-                <li>Most SQL Server teams don't need .NET profiling tools day-to-day — hence Toolbelt-only</li>
-                <li>For full-stack teams who own both the database and the application, it's invaluable</li>
-                <li>Includes SQL query performance data alongside .NET method timing — bridge between app and DB</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2002</div>
-        </div>
-
-        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
-             data-eyebrow="SQL Toolbelt · 2004" data-title="ANTS Memory Profiler" data-sub="Memory leak detection and heap analysis for .NET applications">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Toolbelt · 2004</div><div class="tdm-pn">ANTS Memory Profiler</div>
-            <div class="tdm-why">Track down memory leaks in .NET applications with heap snapshots, object reference graphs, and allocation tracking. Pairs with ANTS Performance Profiler for complete .NET diagnostics.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
-            <template class="card-detail">
-              <p>Memory leaks in .NET are notoriously difficult to find without tooling. ANTS Memory Profiler provides heap snapshots that show exactly what's in memory, how objects reference each other, and what's grown between two points in time.</p>
-              <h4>Toolbelt-only — not in Essentials</h4>
-              <ul>
-                <li>Specialist tool for teams experiencing memory growth or OutOfMemoryException issues</li>
-                <li>Snapshot comparison isolates what appeared between two points in time</li>
-                <li>Generation analysis identifies objects surviving GC collections unnecessarily</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2004</div>
-        </div>
-
+        <!-- 7 · SQL Backup Pro · ~2007 · Toolbelt -->
         <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
              data-eyebrow="SQL Toolbelt · ~2007" data-title="SQL Backup Pro" data-sub="Fast, compressed SQL Server backups with encryption and verification">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1466,6 +1406,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2007</div>
         </div>
 
+        <!-- 8 · .NET Reflector · 2008 · Toolbelt -->
         <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
              data-eyebrow="SQL Toolbelt · 2008 · Acquisition" data-title=".NET Reflector" data-sub="The de-facto .NET decompiler — decompile any .NET assembly to readable code">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1486,6 +1427,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2008</div>
         </div>
 
+        <!-- 9 · SQL Monitor · 2009 · Toolbelt -->
         <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
              data-eyebrow="SQL Toolbelt · 2009" data-title="SQL Monitor" data-sub="Real-time SQL Server estate monitoring, alerting, and performance history">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1506,6 +1448,49 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2009</div>
         </div>
 
+        <!-- 10 · SQL Source Control · 2010 · Essentials -->
+        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · 2010" data-title="SQL Source Control" data-sub="Version control for SQL Server schemas — Git integration inside SSMS">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · 2010</div><div class="tdm-pn">SQL Source Control</div>
+            <div class="tdm-why">Version-control SQL Server schemas directly from SSMS. Every schema change tracked, attributed, and reversible — the missing link between databases and modern engineering workflows.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Source Control brought databases into the Git era. Schema changes are committed, branched, and reviewed the same way application code is — removing the "the database is different and we don't know why" problem that every SQL Server team had.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>The foundation for database DevOps — you can't automate what you can't track</li>
+                <li>Full history of every schema change: who changed what, when, and in which branch</li>
+                <li>Code reviews can now include database object changes alongside application code</li>
+                <li>Pairs directly with SQL Compare to deploy source-controlled changes to any environment</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2010</div>
+        </div>
+
+        <!-- 11 · SQL Search · ~2010 · Essentials / Free -->
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · ~2010 · Free" data-title="SQL Search" data-sub="Free full-text search across SQL Server objects inside SSMS">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · ~2010 · Free</div><div class="tdm-pn">SQL Search</div>
+            <div class="tdm-why">Search for text in stored procedures, views, functions, and jobs across SQL Server databases — instantly, from inside SSMS. A free tool bundled into Essentials.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-free">Free</span></div>
+            <template class="card-detail">
+              <p>SQL Search solves a simple but maddening problem: finding all the places a table, column, or string is referenced across your database. SSMS's native search barely exists. SQL Search does it instantly across every object in every database on the server.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>Free — no licence cost, easy to adopt across an entire team</li>
+                <li>Searches procedure bodies, view definitions, job steps, and trigger code</li>
+                <li>Essential for impact analysis: "if I change this column, what breaks?"</li>
+                <li>Great entry point for developers new to Redgate's tools</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2010</div>
+        </div>
+
+        <!-- 12 · SQL Test · 2011 · Toolbelt -->
         <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
              data-eyebrow="SQL Toolbelt · 2011" data-title="SQL Test" data-sub="Automated unit testing for SQL Server databases, built on tSQLt">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1526,6 +1511,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2011</div>
         </div>
 
+        <!-- 13 · SQL Data Masker · ~2014 · Toolbelt -->
         <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
              data-eyebrow="SQL Toolbelt · ~2014" data-title="SQL Data Masker" data-sub="Mask and anonymise sensitive production data for safe use in non-production environments">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1546,6 +1532,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
         </div>
 
+        <!-- 14 · SQL Change Automation · ~2015 · Toolbelt -->
         <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
              data-eyebrow="SQL Toolbelt · ~2015 · Acquisition" data-title="SQL Change Automation" data-sub="Migrations-based CI/CD for SQL Server — formerly ReadyRoll">
           <div class="tdm-card"><div class="tdm-ci">
@@ -1566,6 +1553,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
         </div>
 
+        <!-- 15 · SQL Data Catalog · 2017 · Toolbelt -->
         <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
              data-eyebrow="SQL Toolbelt · 2017" data-title="SQL Data Catalog" data-sub="Classify and document sensitive data across SQL Server estates">
           <div class="tdm-card"><div class="tdm-ci">
