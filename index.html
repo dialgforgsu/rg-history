@@ -492,21 +492,36 @@
     .bundles-title  { font-size:clamp(1.4rem,3vw,2rem); font-weight:900; letter-spacing:-.04em; margin-bottom:.5rem }
     .bundles-sub    { font-size:.82rem; color:var(--muted); line-height:1.65 }
     .bundles-meta   { display:flex; justify-content:center; gap:.5rem; margin-top:1rem; flex-wrap:wrap }
+    .bundles-filter-bar { display:flex; justify-content:center; gap:.5rem; margin-bottom:2rem; flex-wrap:wrap }
+    .filter-btn {
+      padding:.32rem .9rem; border-radius:100px; font-size:.68rem; font-weight:700;
+      letter-spacing:.06em; text-transform:uppercase; border:1px solid var(--bd2);
+      background:transparent; color:var(--muted); cursor:pointer; transition:all .2s;
+    }
+    .filter-btn:hover { border-color:var(--red); color:var(--text) }
+    .filter-btn.active { background:rgba(232,49,42,.12); border-color:rgba(232,49,42,.4); color:var(--red) }
     .bundles-section-label {
       font-size:.65rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase;
       color:var(--red); margin:0 auto 1rem; max-width:1400px;
-      display:flex; align-items:center; gap:.75rem;
+      display:flex; align-items:center; gap:.75rem; cursor:pointer; user-select:none;
     }
     .bundles-section-label::before,
     .bundles-section-label::after { content:''; flex:1; height:1px; background:var(--bd2); max-width:200px }
+    .bundles-section-label .sec-chevron {
+      font-size:.7rem; opacity:.6; transition:transform .25s; display:inline-block;
+    }
+    .bundles-section-label.collapsed .sec-chevron { transform:rotate(-90deg) }
     .bundle-grid {
       display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
       gap:1rem; max-width:1400px; margin:0 auto 2.5rem;
+      overflow:hidden; transition:opacity .2s;
     }
+    .bundle-grid.collapsed { display:none }
     .bundle-card {
       background:var(--s1); border:1px solid var(--bd); border-radius:14px;
       padding:1.25rem 1.4rem; transition:background .3s, border-color .3s;
     }
+    .bundle-card.b-hidden { display:none }
     .bundle-head { margin-bottom:.9rem }
     .bundle-name { font-size:.9rem; font-weight:800; letter-spacing:-.02em; margin-bottom:.35rem }
     .bundle-period {
@@ -525,8 +540,15 @@
     }
     .bundle-table tbody tr:last-child td { border-bottom:none }
     .bundle-table td:first-child { color:var(--text); font-weight:500; width:58% }
-    .bundle-table .ended td { color:var(--dim) }
-    .bundle-table .ended td:first-child { text-decoration:line-through; text-decoration-color:var(--dim) }
+    .bundle-table .ended td { color:var(--dim); opacity:.65 }
+    .bundle-table .ended td:first-child {
+      text-decoration:line-through; text-decoration-color:rgba(180,60,60,.45);
+      padding-left:1.3rem; position:relative;
+    }
+    .bundle-table .ended td:first-child::before {
+      content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
+      width:3px; height:65%; background:rgba(200,60,60,.35); border-radius:2px;
+    }
 
     /* ── MODAL ────────────────────────────────── */
     .modal-overlay {
@@ -627,7 +649,7 @@
             <div class="intro-sub">Every product Redgate shipped was a response to a real problem. This is the story of those decisions — and why they were made.</div>
             <div class="intro-meta">
               <span class="intro-pill hot">25+ years</span>
-              <span class="intro-pill">20+ products</span>
+              <span class="intro-pill">30+ products</span>
               <span class="intro-pill">4 major pivots</span>
             </div>
           </div>
@@ -726,7 +748,28 @@
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2004</div>
         </div>
 
-        <!-- PIVOT 1: previous card was "below", so pivot goes below -->
+        <div class="prod-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Era 01 · ~2004" data-title="SmartAssembly" data-sub=".NET obfuscation, error reporting, and assembly protection">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🔒</div><div><div class="pc-name">SmartAssembly</div><div class="pc-tag">.NET protection</div></div></div>
+            <div class="pc-desc">Protect .NET assemblies from reverse engineering with obfuscation, tamper detection, and automated error reporting. Redgate's first .NET security tool.</div>
+            <div class="pc-foot"><span class="tag">.NET</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SmartAssembly protects .NET applications from reverse engineering and tampering. It obfuscates IL code, renames symbols to meaningless names, and adds tamper detection — making it significantly harder for competitors or attackers to decompile and understand a .NET assembly.</p>
+              <p>Beyond obfuscation, SmartAssembly includes automated error reporting: unhandled exceptions in the protected app are caught and reported back to the developer, giving production visibility without requiring customers to file bug reports.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>Control flow obfuscation and symbol renaming to resist decompilation</li>
+                <li>Tamper detection that detects assembly modification at runtime</li>
+                <li>Automated exception reporting from production deployments</li>
+                <li>Dependency merging — combine multiple assemblies into one protected DLL</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2004</div>
+        </div>
+
+        <!-- PIVOT 1 -->
         <div class="pivot-node below"
              data-eyebrow="Strategic Pivot · 2006" data-title="Individual tools aren't enough" data-sub="The move from utilities to an integrated developer suite">
           <div class="piv-card">
@@ -808,7 +851,7 @@
             <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
             <template class="card-detail">
               <p>SQL Backup Pro addressed a practical, daily pain for SQL Server DBAs: native SQL Server backups were slow, large, and unencrypted. SQL Backup Pro wrapped the backup process with compression, encryption, and integrity verification — making backup windows shorter and storage footprints smaller.</p>
-              <p>Part of the SQL Toolbelt bundle. Also forms Stage 01 of the TDM evolution story — for years it was the only way teams could get a copy of a production database into a test environment.</p>
+              <p>Part of the SQL Toolbelt bundle. For years it was the standard way teams got a copy of a production database into a test environment — a technique that forms the backdrop to the TDM evolution story.</p>
               <h4>Core capabilities</h4>
               <ul>
                 <li>Compressed backups — significantly smaller than native SQL Server backup files</li>
@@ -907,6 +950,48 @@
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2010</div>
         </div>
 
+        <div class="prod-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Era 02 · ~2006" data-title="SQL Data Generator" data-sub="Generate realistic test data for SQL Server — without writing scripts">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🎲</div><div><div class="pc-name">SQL Data Generator</div><div class="pc-tag">Realistic test data</div></div></div>
+            <div class="pc-desc">Populate SQL Server databases with realistic test data using configurable generators — names, emails, dates, amounts — without writing INSERT scripts by hand.</div>
+            <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Data Generator removes the tedious, error-prone task of writing INSERT scripts to populate test databases. It provides a library of realistic data generators — names, email addresses, phone numbers, monetary amounts, dates — that can be configured per-column and run against any SQL Server database.</p>
+              <p>Part of the SQL Toolbelt bundle. Particularly useful alongside SQL Data Compare and SQL Clone for teams that need consistent, realistic data in non-production environments without copying sensitive production data.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>50+ built-in generators for common data types: names, addresses, emails, dates, amounts</li>
+                <li>Regex-based generators for custom formats</li>
+                <li>Respects referential integrity — foreign key columns get matching values automatically</li>
+                <li>Save and share generator configurations for consistent test data across the team</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2006</div>
+        </div>
+
+        <div class="prod-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Era 02 · ~2007" data-title="SQL Dependency Tracker" data-sub="Visualise and explore SQL Server object dependencies">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🕸️</div><div><div class="pc-name">SQL Dependency Tracker</div><div class="pc-tag">Dependency mapping</div></div></div>
+            <div class="pc-desc">Map and visualise dependencies between SQL Server objects — stored procedures, views, tables, and functions. Understand the blast radius of any schema change before making it.</div>
+            <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Dependency Tracker solves the "what will break?" question that precedes any significant schema change. It builds a complete dependency graph of all SQL Server objects — tables, views, procedures, functions, synonyms — and lets you explore what depends on what, interactively.</p>
+              <p>Before making a schema change, a developer can trace exactly which objects reference the object being changed, and which objects those reference in turn — turning a risky blind change into an informed decision.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>Interactive dependency graph with drill-down navigation</li>
+                <li>Cross-database dependency tracking across multiple databases on the same server</li>
+                <li>Impact analysis: highlight everything affected by a proposed change</li>
+                <li>Export dependency maps for documentation and review</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2007</div>
+        </div>
+
         <!-- PIVOT 2 -->
         <div class="pivot-node below"
              data-eyebrow="Strategic Pivot · 2011" data-title="Databases got left behind in DevOps" data-sub="Completing the CI/CD story for data teams">
@@ -975,7 +1060,7 @@
                 <li>Realistic substitution — fake data passes validation rules and looks plausible in test UIs</li>
                 <li>Repeatable masking — same input always produces same output for regression test consistency</li>
                 <li>Rule-based configuration saved and re-applied on each data refresh cycle</li>
-                <li>Supports SQL Server — also forms Stage 03 of the TDM evolution story</li>
+                <li>Supports SQL Server — also appears as Stage 02 in the TDM evolution story</li>
               </ul>
             </template>
           </div>
@@ -1187,7 +1272,7 @@
               <p>TDM focuses on masking, subsetting, and governance — making production data safe and realistic for testing. It is a separate product from SQL Clone: SQL Clone handles the virtual copy provisioning (spinning up a writable database image in seconds), while TDM handles what goes into those copies. The two tools complement each other — masked and subsetted data prepared by TDM can be placed onto a clone spun up by SQL Clone, but neither product requires the other.</p>
               <h4>Full story on the TDM tab</h4>
               <ul>
-                <li>6 stages of evolution across SQL Server, PostgreSQL, Oracle, and MySQL</li>
+                <li>5 stages of evolution across SQL Server, PostgreSQL, Oracle, and MySQL</li>
                 <li>Masking + subsetting + governance in a single platform</li>
                 <li>Built-in classification engine — no separate tool required to discover sensitive data</li>
                 <li>Works alongside SQL Clone — but is a fully independent product</li>
@@ -1219,6 +1304,109 @@
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2023</div>
         </div>
 
+        <div class="prod-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Era 04 · Oracle Expansion" data-title="Schema Compare for Oracle" data-sub="Schema comparison and synchronisation for Oracle databases">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🔍</div><div><div class="pc-name">Schema Compare for Oracle</div><div class="pc-tag">Oracle tooling</div></div></div>
+            <div class="pc-desc">The SQL Compare experience — compare schema differences and generate synchronisation scripts — applied to Oracle databases. Redgate's SQL Server playbook ported to a new platform.</div>
+            <div class="pc-foot"><span class="tag">Oracle</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>Schema Compare for Oracle brings the same compare-and-sync workflow that SQL Compare established for SQL Server teams — visual schema diff, automated synchronisation script generation — to Oracle database environments.</p>
+              <p>This product is part of Redgate's Oracle tooling expansion, allowing Oracle teams to use the same trusted comparison approach that SQL Server DBAs have relied on for over two decades.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>Compare Oracle schemas across instances and generate change scripts</li>
+                <li>Deploy differences with confidence using the same model as SQL Compare</li>
+                <li>Integrated with Oracle's DDL model including packages, procedures, and triggers</li>
+                <li>Part of Redgate's cross-platform comparison suite alongside SQL Compare</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">Recent</div>
+        </div>
+
+        <div class="prod-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Era 04 · Oracle Expansion" data-title="Source Control for Oracle" data-sub="Version control for Oracle schemas — bringing Oracle into the DevOps era">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🌿</div><div><div class="pc-name">Source Control for Oracle</div><div class="pc-tag">Oracle in Git</div></div></div>
+            <div class="pc-desc">Version-control Oracle schemas in Git — the SQL Source Control experience applied to Oracle. Full schema history, branching, and code reviews for Oracle development teams.</div>
+            <div class="pc-foot"><span class="tag">Oracle</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>Source Control for Oracle brings Oracle database schemas into version control — the same transformation SQL Source Control achieved for SQL Server in 2010. Oracle teams can now commit schema changes to Git, review them alongside application code, and build the historical audit trail that modern engineering practices require.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>Commit Oracle schema objects to Git directly — packages, procedures, tables, views</li>
+                <li>Full change history with attribution and commit messages</li>
+                <li>Branch-and-merge workflows for parallel Oracle development</li>
+                <li>Code reviews can now include Oracle DDL changes alongside application code</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">Recent</div>
+        </div>
+
+        <div class="prod-node above" style="--dc:var(--blue);--dg:rgba(111,168,220,.35)"
+             data-eyebrow="Era 04 · PostgreSQL Expansion" data-title="Redgate pgCompare" data-sub="Schema and data comparison for PostgreSQL">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🐘</div><div><div class="pc-name">Redgate pgCompare</div><div class="pc-tag">PostgreSQL comparison</div></div></div>
+            <div class="pc-desc">Compare PostgreSQL schemas and data — Redgate's comparison expertise extended to the world's fastest-growing open-source database platform.</div>
+            <div class="pc-foot"><span class="tag">PostgreSQL</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>Redgate pgCompare brings Redgate's schema and data comparison capabilities to PostgreSQL — the database platform that has seen the fastest growth in cloud-native and startup stacks over the past decade.</p>
+              <p>As teams running heterogeneous database estates increasingly include PostgreSQL alongside SQL Server, having the same comparison workflow available for both platforms removes friction and builds on existing Redgate muscle memory.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>Compare PostgreSQL database schemas visually and generate sync scripts</li>
+                <li>Row-level data comparison alongside schema comparison</li>
+                <li>Supports cloud-hosted PostgreSQL including Amazon RDS and Azure Database for PostgreSQL</li>
+                <li>Extends the SQL Compare experience to teams running PostgreSQL</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">Recent</div>
+        </div>
+
+        <div class="prod-node below" style="--dc:var(--blue);--dg:rgba(111,168,220,.35)"
+             data-eyebrow="Era 04 · PostgreSQL Expansion" data-title="Redgate pgNow" data-sub="Point-in-time diagnostics for PostgreSQL performance">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">⚡</div><div><div class="pc-name">Redgate pgNow</div><div class="pc-tag">PostgreSQL diagnostics</div></div></div>
+            <div class="pc-desc">Real-time, point-in-time diagnostics for PostgreSQL — a lightweight performance diagnostic tool for teams who need instant insight without a full monitoring stack.</div>
+            <div class="pc-foot"><span class="tag">PostgreSQL</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>Redgate pgNow provides immediate point-in-time visibility into a PostgreSQL instance — what's running, what's blocking, where time is being spent — without requiring the full infrastructure of Redgate Monitor. It's designed for the "something is slow right now" diagnostic use case.</p>
+              <p>Part of Redgate's growing PostgreSQL tooling suite alongside Redgate pgCompare, it reflects the strategic investment in PostgreSQL as a first-class platform for Redgate's developer tools.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>Instant visibility into active PostgreSQL queries and wait events</li>
+                <li>Blocking session analysis and lock chain visualisation</li>
+                <li>No persistent monitoring agent required — connect and diagnose on demand</li>
+                <li>Lightweight complement to Redgate Monitor for ad-hoc performance investigation</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">Recent</div>
+        </div>
+
+        <div class="prod-node above" style="--dc:var(--gold);--dg:rgba(242,145,17,.3)"
+             data-eyebrow="Era 04 · MySQL Expansion" data-title="Schema Compare for MySQL" data-sub="Schema comparison and deployment for MySQL databases">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🐬</div><div><div class="pc-name">Schema Compare for MySQL</div><div class="pc-tag">MySQL tooling</div></div></div>
+            <div class="pc-desc">Compare MySQL schemas and generate synchronisation scripts — Redgate's comparison playbook applied to MySQL, the database powering much of the web.</div>
+            <div class="pc-foot"><span class="tag">MySQL</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>Schema Compare for MySQL extends Redgate's schema comparison capabilities to MySQL — the database that powers a significant proportion of web applications worldwide. Teams running MySQL can now benefit from the same visual diff and sync script generation that SQL Server teams have relied on for over 25 years.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>Visual MySQL schema comparison across instances and environments</li>
+                <li>Automated synchronisation script generation from differences</li>
+                <li>Supports MySQL 5.x through 8.x and compatible variants</li>
+                <li>Completes the multi-platform comparison story: SQL Server, Oracle, PostgreSQL, MySQL</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">Recent</div>
+        </div>
+
         <div class="end-cap"></div>
       </div>
     </div>
@@ -1243,45 +1431,16 @@
             <div class="intro-title">The Road to<br><span class="accent">Test Data Manager</span></div>
             <div class="intro-sub">Six stages across 15+ years. Each one solved the problem the previous product left behind.</div>
             <div class="intro-meta">
-              <span class="intro-pill hot">6 stages</span>
+              <span class="intro-pill hot">5 stages</span>
               <span class="intro-pill">SQL Server → Multi-platform</span>
             </div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
-             data-eyebrow="Stage 01 · Origin · ~2007" data-title="SQL Backup Pro" data-sub="The original approach to test data: restore from production backup">
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Stage 01 · ~2017" data-title="SQL Clone" data-sub="Virtual database copies using Windows copy-on-write storage">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 01 · Origin</div><div class="tdm-pn">SQL Backup Pro</div><div class="tdm-per">c. 2007</div>
-            <div class="tdm-why">The original approach: take a production backup, restore it to a dev or test environment. Simple, reliable — and painfully slow.</div>
-            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Slow full copies · Huge storage footprint · No masking — can't safely use real production data</span></div>
-            <template class="card-detail">
-              <p>Before dedicated test data tooling existed, the standard approach was simple: take a compressed backup of production using SQL Backup Pro, copy it to a dev or test server, and restore it. Every developer or tester who needed a database copy went through this process.</p>
-              <p>For small databases it worked adequately. For anything over a few gigabytes, it became a serious bottleneck — consuming hours, saturating networks, and filling up disk storage with multiple near-identical copies of the same data.</p>
-              <h4>The core problems this created</h4>
-              <ul>
-                <li>A 200 GB production database meant a 200 GB backup, transfer, and restore for every team member</li>
-                <li>Storage costs multiplied by the number of developers needing a copy</li>
-                <li>Production PII was copied verbatim into non-production environments — a major compliance risk</li>
-                <li>Refresh cycles took hours — teams often worked on stale data to avoid the wait</li>
-                <li>No isolation: changes made in one "copy" could pollute others if processes weren't careful</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2007</div>
-        </div>
-
-        <div class="trans-node above">
-          <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Restoring a 200 GB backup to give a developer a sandbox took hours and killed storage. Teams needed instant copies."</div></div>
-          </div>
-        </div>
-
-        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
-             data-eyebrow="Stage 02 · ~2017" data-title="SQL Clone" data-sub="Virtual database copies using Windows copy-on-write storage">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 02</div><div class="tdm-pn">SQL Clone</div><div class="tdm-per">c. 2017</div>
+            <div class="tdm-sn">Stage 01</div><div class="tdm-pn">SQL Clone</div><div class="tdm-per">c. 2017</div>
             <div class="tdm-why">Virtual database cloning using Windows storage virtualisation (copy-on-write). A developer could get a fresh isolated copy in seconds, not hours, using a fraction of the storage.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still no masking — cloning production data means cloning PII. Windows-only, no path to cloud or containers.</span></div>
@@ -1302,16 +1461,16 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2017</div>
         </div>
 
-        <div class="trans-node below">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Fast clones were useless if you couldn't clone production. GDPR in 2018 made masking urgent, not a nice-to-have."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
-             data-eyebrow="Stage 03 · ~2014–2018" data-title="SQL Data Masker" data-sub="Mask and anonymise production data for safe use in non-production">
+        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Stage 02 · ~2014–2018" data-title="SQL Data Masker" data-sub="Mask and anonymise production data for safe use in non-production">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Data Masker</div><div class="tdm-per">c. 2014 – 2018</div>
+            <div class="tdm-sn">Stage 02</div><div class="tdm-pn">SQL Data Masker</div><div class="tdm-per">c. 2014 – 2018</div>
             <div class="tdm-why">Mask, anonymise, and obfuscate sensitive production data for safe use in non-production environments. The compliance answer that made SQL Clone's promise real.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>A separate product from SQL Clone — teams had to manually stitch together two tools with no shared workflow.</span></div>
@@ -1331,7 +1490,7 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
              data-eyebrow="Supporting Tool · 2017" data-title="SQL Data Catalog" data-sub="Classify sensitive data — the missing foundation for safe masking">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Supporting Tool · 2017</div><div class="tdm-pn">SQL Data Catalog</div><div class="tdm-per">2017</div>
@@ -1353,16 +1512,16 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2017</div>
         </div>
 
-        <div class="trans-node above">
+        <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Customers shouldn't stitch together two separate products. We needed to unify the provisioning journey into one workflow."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
-             data-eyebrow="Stage 04 · ~2018–2021" data-title="SQL Provision" data-sub="SQL Data Masker + SQL Clone unified into one workflow">
+        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Stage 03 · ~2018–2021" data-title="SQL Provision" data-sub="SQL Data Masker + SQL Clone unified into one workflow">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 04</div><div class="tdm-pn">SQL Provision</div><div class="tdm-per">c. 2018 – 2021</div>
+            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Provision</div><div class="tdm-per">c. 2018 – 2021</div>
             <div class="tdm-why">SQL Data Masker + SQL Clone unified into a single provisioning workflow. Teams could mask production data <em>and</em> provision virtual copies from one product for the first time.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still SQL Server and Windows only. Cloud adoption and container-based workflows were accelerating — the virtualisation model had a ceiling.</span></div>
@@ -1382,16 +1541,16 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
         </div>
 
-        <div class="trans-node below">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Teams were moving to Docker and cloud. A Windows-only virtualisation approach couldn't follow them. We needed to rethink from the ground up."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
-             data-eyebrow="Stage 05 · ~2021–2022" data-title="Redgate Clone" data-sub="Container-based database virtualisation — rebuilt from scratch for the cloud era">
+        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
+             data-eyebrow="Stage 04 · ~2021–2022" data-title="Redgate Clone" data-sub="Container-based database virtualisation — rebuilt from scratch for the cloud era">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 05</div><div class="tdm-pn">Redgate Clone</div><div class="tdm-per">c. 2021 – 2022</div>
+            <div class="tdm-sn">Stage 04</div><div class="tdm-pn">Redgate Clone</div><div class="tdm-per">c. 2021 – 2022</div>
             <div class="tdm-why">A rebuild from scratch — container-based database virtualisation using Docker. Fast, cloud-friendly, no longer tied to Windows storage APIs. Opened the door to multi-platform support.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-my">MySQL</span><span class="db db-ora">Oracle</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Installation required Spoon containerisation and Kubernetes clusters — infrastructure most customers didn't have or couldn't operate. Cloning alone also left masking and governance unsolved.</span></div>
@@ -1413,17 +1572,17 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2021</div>
         </div>
 
-        <div class="trans-node above">
+        <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"The technology was right but the installation was too hard. Most customers couldn't run Kubernetes just to get a clone. And cloning alone still wasn't the full answer."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
-             data-eyebrow="Stage 06 · 2022 – Present · Current Platform" data-title="Test Data Manager" data-sub="Mask, subset, and govern test data — across any database, at scale">
+        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
+             data-eyebrow="Stage 05 · 2022 – Present · Current Platform" data-title="Test Data Manager" data-sub="Mask, subset, and govern test data — across any database, at scale">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="cur-badge">Current Platform</div>
-            <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Test Data Manager</div><div class="tdm-per">2022 – Present</div>
+            <div class="tdm-sn">Stage 05</div><div class="tdm-pn">Test Data Manager</div><div class="tdm-per">2022 – Present</div>
             <div class="tdm-why">Mask, subset, and govern test data — safely and at scale. Works alongside SQL Clone, but is a fully separate product focused purely on the data, not the delivery mechanism.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-ora">Oracle</span><span class="db db-my">MySQL</span></div></div>
             <template class="card-detail">
@@ -1467,7 +1626,7 @@
             <div class="intro-title">The Path to<br><span class="accent">Flyway</span></div>
             <div class="intro-sub">From schema comparison to the world's most popular open-source database migration tool — how Redgate's deployment story evolved over 20 years.</div>
             <div class="intro-meta">
-              <span class="intro-pill hot">7 stages</span>
+              <span class="intro-pill hot">6 stages</span>
               <span class="intro-pill">1999 – 2019</span>
               <span class="intro-pill">30+ databases</span>
             </div>
@@ -1475,64 +1634,37 @@
         </div>
 
         <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
-             data-eyebrow="Stage 01 · Origin · 1999" data-title="SQL Compare" data-sub="Schema comparison — the foundation of all database change management">
+             data-eyebrow="Stage 01 · Origin · 1999 – 2001" data-title="SQL Compare &amp; SQL Data Compare" data-sub="Schema and data comparison — the complete picture of what's different between environments">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 01 · Origin</div><div class="tdm-pn">SQL Compare</div><div class="tdm-per">1999</div>
-            <div class="tdm-why">The foundation of all database change management — understanding what is different between two schemas. Before you can deploy a change, you have to know what the change is.</div>
+            <div class="tdm-sn">Stage 01 · Origin</div><div class="tdm-pn">SQL Compare &amp; SQL Data Compare</div><div class="tdm-per">1999 – 2001</div>
+            <div class="tdm-why">The foundation of database change management — understanding exactly what is different between environments, both in schema and in data. Before you can deploy a change, you need the complete picture.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Passive comparison only — showed what was different but didn't help manage or automate what to do about it.</span></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Reactive comparison only — showed the current state of differences but didn't track how they accumulated over time or help automate what to do about them.</span></div>
             <template class="card-detail">
-              <p>SQL Compare was Redgate's founding product — and while its primary use case was schema synchronisation, it was also the conceptual starting point for the entire database deployment story. If you want to deploy a database change, you first need to understand what the change is. SQL Compare answered that question.</p>
-              <p>At launch, the alternative was entirely manual: open two SSMS windows, visually compare object definitions, write the ALTER scripts by hand, and pray you didn't miss anything. SQL Compare replaced all of that with a visual diff and one-click sync.</p>
-              <h4>What it established for the Flyway journey</h4>
+              <p>SQL Compare (1999) was Redgate's founding product — the first tool to make schema differences visible and manageable without manually writing ALTER scripts by hand. SQL Data Compare (2001) extended the story to row-level data: lookup tables, seed data, and configuration values that need to travel with schema changes.</p>
+              <p>Together they gave teams a complete picture of the differences between database environments. But the tools were fundamentally reactive: they showed the current state of differences without tracking how those differences accumulated, who made them, or why.</p>
+              <h4>What they established for the Flyway journey</h4>
               <ul>
                 <li>The "compare source to target and generate a sync script" model that underpins state-based deployment</li>
-                <li>The first tool to make database changes visible and manageable — a prerequisite for automation</li>
-                <li>Proof that SQL Server deployment tooling had a market willing to pay for good solutions</li>
-                <li>The beginning of Redgate's long relationship with DBAs wrestling with deployment complexity</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">1999</div>
-        </div>
-
-        <div class="trans-node above">
-          <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Schema differences didn't exist in isolation — teams needed to understand and sync the data inside the databases too."</div></div>
-          </div>
-        </div>
-
-        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
-             data-eyebrow="Stage 02 · 2001" data-title="SQL Data Compare" data-sub="Row-level data comparison — extending the story from schema to content">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 02</div><div class="tdm-pn">SQL Data Compare</div><div class="tdm-per">2001</div>
-            <div class="tdm-why">Extended the comparison story to row-level data. Teams could now understand and synchronise not just the structure of databases, but their contents across environments.</div>
-            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still reactive tools — showing differences rather than managing or tracking the change process itself over time.</span></div>
-            <template class="card-detail">
-              <p>SQL Compare customers quickly identified the next missing piece: schema comparison was powerful, but database deployments also needed reference data — lookup tables, seed data, configuration values — to stay in sync across environments. SQL Data Compare addressed this.</p>
-              <p>Together, SQL Compare and SQL Data Compare gave teams a complete picture of the differences between database environments. But the tools were fundamentally reactive: they showed the current state of differences. They didn't track how those differences accumulated over time, who made them, or why.</p>
-              <h4>In the context of the Flyway journey</h4>
-              <ul>
-                <li>Introduced the idea that deployments involve both structure and data — not just DDL</li>
-                <li>Reference data sync became a standard part of the Redgate deployment workflow</li>
+                <li>The insight that deployments involve both structure and data — not just DDL</li>
+                <li>The first tools to make database changes visible and manageable — a prerequisite for automation</li>
                 <li>The absence of history and tracking pointed directly toward the need for version control</li>
               </ul>
             </template>
           </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2001</div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">1999 – 2001</div>
         </div>
 
-        <div class="trans-node below">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Teams could compare databases but had no way to track how they got that way. They needed version control — history, accountability, rollback."</div></div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Teams could compare both schema and data across environments — but had no way to track how they got that way. They needed version control: history, accountability, rollback."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
-             data-eyebrow="Stage 03 · 2010" data-title="SQL Source Control" data-sub="Database schemas in Git — version control for the database, inside SSMS">
+        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Stage 02 · 2010" data-title="SQL Source Control" data-sub="Database schemas in Git — version control for the database, inside SSMS">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Source Control</div><div class="tdm-per">2010</div>
+            <div class="tdm-sn">Stage 02</div><div class="tdm-pn">SQL Source Control</div><div class="tdm-per">2010</div>
             <div class="tdm-why">Version-control SQL Server schemas directly from SSMS. Database changes could now be tracked, branched, and reviewed the same way application code was — for the first time.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Captured history but didn't automate deployments — teams still manually applied changes in each environment down the pipeline.</span></div>
@@ -1552,16 +1684,16 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2010</div>
         </div>
 
-        <div class="trans-node above">
+        <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Source control gave you history. But teams needed the pipeline to automatically deploy those changes from dev through to production."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
-             data-eyebrow="Stage 04 · ~2013" data-title="SQL Change Automation" data-sub="State-based CI/CD — automated database deployments integrated with pipelines">
+        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Stage 03 · ~2013" data-title="SQL Change Automation" data-sub="State-based CI/CD — automated database deployments integrated with pipelines">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 04</div><div class="tdm-pn">SQL Change Automation</div><div class="tdm-per">c. 2013</div>
+            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Change Automation</div><div class="tdm-per">c. 2013</div>
             <div class="tdm-why">State-based CI/CD for databases — automatically compare source to target and deploy the difference. Integrated with Azure DevOps, TeamCity, and Jenkins to bring database changes into the same pipelines as application code.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>State-based deployment worked well for DBAs but didn't match how many developers thought — they wanted ordered, versioned migration scripts.</span></div>
@@ -1581,16 +1713,16 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2013</div>
         </div>
 
-        <div class="trans-node below">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Developers wanted migrations — explicit, versioned scripts they controlled. ReadyRoll already had this. We acquired it to bring that approach in-house."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
-             data-eyebrow="Stage 05 · Acquired · ~2015" data-title="ReadyRoll" data-sub="Migrations-based deployments — acquired to bring the developer model in-house">
+        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Stage 04 · Acquired · ~2015" data-title="ReadyRoll" data-sub="Migrations-based deployments — acquired to bring the developer model in-house">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 05 · Acquired</div><div class="tdm-pn">ReadyRoll</div><div class="tdm-per">c. 2015</div>
+            <div class="tdm-sn">Stage 04 · Acquired</div><div class="tdm-pn">ReadyRoll</div><div class="tdm-per">c. 2015</div>
             <div class="tdm-why">Migrations-based database deployments — ordered, versioned scripts that gave developers full control over exactly what ran, in what order, in every environment. Acquired to complement SQL Change Automation's state-based approach.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>A standalone acquisition that needed deeper platform integration and expansion beyond SQL Server to realise its full potential.</span></div>
@@ -1610,16 +1742,16 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
         </div>
 
-        <div class="trans-node above">
+        <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"ReadyRoll needed to become a first-class Redgate product — integrated with the full platform and positioned as Redgate's unified deployment answer."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
-             data-eyebrow="Stage 06 · ~2018" data-title="Redgate Deploy" data-sub="ReadyRoll rebranded as Redgate's unified database deployment product">
+        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
+             data-eyebrow="Stage 05 · ~2018" data-title="Redgate Deploy" data-sub="ReadyRoll rebranded as Redgate's unified database deployment product">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Redgate Deploy</div><div class="tdm-per">c. 2018</div>
+            <div class="tdm-sn">Stage 05</div><div class="tdm-pn">Redgate Deploy</div><div class="tdm-per">c. 2018</div>
             <div class="tdm-why">ReadyRoll rebranded and evolved into Redgate Deploy — Redgate's unified database deployment product, combining migrations-based and state-based approaches with deep CI/CD pipeline integrations.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-az">Azure SQL</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still primarily SQL Server-focused. The open-source community had already chosen Flyway as the standard for cross-platform, developer-first migrations.</span></div>
@@ -1638,17 +1770,17 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
         </div>
 
-        <div class="trans-node below">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Flyway had millions of users across every major database. Acquiring it gave us the platform-agnostic, developer-first migration tool — and the community that came with it."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
-             data-eyebrow="Stage 07 · Acquired · 2019 – Present · Current Platform" data-title="Flyway" data-sub="World's most popular open-source database migration tool — acquired 2019">
+        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
+             data-eyebrow="Stage 06 · Acquired · 2019 – Present · Current Platform" data-title="Flyway" data-sub="World's most popular open-source database migration tool — acquired 2019">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="cur-badge">Current Platform</div>
-            <div class="tdm-sn">Stage 07 · Acquired</div><div class="tdm-pn">Flyway</div><div class="tdm-per">2019 – Present</div>
+            <div class="tdm-sn">Stage 06 · Acquired</div><div class="tdm-pn">Flyway</div><div class="tdm-per">2019 – Present</div>
             <div class="tdm-why">Acquired from creator Axel Fontaine — the world's most popular open-source database migration tool. Flyway completed Redgate's deployment story: developer-first, open-source, running on every major database platform.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-my">MySQL</span><span class="db db-ora">Oracle</span><span class="db db-more">+ 26 more</span></div></div>
             <template class="card-detail">
@@ -1742,46 +1874,6 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2001</div>
         </div>
 
-        <!-- 3 · ANTS Performance Profiler · 2002 · Toolbelt -->
-        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
-             data-eyebrow="SQL Toolbelt · 2002" data-title="ANTS Performance Profiler" data-sub="Line-level performance profiling for .NET applications">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Toolbelt · 2002</div><div class="tdm-pn">ANTS Performance Profiler</div>
-            <div class="tdm-why">Find performance bottlenecks in .NET applications with line-level timing data and call-tree visualisation — no manual instrumentation required.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
-            <template class="card-detail">
-              <p>ANTS Performance Profiler shows exactly which lines of .NET code are slow and how much time is spent in each method — replacing guesswork with data. It's the specialist tool for teams who need to go beyond SQL Server tooling into application performance.</p>
-              <h4>Toolbelt-only — not in Essentials</h4>
-              <ul>
-                <li>Most SQL Server teams don't need .NET profiling tools day-to-day — hence Toolbelt-only</li>
-                <li>For full-stack teams who own both the database and the application, it's invaluable</li>
-                <li>Includes SQL query performance data alongside .NET method timing — bridge between app and DB</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2002</div>
-        </div>
-
-        <!-- 4 · ANTS Memory Profiler · 2004 · Toolbelt -->
-        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
-             data-eyebrow="SQL Toolbelt · 2004" data-title="ANTS Memory Profiler" data-sub="Memory leak detection and heap analysis for .NET applications">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Toolbelt · 2004</div><div class="tdm-pn">ANTS Memory Profiler</div>
-            <div class="tdm-why">Track down memory leaks in .NET applications with heap snapshots, object reference graphs, and allocation tracking. Pairs with ANTS Performance Profiler for complete .NET diagnostics.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
-            <template class="card-detail">
-              <p>Memory leaks in .NET are notoriously difficult to find without tooling. ANTS Memory Profiler provides heap snapshots that show exactly what's in memory, how objects reference each other, and what's grown between two points in time.</p>
-              <h4>Toolbelt-only — not in Essentials</h4>
-              <ul>
-                <li>Specialist tool for teams experiencing memory growth or OutOfMemoryException issues</li>
-                <li>Snapshot comparison isolates what appeared between two points in time</li>
-                <li>Generation analysis identifies objects surviving GC collections unnecessarily</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2004</div>
-        </div>
-
         <!-- 5 · SQL Prompt · 2006 · Essentials -->
         <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
              data-eyebrow="SQL Toolbelt Essentials · 2006" data-title="SQL Prompt" data-sub="IntelliSense-style autocompletion, formatting, and snippets inside SSMS">
@@ -1845,29 +1937,8 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2007</div>
         </div>
 
-        <!-- 8 · .NET Reflector · 2008 · Toolbelt -->
-        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
-             data-eyebrow="SQL Toolbelt · 2008 · Acquisition" data-title=".NET Reflector" data-sub="The de-facto .NET decompiler — decompile any .NET assembly to readable code">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Toolbelt · 2008 · Acquired</div><div class="tdm-pn">.NET Reflector</div>
-            <div class="tdm-why">Decompile any .NET assembly back to readable C# or VB.NET. Debug third-party libraries, understand framework internals, and navigate compiled code without source. Acquired from Lutz Roeder.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-acq" style="margin-left:4px">Acquired</span></div>
-            <template class="card-detail">
-              <p>.NET Reflector was the tool every .NET developer used before Redgate acquired it — built by Lutz Roeder as a free community tool and grown into an industry standard. Redgate commercialised it and built it into the Toolbelt for teams that work across both SQL Server and .NET.</p>
-              <h4>Toolbelt-only — not in Essentials</h4>
-              <ul>
-                <li>Specialist tool for debugging compiled code — most valuable when you need it, not needed daily</li>
-                <li>Visual Studio integration: step-through decompiled code as if you had the source</li>
-                <li>Essential for debugging third-party libraries when you hit an unexplained exception</li>
-                <li>The acquisition that proved Redgate could successfully commercialise community tools</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2008</div>
-        </div>
-
         <!-- 9 · SQL Monitor · 2009 · Toolbelt -->
-        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
              data-eyebrow="SQL Toolbelt · 2009" data-title="SQL Monitor" data-sub="Real-time SQL Server estate monitoring, alerting, and performance history">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Toolbelt · 2009</div><div class="tdm-pn">SQL Monitor</div>
@@ -1888,7 +1959,7 @@
         </div>
 
         <!-- 10 · SQL Source Control · 2010 · Essentials -->
-        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
              data-eyebrow="SQL Toolbelt Essentials · 2010" data-title="SQL Source Control" data-sub="Version control for SQL Server schemas — Git integration inside SSMS">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Essentials · 2010</div><div class="tdm-pn">SQL Source Control</div>
@@ -1909,7 +1980,7 @@
         </div>
 
         <!-- 11 · SQL Search · ~2010 · Essentials / Free -->
-        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
              data-eyebrow="SQL Toolbelt Essentials · ~2010 · Free" data-title="SQL Search" data-sub="Free full-text search across SQL Server objects inside SSMS">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Essentials · ~2010 · Free</div><div class="tdm-pn">SQL Search</div>
@@ -1930,7 +2001,7 @@
         </div>
 
         <!-- 12 · SQL Test · 2011 · Toolbelt -->
-        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
              data-eyebrow="SQL Toolbelt · 2011" data-title="SQL Test" data-sub="Automated unit testing for SQL Server databases, built on tSQLt">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Toolbelt · 2011</div><div class="tdm-pn">SQL Test</div>
@@ -1951,7 +2022,7 @@
         </div>
 
         <!-- 13 · SQL Data Masker · ~2014 · Toolbelt -->
-        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
              data-eyebrow="SQL Toolbelt · ~2014" data-title="SQL Data Masker" data-sub="Mask and anonymise sensitive production data for safe use in non-production environments">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Toolbelt · ~2014</div><div class="tdm-pn">SQL Data Masker</div>
@@ -1972,7 +2043,7 @@
         </div>
 
         <!-- 14 · SQL Change Automation · ~2015 · Toolbelt -->
-        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
              data-eyebrow="SQL Toolbelt · ~2015 · Acquisition" data-title="SQL Change Automation" data-sub="Migrations-based CI/CD for SQL Server — formerly ReadyRoll">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Toolbelt · ~2015 · Acquired</div><div class="tdm-pn">SQL Change Automation</div>
@@ -1993,7 +2064,7 @@
         </div>
 
         <!-- 15 · Redgate Data Modeler · 2023 · Essentials -->
-        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+        <div class="tdm-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
              data-eyebrow="SQL Toolbelt Essentials · 2023" data-title="Redgate Data Modeler" data-sub="Collaborative, web-based visual database design — before the first line of DDL">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="tdm-sn">Essentials · 2023</div><div class="tdm-pn">Redgate Data Modeler</div>
@@ -2034,8 +2105,13 @@
         </div>
       </div>
 
-      <div class="bundles-section-label">SQL Bundles</div>
-      <div class="bundle-grid">
+      <div class="bundles-filter-bar">
+        <button class="filter-btn active" id="filterAll">All bundles</button>
+        <button class="filter-btn" id="filterActive">Active only</button>
+      </div>
+
+      <div class="bundles-section-label" id="sqlSectionLabel" onclick="toggleSection('sql')">SQL Bundles <span class="sec-chevron">▾</span></div>
+      <div class="bundle-grid" id="sqlGrid">
 
         <!-- SQL Bundle -->
         <div class="bundle-card">
@@ -2295,8 +2371,8 @@
 
       </div><!-- /bundle-grid SQL -->
 
-      <div class="bundles-section-label">.NET Bundles</div>
-      <div class="bundle-grid">
+      <div class="bundles-section-label" id="netSectionLabel" onclick="toggleSection('net')">.NET Bundles <span class="sec-chevron">▾</span></div>
+      <div class="bundle-grid" id="netGrid">
 
         <!-- ANTS Bundle -->
         <div class="bundle-card">
@@ -2542,6 +2618,39 @@
 
     document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
     document.getElementById('navBrand').addEventListener('click', e => { e.preventDefault(); switchTab('company'); });
+
+    // ─── Bundle filter ─────────────────────────
+    let activeFilter = false;
+
+    function applyBundleFilter() {
+      document.querySelectorAll('.bundle-card').forEach(card => {
+        const isRetired = card.querySelector('.b-retired') !== null;
+        card.classList.toggle('b-hidden', activeFilter && isRetired);
+      });
+    }
+
+    document.getElementById('filterAll').addEventListener('click', () => {
+      activeFilter = false;
+      document.getElementById('filterAll').classList.add('active');
+      document.getElementById('filterActive').classList.remove('active');
+      applyBundleFilter();
+    });
+
+    document.getElementById('filterActive').addEventListener('click', () => {
+      activeFilter = true;
+      document.getElementById('filterActive').classList.add('active');
+      document.getElementById('filterAll').classList.remove('active');
+      applyBundleFilter();
+    });
+
+    function toggleSection(which) {
+      const gridId = which === 'sql' ? 'sqlGrid' : 'netGrid';
+      const labelId = which === 'sql' ? 'sqlSectionLabel' : 'netSectionLabel';
+      const grid = document.getElementById(gridId);
+      const label = document.getElementById(labelId);
+      grid.classList.toggle('collapsed');
+      label.classList.toggle('collapsed');
+    }
 
     // ─── Layout toggle ─────────────────────────
     const layoutBtn = document.getElementById('layoutBtn');
