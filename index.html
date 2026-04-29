@@ -479,6 +479,55 @@
     html.vertical .trans-node.above .trans-in,
     html.vertical .trans-node.below .trans-in { flex-direction:column }
 
+    /* ── BUNDLE HISTORY PANE ─────────────────── */
+    .bundles-pane {
+      height:100%; overflow-y:auto; overflow-x:hidden;
+      padding:2.25rem 2rem 5rem;
+      scrollbar-width:thin; scrollbar-color:rgba(232,49,42,.3) transparent;
+    }
+    .bundles-pane::-webkit-scrollbar { width:4px }
+    .bundles-pane::-webkit-scrollbar-track { background:transparent }
+    .bundles-pane::-webkit-scrollbar-thumb { background:rgba(232,49,42,.3); border-radius:4px }
+    .bundles-header { max-width:900px; margin:0 auto 2.25rem; text-align:center }
+    .bundles-title  { font-size:clamp(1.4rem,3vw,2rem); font-weight:900; letter-spacing:-.04em; margin-bottom:.5rem }
+    .bundles-sub    { font-size:.82rem; color:var(--muted); line-height:1.65 }
+    .bundles-meta   { display:flex; justify-content:center; gap:.5rem; margin-top:1rem; flex-wrap:wrap }
+    .bundles-section-label {
+      font-size:.65rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--red); margin:0 auto 1rem; max-width:1400px;
+      display:flex; align-items:center; gap:.75rem;
+    }
+    .bundles-section-label::before,
+    .bundles-section-label::after { content:''; flex:1; height:1px; background:var(--bd2); max-width:200px }
+    .bundle-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+      gap:1rem; max-width:1400px; margin:0 auto 2.5rem;
+    }
+    .bundle-card {
+      background:var(--s1); border:1px solid var(--bd); border-radius:14px;
+      padding:1.25rem 1.4rem; transition:background .3s, border-color .3s;
+    }
+    .bundle-head { margin-bottom:.9rem }
+    .bundle-name { font-size:.9rem; font-weight:800; letter-spacing:-.02em; margin-bottom:.35rem }
+    .bundle-period {
+      display:flex; align-items:center; gap:.45rem; flex-wrap:wrap;
+      font-size:.68rem; color:var(--muted); font-weight:600;
+    }
+    .bundle-table { width:100%; border-collapse:collapse; font-size:.72rem }
+    .bundle-table th {
+      text-align:left; color:var(--dim); font-size:.58rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      padding:0 .5rem .45rem 0; border-bottom:1px solid var(--bd);
+    }
+    .bundle-table td {
+      padding:.4rem .5rem .4rem 0; color:var(--muted);
+      border-bottom:1px solid var(--bd); vertical-align:top; line-height:1.4;
+    }
+    .bundle-table tbody tr:last-child td { border-bottom:none }
+    .bundle-table td:first-child { color:var(--text); font-weight:500; width:58% }
+    .bundle-table .ended td { color:var(--dim) }
+    .bundle-table .ended td:first-child { text-decoration:line-through; text-decoration-color:var(--dim) }
+
     /* ── MODAL ────────────────────────────────── */
     .modal-overlay {
       display:none; position:fixed; inset:0; z-index:600;
@@ -534,6 +583,7 @@
       <button class="tab-btn" data-tab="tdm">Test Data Manager</button>
       <button class="tab-btn" data-tab="flyway">Flyway</button>
       <button class="tab-btn" data-tab="toolbelt">SQL Toolbelt/Essentials</button>
+      <button class="tab-btn" data-tab="bundles">Bundle History</button>
     </div>
     <button class="layout-btn" id="layoutBtn" title="Toggle vertical / horizontal layout">
       <svg class="icon-horiz" viewBox="0 0 16 16">
@@ -1970,6 +2020,374 @@
   </div>
 
   <!-- ═══════════════════════════════════════════
+       BUNDLE HISTORY
+  ═══════════════════════════════════════════ -->
+  <div class="pane" id="pane-bundles">
+    <div class="bundles-pane">
+      <div class="bundles-header">
+        <div class="bundles-title">Bundle History</div>
+        <div class="bundles-sub">Historical record of every Redgate product bundle — what each included and when it was available. Data as of April 2016.</div>
+        <div class="bundles-meta">
+          <span class="intro-pill hot">22 bundles</span>
+          <span class="intro-pill">2001 – 2016</span>
+          <span class="intro-pill">SQL &amp; .NET</span>
+        </div>
+      </div>
+
+      <div class="bundles-section-label">SQL Bundles</div>
+      <div class="bundle-grid">
+
+        <!-- SQL Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Bundle</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Jul 2001 – Nov 2006</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>DTS Package Compare</td><td>Jul 2001</td><td>Nov 2006</td></tr>
+            <tr class="ended"><td>SQL Compare</td><td>Jul 2001</td><td>Nov 2006</td></tr>
+            <tr class="ended"><td>SQL Data Compare</td><td>Jul 2001</td><td>Nov 2006</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Bundle Developer Edition -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Bundle Developer Edition</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Dec 2003 – Feb 2005</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>DTS Package Compare</td><td>Dec 2003</td><td>Feb 2005</td></tr>
+            <tr class="ended"><td>SQL Compare</td><td>Dec 2003</td><td>Feb 2005</td></tr>
+            <tr class="ended"><td>SQL Data Compare</td><td>Dec 2003</td><td>Feb 2005</td></tr>
+            <tr class="ended"><td>SQL Toolkit</td><td>Dec 2003</td><td>Feb 2005</td></tr>
+            <tr class="ended"><td>SQL Packager</td><td>Jun 2004</td><td>Feb 2005</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Backup Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Backup Bundle</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Feb 2005 – Apr 2007</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>SQL Backup Standard</td><td>Feb 2005</td><td>Apr 2007</td></tr>
+            <tr class="ended"><td>SQL Log Rescue</td><td>Feb 2005</td><td>Apr 2007</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Bundle Pro -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Bundle Pro</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Apr 2006 – Nov 2006</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>DTS Package Compare</td><td>Apr 2006</td><td>Nov 2006</td></tr>
+            <tr class="ended"><td>SQL Compare Professional</td><td>Apr 2006</td><td>Nov 2006</td></tr>
+            <tr class="ended"><td>SQL Data Compare Professional</td><td>Apr 2006</td><td>Nov 2006</td></tr>
+            <tr class="ended"><td>SQL Packager Professional</td><td>Apr 2006</td><td>Nov 2006</td></tr>
+            <tr class="ended"><td>SQL Toolkit</td><td>Apr 2006</td><td>Nov 2006</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Comparison Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Comparison Bundle</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span> Nov 2006 – present</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr><td>SQL Compare</td><td>Nov 2006</td><td>—</td></tr>
+            <tr><td>SQL Data Compare</td><td>Nov 2006</td><td>—</td></tr>
+            <tr><td>SQL Dependency Tracker</td><td>Nov 2006</td><td>—</td></tr>
+            <tr><td>SQL Packager</td><td>Nov 2006</td><td>—</td></tr>
+            <tr><td>SQL Search</td><td>Feb 2012</td><td>—</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Professional Toolbelt -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Professional Toolbelt</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Nov 2006 – Nov 2007</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>SQL Backup Professional</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Compare Professional</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Data Compare Professional</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Dependency Tracker</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Doc Professional</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Multi Script</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Packager Professional</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Prompt</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Refactor</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Toolkit</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Bundle Pro (2) -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Bundle Pro (2)</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Nov 2006 – Nov 2007</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>SQL Compare Professional</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Data Compare Professional</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Dependency Tracker</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Packager Professional</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+            <tr class="ended"><td>SQL Toolkit</td><td>Nov 2006</td><td>Nov 2007</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Prompt Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Prompt Bundle</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Oct 2006 – Apr 2008</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>SQL Dependency Tracker</td><td>Oct 2006</td><td>Apr 2008</td></tr>
+            <tr class="ended"><td>SQL Doc Professional</td><td>Oct 2006</td><td>Apr 2008</td></tr>
+            <tr class="ended"><td>SQL Prompt</td><td>Oct 2006</td><td>Apr 2008</td></tr>
+            <tr class="ended"><td>SQL Refactor</td><td>Oct 2006</td><td>Apr 2008</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Documentation Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Documentation Bundle</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Apr 2007 – Jun 2007</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>SQL Dependency Tracker</td><td>Apr 2007</td><td>Jun 2007</td></tr>
+            <tr class="ended"><td>SQL Doc Professional</td><td>Apr 2007</td><td>Jun 2007</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Toolbelt -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Toolbelt</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span> Nov 2007 – present</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr><td>SQL Backup Professional</td><td>Nov 2007</td><td>—</td></tr>
+            <tr><td>SQL Compare Professional</td><td>Nov 2007</td><td>—</td></tr>
+            <tr><td>SQL Comparison SDK</td><td>Nov 2007</td><td>—</td></tr>
+            <tr class="ended"><td>SQL Connect</td><td>Apr 2012</td><td>Dec 2014</td></tr>
+            <tr><td>SQL Data Compare Professional</td><td>Nov 2007</td><td>—</td></tr>
+            <tr><td>SQL Dependency Tracker</td><td>Nov 2007</td><td>—</td></tr>
+            <tr><td>SQL Data Generator</td><td>Mar 2008</td><td>—</td></tr>
+            <tr><td>SQL Doc</td><td>Nov 2007</td><td>—</td></tr>
+            <tr><td>SQL Multi Script</td><td>Nov 2007</td><td>—</td></tr>
+            <tr class="ended"><td>SQL Object Level Recovery Native</td><td>Sep 2009</td><td>Dec 2014</td></tr>
+            <tr><td>SQL Packager</td><td>Nov 2007</td><td>—</td></tr>
+            <tr><td>SQL Prompt Professional</td><td>Nov 2007</td><td>—</td></tr>
+            <tr class="ended"><td>SQL Refactor</td><td>Nov 2007</td><td>Dec 2010</td></tr>
+            <tr><td>SQL Response / SQL Monitor</td><td>Nov 2007</td><td>—</td></tr>
+            <tr><td>SQL Source Control</td><td>Jun 2010</td><td>—</td></tr>
+            <tr><td>SQL Search</td><td>Feb 2012</td><td>—</td></tr>
+            <tr><td>SQL Test</td><td>Apr 2012</td><td>—</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Prompt Bundle (2) -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Prompt Bundle (2)</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span> Apr 2008 – present</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr><td>SQL Data Generator</td><td>Apr 2008</td><td>—</td></tr>
+            <tr><td>SQL Doc Professional</td><td>Apr 2008</td><td>—</td></tr>
+            <tr><td>SQL Dependency Tracker</td><td>Apr 2008</td><td>—</td></tr>
+            <tr><td>SQL Prompt Professional</td><td>Apr 2008</td><td>—</td></tr>
+            <tr class="ended"><td>SQL Refactor</td><td>Apr 2008</td><td>Dec 2010</td></tr>
+            <tr><td>SQL Search</td><td>Feb 2012</td><td>—</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Backup Bundle (2) -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Backup Bundle (2)</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Oct 2008 – Jul 2010</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>SQL Backup Professional</td><td>Oct 2008</td><td>Jul 2010</td></tr>
+            <tr class="ended"><td>SQL Multi Script Unlimited</td><td>Oct 2008</td><td>Jul 2010</td></tr>
+            <tr class="ended"><td>SQL Response / SQL Monitor</td><td>Oct 2008</td><td>Jul 2010</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Developer Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Developer Bundle</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span> Jul 2009 – present</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr><td>SQL Compare Professional</td><td>Jul 2009</td><td>—</td></tr>
+            <tr><td>SQL Comparison SDK</td><td>Jul 2009</td><td>—</td></tr>
+            <tr class="ended"><td>SQL Connect</td><td>Apr 2012</td><td>Dec 2014</td></tr>
+            <tr><td>SQL Data Compare Professional</td><td>Jul 2009</td><td>—</td></tr>
+            <tr><td>SQL Dependency Tracker</td><td>Jul 2009</td><td>—</td></tr>
+            <tr><td>SQL Data Generator</td><td>Jul 2009</td><td>—</td></tr>
+            <tr><td>SQL Doc</td><td>Jul 2009</td><td>—</td></tr>
+            <tr><td>SQL Multi Script</td><td>Jul 2009</td><td>—</td></tr>
+            <tr><td>SQL Packager</td><td>Jul 2009</td><td>—</td></tr>
+            <tr><td>SQL Prompt Professional</td><td>Jul 2009</td><td>—</td></tr>
+            <tr class="ended"><td>SQL Refactor</td><td>Jul 2009</td><td>Dec 2010</td></tr>
+            <tr><td>SQL Search</td><td>Feb 2012</td><td>—</td></tr>
+            <tr><td>SQL Source Control</td><td>Jun 2010</td><td>—</td></tr>
+            <tr><td>SQL Test</td><td>Apr 2012</td><td>—</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL Backup and Restore Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL Backup and Restore Bundle</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Jul 2010 – Feb 2013</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>SQL Backup Pro</td><td>Jul 2010</td><td>Feb 2013</td></tr>
+            <tr class="ended"><td>SQL HyperBac</td><td>Jul 2010</td><td>Feb 2013</td></tr>
+            <tr class="ended"><td>SQL Virtual Restore</td><td>Jul 2010</td><td>Feb 2013</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL DBA Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL DBA Bundle</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Jul 2010 – Feb 2013</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>SQL Backup Pro</td><td>Jul 2010</td><td>Feb 2013</td></tr>
+            <tr class="ended"><td>SQL HyperBac</td><td>Jul 2010</td><td>Feb 2013</td></tr>
+            <tr class="ended"><td>SQL Virtual Restore</td><td>Jul 2010</td><td>Feb 2013</td></tr>
+            <tr class="ended"><td>SQL Response / SQL Monitor</td><td>Jul 2010</td><td>Feb 2013</td></tr>
+            <tr class="ended"><td>SQL Multi Script</td><td>Jul 2010</td><td>Feb 2013</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- SQL DBA Bundle (2) -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">SQL DBA Bundle (2)</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span> Feb 2013 – present</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr><td>SQL Backup Pro</td><td>Feb 2013</td><td>—</td></tr>
+            <tr><td>SQL Compare</td><td>Feb 2013</td><td>—</td></tr>
+            <tr><td>SQL Data Compare</td><td>Feb 2013</td><td>—</td></tr>
+            <tr><td>SQL Doc</td><td>Feb 2013</td><td>—</td></tr>
+            <tr><td>SQL Monitor</td><td>Feb 2013</td><td>—</td></tr>
+            <tr><td>SQL Multi Script</td><td>Feb 2013</td><td>—</td></tr>
+            <tr><td>SQL Prompt Pro</td><td>Feb 2013</td><td>—</td></tr>
+          </tbody></table>
+        </div>
+
+      </div><!-- /bundle-grid SQL -->
+
+      <div class="bundles-section-label">.NET Bundles</div>
+      <div class="bundle-grid">
+
+        <!-- ANTS Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">ANTS Bundle</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Sep 2005 – Jan 2007</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>ANTS Load Entry</td><td>Sep 2005</td><td>Jan 2007</td></tr>
+            <tr class="ended"><td>ANTS Profiler Professional</td><td>Sep 2005</td><td>Jan 2007</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- .NET Developer Bundle -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">.NET Developer Bundle</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Dec 2007 – Jun 2011</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>ANTS Performance Profiler Professional</td><td>Dec 2007</td><td>Jun 2011</td></tr>
+            <tr class="ended"><td>ANTS Memory Profiler</td><td>Jun 2009</td><td>Jun 2011</td></tr>
+            <tr class="ended"><td>Exception Hunter</td><td>Dec 2007</td><td>Jun 2011</td></tr>
+            <tr class="ended"><td>.NET Reflector Professional</td><td>Feb 2010</td><td>Jun 2011</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- .NET Developer Bundle (2) -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">.NET Developer Bundle (2)</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span> Jun 2011 – present</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr><td>ANTS Performance Profiler Professional</td><td>Jun 2011</td><td>—</td></tr>
+            <tr><td>ANTS Memory Profiler</td><td>Jun 2011</td><td>—</td></tr>
+            <tr><td>.NET Reflector VSPro</td><td>Jun 2011</td><td>—</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- .NET Performance Pack -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">.NET Performance Pack</div>
+            <div class="bundle-period"><span class="badge b-retired">Retired</span> Nov 2012 – Apr 2013</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr class="ended"><td>ANTS Performance Profiler Professional</td><td>Nov 2012</td><td>Apr 2013</td></tr>
+            <tr class="ended"><td>ANTS Memory Profiler</td><td>Nov 2012</td><td>Apr 2013</td></tr>
+            <tr class="ended"><td>.NET Reflector VSPro</td><td>Nov 2012</td><td>Apr 2013</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- .NET Development Suite -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">.NET Development Suite</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span> Nov 2012 – present</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr><td>ANTS Performance Profiler Professional</td><td>Nov 2012</td><td>—</td></tr>
+            <tr><td>ANTS Memory Profiler</td><td>Nov 2012</td><td>—</td></tr>
+            <tr><td>SQL Prompt Professional</td><td>Nov 2012</td><td>—</td></tr>
+            <tr class="ended"><td>SQL Connect</td><td>Nov 2012</td><td>Dec 2014</td></tr>
+            <tr><td>.NET Reflector VSPro</td><td>Nov 2012</td><td>—</td></tr>
+            <tr><td>.NET Demon</td><td>Nov 2012</td><td>—</td></tr>
+          </tbody></table>
+        </div>
+
+        <!-- .NET Toolbelt -->
+        <div class="bundle-card">
+          <div class="bundle-head">
+            <div class="bundle-name">.NET Toolbelt</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span> Nov 2012 – present</div>
+          </div>
+          <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
+            <tr><td>ANTS Performance Profiler Professional</td><td>Nov 2012</td><td>—</td></tr>
+            <tr><td>ANTS Memory Profiler</td><td>Nov 2012</td><td>—</td></tr>
+            <tr><td>SmartAssembly Professional</td><td>Nov 2012</td><td>—</td></tr>
+            <tr><td>SQL Prompt Professional</td><td>Nov 2012</td><td>—</td></tr>
+            <tr class="ended"><td>SQL Connect</td><td>Nov 2012</td><td>Dec 2014</td></tr>
+            <tr><td>.NET Reflector VSPro</td><td>Nov 2012</td><td>—</td></tr>
+            <tr class="ended"><td>.NET Demon</td><td>Nov 2012</td><td>Dec 2014</td></tr>
+          </tbody></table>
+        </div>
+
+      </div><!-- /bundle-grid .NET -->
+    </div><!-- /bundles-pane -->
+  </div><!-- /pane-bundles -->
+
+  <!-- ═══════════════════════════════════════════
        MODAL
   ═══════════════════════════════════════════ -->
   <div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
@@ -2114,6 +2532,7 @@
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
       document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
       document.getElementById('pane-' + name).classList.add('active');
+      if (name === 'bundles') return;
       requestAnimationFrame(() => requestAnimationFrame(() => {
         const tl = getOrInit(name);
         tl.measure();
@@ -2137,7 +2556,7 @@
 
         Object.values(timelines).forEach(tl => {
           if (isVertical) tl.enterVertical();
-          else tl.enterHorizontal();
+          else            tl.enterHorizontal();
         });
 
         requestAnimationFrame(() => {
