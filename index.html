@@ -266,6 +266,28 @@
     .trans-lbl { font-size:.6rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:.3rem }
     .trans-txt { font-size:.72rem; color:var(--muted); line-height:1.55; font-style:italic }
 
+    /* ── DOCS LINK ───────────────────────────── */
+    .docs-link {
+      display:inline-flex; align-items:center; gap:.3rem;
+      margin-top:.8rem; padding:.32rem .65rem;
+      border-radius:6px; border:1px solid var(--bd2);
+      background:var(--s2); color:var(--muted);
+      font-size:.63rem; font-weight:600; letter-spacing:.04em;
+      text-decoration:none; transition:all .15s; width:fit-content;
+    }
+    .docs-link:hover { color:var(--red); background:rgba(232,49,42,.06); border-color:rgba(232,49,42,.3) }
+    .docs-link svg { width:8px; height:8px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0 }
+    .modal-docs-btn {
+      display:inline-flex; align-items:center; gap:.4rem;
+      margin-top:1.25rem; padding:.5rem 1rem;
+      border-radius:8px; border:1px solid var(--bd2);
+      background:var(--s2); color:var(--muted);
+      font-size:.78rem; font-weight:600; text-decoration:none;
+      transition:all .2s;
+    }
+    .modal-docs-btn:hover { background:rgba(232,49,42,.07); border-color:rgba(232,49,42,.35); color:var(--red) }
+    .modal-docs-btn svg { width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round }
+
     /* ── TOOLBELT BADGES ─────────────────────── */
     .b-ess  { color:var(--teal);  border-color:rgba(0,201,167,.3); background:rgba(0,201,167,.08) }
     .b-tb   { color:var(--blue);  border-color:rgba(74,158,232,.3); background:rgba(74,158,232,.08) }
@@ -367,7 +389,7 @@
         <div class="intro-node">
           <div class="intro-inner">
             <div class="intro-kick">Cambridge, UK · Est. 1999</div>
-            <div class="intro-title">Why Redgate<br><span class="accent">Kept Pivoting</span></div>
+            <div class="intro-title">Why Redgate<br><span class="accent">Pivoted</span></div>
             <div class="intro-sub">Every product Redgate shipped was a response to a real problem. This is the story of those decisions — and why they were made.</div>
             <div class="intro-meta">
               <span class="intro-pill hot">25+ years</span>
@@ -1277,7 +1299,7 @@
             <div class="intro-meta">
               <span class="intro-pill hot" style="color:var(--teal);border-color:rgba(0,201,167,.3);background:rgba(0,201,167,.08)">Essentials</span>
               <span class="intro-pill">Full Toolbelt</span>
-              <span class="intro-pill">1999 – 2017</span>
+              <span class="intro-pill">1999 – 2023</span>
             </div>
           </div>
         </div>
@@ -1575,6 +1597,28 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
         </div>
 
+        <!-- 15 · Redgate Data Modeler · 2023 · Essentials -->
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="SQL Toolbelt Essentials · 2023" data-title="Redgate Data Modeler" data-sub="Collaborative, web-based visual database design — before the first line of DDL">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Essentials · 2023</div><div class="tdm-pn">Redgate Data Modeler</div>
+            <div class="tdm-why">Design database schemas visually and collaboratively in a browser before writing any DDL. Extends Redgate's reach to the very start of the database lifecycle.</div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-ess">Essentials</span><span class="badge b-active" style="margin-left:4px">Active</span></div>
+            <template class="card-detail">
+              <p>Redgate Data Modeler is the newest addition to the Essentials bundle and the only web-based tool in the set. It lets teams design database schemas visually — entity-relationship diagrams, table definitions, relationships — and generate DDL scripts ready to feed into SQL Source Control or Flyway migrations.</p>
+              <p>Its inclusion in Essentials reflects Redgate's push to capture the full database lifecycle: design happens before development, so the tooling should too.</p>
+              <h4>Why it's in Essentials</h4>
+              <ul>
+                <li>No install required — browser-based, works for the whole team without local setup</li>
+                <li>Collaborative design: multiple stakeholders can contribute before any code is written</li>
+                <li>Generate DDL scripts compatible with SQL Compare, SQL Source Control, and Flyway</li>
+                <li>Closes the loop at the start of the lifecycle — schema design should be as structured as schema deployment</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2023</div>
+        </div>
+
         <div class="end-cap"></div>
       </div>
     </div>
@@ -1715,6 +1759,14 @@
       modalSub.textContent   = node.dataset.sub     || '';
       modalBody.innerHTML    = '';
       modalBody.appendChild(tmpl.content.cloneNode(true));
+      const url = docsMap[node.dataset.title];
+      if (url) {
+        const btn = document.createElement('a');
+        btn.href = url; btn.target = '_blank'; btn.rel = 'noopener noreferrer';
+        btn.className = 'modal-docs-btn';
+        btn.innerHTML = 'View documentation ' + extIcon;
+        modalBody.appendChild(btn);
+      }
       modal.classList.add('open');
     }
 
@@ -1724,10 +1776,46 @@
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // Wire up clickable cards — find the data-* parent node for each card
+    // ─── Docs links ────────────────────────────
+    const docsMap = {
+      'SQL Compare':               'https://documentation.red-gate.com/sc',
+      'SQL Data Compare':          'https://documentation.red-gate.com/sdc',
+      'ANTS Performance Profiler': 'https://documentation.red-gate.com/ants',
+      'ANTS Memory Profiler':      'https://documentation.red-gate.com/ants',
+      'SQL Prompt':                'https://documentation.red-gate.com/sp',
+      'SQL Doc':                   'https://documentation.red-gate.com/sqd',
+      'SQL Source Control':        'https://documentation.red-gate.com/ssc',
+      'SQL Search':                'https://documentation.red-gate.com/sqls',
+      'SQL Backup Pro':            'https://documentation.red-gate.com/sbu',
+      '.NET Reflector':            'https://documentation.red-gate.com/reflector',
+      'SQL Monitor':               'https://documentation.red-gate.com/sm',
+      'SQL Test':                  'https://documentation.red-gate.com/sqt',
+      'SQL Data Masker':           'https://documentation.red-gate.com/sdm',
+      'SQL Change Automation':     'https://documentation.red-gate.com/sca',
+      'SQL Data Catalog':          'https://documentation.red-gate.com/sdc',
+      'Flyway':                    'https://documentation.red-gate.com/fd',
+      'Redgate Monitor':           'https://documentation.red-gate.com/monitor',
+      'Test Data Manager':         'https://documentation.red-gate.com/tdm',
+      'Redgate Data Modeler':      'https://documentation.red-gate.com/rdm',
+    };
+
+    const extIcon = `<svg viewBox="0 0 10 10"><path d="M1 9L9 1M9 1H3M9 1V7"/></svg>`;
+
+    // Wire up clickable cards — inject docs links and open-modal handler
     document.querySelectorAll('.prod-card, .tdm-ci, .piv-card').forEach(card => {
       const node = card.closest('[data-title]');
       if (!node) return;
+
+      const url = docsMap[node.dataset.title];
+      if (url) {
+        const a = document.createElement('a');
+        a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        a.className = 'docs-link';
+        a.innerHTML = 'Documentation ' + extIcon;
+        a.addEventListener('click', e => e.stopPropagation());
+        card.appendChild(a);
+      }
+
       card.addEventListener('click', e => { e.stopPropagation(); openModal(node); });
     });
 
