@@ -365,7 +365,7 @@
       <button class="tab-btn active" data-tab="company">Company Timeline</button>
       <button class="tab-btn" data-tab="tdm">Test Data Manager</button>
       <button class="tab-btn" data-tab="flyway">Flyway</button>
-      <button class="tab-btn" data-tab="toolbelt">SQL Toolbelt</button>
+      <button class="tab-btn" data-tab="toolbelt">SQL Toolbelt/Essentials</button>
     </div>
     <button class="theme-btn" id="themeBtn" title="Toggle light/dark mode">
       <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
@@ -1805,16 +1805,6 @@
     document.querySelectorAll('.prod-card, .tdm-ci, .piv-card').forEach(card => {
       const node = card.closest('[data-title]');
       if (!node) return;
-
-      const url = docsMap[node.dataset.title];
-      if (url) {
-        const a = document.createElement('a');
-        a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-        a.className = 'docs-link';
-        a.innerHTML = 'Documentation ' + extIcon;
-        a.addEventListener('click', e => e.stopPropagation());
-        card.appendChild(a);
-      }
 
       card.addEventListener('click', e => { e.stopPropagation(); openModal(node); });
     });
