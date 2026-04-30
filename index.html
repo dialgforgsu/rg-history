@@ -184,6 +184,7 @@
     .b-retired { color:var(--dim);    border-color:rgba(255,255,255,.1); background:rgba(255,255,255,.04) }
     .b-evolved { color:var(--gold);   border-color:rgba(245,166,35,.3);  background:rgba(245,166,35,.08) }
     .b-acq     { color:var(--purple); border-color:rgba(160,112,212,.3); background:rgba(160,112,212,.08) }
+    .b-sellable { color:#E8931A; border-color:rgba(232,147,26,.35); background:rgba(232,147,26,.09) }
     html.light .b-retired { border-color:rgba(0,0,0,.12); background:rgba(0,0,0,.04) }
 
     /* ── PIVOT NODE ───────────────────────────── */
@@ -338,6 +339,48 @@
     html.vertical .tl-container::-webkit-scrollbar { width:4px }
     html.vertical .tl-container::-webkit-scrollbar-track { background:transparent }
     html.vertical .tl-container::-webkit-scrollbar-thumb { background:rgba(232,49,42,.3); border-radius:4px }
+
+    /* ── TIMELINE SLIDER ─────────────────────── */
+    .tl-slider-wrap {
+      position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+      width:min(66%,680px); z-index:20; display:flex; align-items:center;
+      opacity:.55; transition:opacity .2s;
+    }
+    .tl-slider-wrap:hover { opacity:1 }
+    .tl-slider {
+      flex:1; height:20px; appearance:none; -webkit-appearance:none;
+      background:transparent; cursor:pointer; outline:none;
+    }
+    .tl-slider::-webkit-slider-runnable-track {
+      height:3px; border-radius:2px;
+      background:linear-gradient(to right,var(--red) var(--sl-pct,0%),var(--bd2) var(--sl-pct,0%));
+    }
+    .tl-slider::-webkit-slider-thumb {
+      -webkit-appearance:none; width:14px; height:14px; border-radius:50%; margin-top:-5.5px;
+      background:var(--red); border:2px solid var(--bg);
+      box-shadow:0 0 0 1px rgba(232,49,42,.25); transition:box-shadow .15s;
+    }
+    .tl-slider::-webkit-slider-thumb:hover { box-shadow:0 0 0 5px rgba(232,49,42,.18) }
+    .tl-slider::-moz-range-track { height:3px; border-radius:2px; background:var(--bd2) }
+    .tl-slider::-moz-range-progress { height:3px; border-radius:2px; background:var(--red) }
+    .tl-slider::-moz-range-thumb {
+      width:12px; height:12px; border-radius:50%; border:2px solid var(--bg);
+      background:var(--red); box-shadow:0 0 0 1px rgba(232,49,42,.25);
+    }
+    html.vertical .tl-slider-wrap {
+      bottom:auto; left:auto; transform:none;
+      position:absolute; right:10px; top:50%; margin-top:-140px;
+      width:20px; height:280px; flex-direction:column;
+    }
+    html.vertical .tl-slider {
+      flex:none; writing-mode:vertical-lr; direction:rtl;
+      width:20px; height:280px;
+    }
+    html.vertical .tl-slider::-webkit-slider-runnable-track {
+      width:3px; height:100%;
+      background:linear-gradient(to bottom,var(--red) var(--sl-pct,0%),var(--bd2) var(--sl-pct,0%));
+    }
+    html.vertical .tl-slider::-webkit-slider-thumb { margin-top:0; margin-left:-5.5px }
 
     html.vertical .tl-track {
       flex-direction:column; align-items:stretch;
@@ -606,6 +649,7 @@
       <button class="tab-btn" data-tab="flyway">Flyway</button>
       <button class="tab-btn" data-tab="toolbelt">SQL Toolbelt/Essentials</button>
       <button class="tab-btn" data-tab="bundles">Bundle History</button>
+      <button class="tab-btn" data-tab="bundle-evolution">Bundle Evolution</button>
     </div>
     <button class="layout-btn" id="layoutBtn" title="Toggle vertical / horizontal layout">
       <svg class="icon-horiz" viewBox="0 0 16 16">
@@ -1285,6 +1329,9 @@
         <div class="end-cap"></div>
       </div>
     </div>
+    <div class="tl-slider-wrap" id="company-slider-wrap">
+      <input type="range" class="tl-slider" id="company-slider" min="0" max="100" step="0.1" value="0">
+    </div>
   </div>
 
   <!-- ═══════════════════════════════════════════
@@ -1479,6 +1526,9 @@
 
         <div class="end-cap"></div>
       </div>
+    </div>
+    <div class="tl-slider-wrap" id="tdm-slider-wrap">
+      <input type="range" class="tl-slider" id="tdm-slider" min="0" max="100" step="0.1" value="0">
     </div>
   </div>
 
@@ -1677,6 +1727,9 @@
 
         <div class="end-cap"></div>
       </div>
+    </div>
+    <div class="tl-slider-wrap" id="flyway-slider-wrap">
+      <input type="range" class="tl-slider" id="flyway-slider" min="0" max="100" step="0.1" value="0">
     </div>
   </div>
 
@@ -1942,6 +1995,9 @@
         <div class="end-cap"></div>
       </div>
     </div>
+    <div class="tl-slider-wrap" id="toolbelt-slider-wrap">
+      <input type="range" class="tl-slider" id="toolbelt-slider" min="0" max="100" step="0.1" value="0">
+    </div>
   </div>
 
   <!-- ═══════════════════════════════════════════
@@ -1962,6 +2018,7 @@
       <div class="bundles-filter-bar">
         <button class="filter-btn active" id="filterAll">All bundles</button>
         <button class="filter-btn" id="filterActive">Active only</button>
+        <button class="filter-btn" id="filterSellable">Sellable to Existing Customers</button>
       </div>
 
       <div class="bundles-section-label" id="sqlSectionLabel" onclick="toggleSection('sql')">SQL Bundles <span class="sec-chevron">▾</span></div>
@@ -2026,7 +2083,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">SQL Comparison Bundle</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> Nov 2006 – present</div>
+            <div class="bundle-period"><span class="badge b-sellable">Sellable to Existing Customers</span> Nov 2006 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>SQL Compare</td><td>Nov 2006</td><td>—</td></tr>
@@ -2102,7 +2159,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">SQL Toolbelt</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> Nov 2007 – present</div>
+            <div class="bundle-period"><span class="badge b-sellable">Sellable to Existing Customers</span> Nov 2007 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>SQL Backup Professional</td><td>Nov 2007</td><td>—</td></tr>
@@ -2129,7 +2186,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">SQL Prompt Bundle (2)</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> Apr 2008 – present</div>
+            <div class="bundle-period"><span class="badge b-sellable">Sellable to Existing Customers</span> Apr 2008 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>SQL Data Generator</td><td>Apr 2008</td><td>—</td></tr>
@@ -2158,7 +2215,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">SQL Developer Bundle</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> Jul 2009 – present</div>
+            <div class="bundle-period"><span class="badge b-sellable">Sellable to Existing Customers</span> Jul 2009 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>SQL Compare Professional</td><td>Jul 2009</td><td>—</td></tr>
@@ -2210,7 +2267,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">SQL DBA Bundle (2)</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> Feb 2013 – present</div>
+            <div class="bundle-period"><span class="badge b-sellable">Sellable to Existing Customers</span> Feb 2013 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>SQL Backup Pro</td><td>Feb 2013</td><td>—</td></tr>
@@ -2227,7 +2284,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">SQL Toolbelt Essentials</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> 2023 – present</div>
+            <div class="bundle-period"><span class="badge b-active">Active</span><span class="badge b-sellable" style="margin-left:4px">Sellable to Existing Customers</span> 2023 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>Redgate Data Modeler</td><td>2023</td><td>—</td></tr>
@@ -2279,7 +2336,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">.NET Developer Bundle (2)</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> Jun 2011 – present</div>
+            <div class="bundle-period"><span class="badge b-sellable">Sellable to Existing Customers</span> Jun 2011 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>ANTS Performance Profiler Professional</td><td>Jun 2011</td><td>—</td></tr>
@@ -2305,7 +2362,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">.NET Development Suite</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> Nov 2012 – present</div>
+            <div class="bundle-period"><span class="badge b-sellable">Sellable to Existing Customers</span> Nov 2012 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>ANTS Performance Profiler Professional</td><td>Nov 2012</td><td>—</td></tr>
@@ -2321,7 +2378,7 @@
         <div class="bundle-card">
           <div class="bundle-head">
             <div class="bundle-name">.NET Toolbelt</div>
-            <div class="bundle-period"><span class="badge b-active">Active</span> Nov 2012 – present</div>
+            <div class="bundle-period"><span class="badge b-sellable">Sellable to Existing Customers</span> Nov 2012 – present</div>
           </div>
           <table class="bundle-table"><thead><tr><th>Product</th><th>From</th><th>To</th></tr></thead><tbody>
             <tr><td>ANTS Performance Profiler Professional</td><td>Nov 2012</td><td>—</td></tr>
@@ -2337,6 +2394,221 @@
       </div><!-- /bundle-grid .NET -->
     </div><!-- /bundles-pane -->
   </div><!-- /pane-bundles -->
+
+  <!-- ═══════════════════════════════════════════
+       BUNDLE EVOLUTION TIMELINE
+  ═══════════════════════════════════════════ -->
+  <div class="pane" id="pane-bundle-evolution">
+    <div class="tl-container" id="bundle-evolution-container">
+      <div class="tl-progress"><div class="tl-pfill" id="bundle-evolution-prog"></div></div>
+      <div class="tl-hint">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
+        Scroll to follow the evolution
+      </div>
+      <div class="tl-track" id="bundle-evolution-track">
+        <div class="spine"></div>
+
+        <div class="intro-node">
+          <div class="intro-inner">
+            <div class="intro-kick">Bundle Strategy · 2001 – Present</div>
+            <div class="intro-title">The Bundle<br><span class="accent">Evolution</span></div>
+            <div class="intro-sub">From product-specific packs to the modern Toolbelt Essentials — how Redgate's packaging strategy changed as the product range and market matured.</div>
+            <div class="intro-meta">
+              <span class="intro-pill hot">1 actively sellable</span>
+              <span class="intro-pill">8 sellable to existing customers</span>
+              <span class="intro-pill">14 retired</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ERA 1: Product-Specific Packs -->
+        <div class="era-node" style="color:var(--blue)">
+          <div class="era-vline"></div>
+          <div class="era-top"><div class="era-chip">Era 01</div><div class="era-name">Product-Specific Packs</div><div class="era-yrs">2001 – 2006</div></div>
+          <div class="era-dot"></div>
+          <div class="era-bot">Bundle what you buy.<br>Simple, direct.</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-retired">Retired</span></div>
+            <div class="tdm-pn">SQL Bundle</div><div class="tdm-per">Jul 2001 – Nov 2006</div>
+            <div class="tdm-why">Redgate's first bundle: SQL Compare, SQL Data Compare, and DTS Package Compare in one purchase. Designed for customers who already used one of the comparison tools and wanted the full set at a discount.</div>
+            <div class="tdm-lim"><span class="lim-i">→</span><span>As the product range grew to 10+ tools, a single comparison bundle could no longer serve the breadth of buyer types. A new suite architecture was needed.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2001</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-retired">Retired</span></div>
+            <div class="tdm-pn">SQL Bundle Developer Edition</div><div class="tdm-per">Dec 2003 – Feb 2005</div>
+            <div class="tdm-why">An expanded comparison bundle for developers, adding SQL Toolkit and SQL Packager. The first attempt to serve a developer persona with a broader feature set.</div>
+            <div class="tdm-lim"><span class="lim-i">→</span><span>Superseded by larger, more comprehensive bundles that included backup and monitoring tools alongside developer tools.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2003</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-retired">Retired</span></div>
+            <div class="tdm-pn">SQL Backup Bundle</div><div class="tdm-per">Feb 2005 – Apr 2007</div>
+            <div class="tdm-why">The first specialist bundle, pairing SQL Backup Standard with SQL Log Rescue for DBA operations. Recognised that backup buyers were a distinct buyer persona from developers.</div>
+            <div class="tdm-lim"><span class="lim-i">→</span><span>Backup tools were absorbed into the comprehensive SQL Toolbelt bundle, which offered better value for the same buyer.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2005</div>
+        </div>
+
+        <div class="trans-node below">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we pivoted</div><div class="trans-txt">"Product-specific packs couldn't serve the growing range of buyer types. We needed comprehensive suites that reflected how customers actually worked."</div></div>
+          </div>
+        </div>
+
+        <!-- ERA 2: Suite Architecture -->
+        <div class="era-node" style="color:var(--gold)">
+          <div class="era-vline"></div>
+          <div class="era-top"><div class="era-chip">Era 02</div><div class="era-name">Suite Architecture</div><div class="era-yrs">2006 – 2007</div></div>
+          <div class="era-dot"></div>
+          <div class="era-bot">Comprehensive suites.<br>Multiple tiers.</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-sellable">Sellable to Existing Customers</span></div>
+            <div class="tdm-pn">SQL Comparison Bundle</div><div class="tdm-per">Nov 2006 – present</div>
+            <div class="tdm-why">The focused successor to the SQL Bundle — SQL Compare, SQL Data Compare, SQL Dependency Tracker, and SQL Packager. Distilled the comparison story into one bundle that has survived every subsequent portfolio reorganisation.</div>
+            <div class="tdm-lim"><span class="lim-i">ℹ</span><span>Still offered for existing customers who prefer the focused comparison set over the full Toolbelt Essentials.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Nov 2006</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-retired">Retired</span></div>
+            <div class="tdm-pn">SQL Professional Toolbelt</div><div class="tdm-per">Nov 2006 – Nov 2007</div>
+            <div class="tdm-why">The first attempt at a comprehensive professional suite — 10 tools covering comparison, backup, documentation, scripting, and IDE enhancement. Ambitious but complex to sell and support.</div>
+            <div class="tdm-lim"><span class="lim-i">→</span><span>Simplified into the SQL Toolbelt in Nov 2007, which had cleaner tiers and better-defined value propositions for developer vs. DBA buyers.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Nov 2006</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-retired">Retired</span></div>
+            <div class="tdm-pn">SQL Prompt Bundle</div><div class="tdm-per">Oct 2006 – Apr 2008</div>
+            <div class="tdm-why">The first developer-IDE-focused bundle — SQL Prompt, SQL Dependency Tracker, SQL Doc Professional, and SQL Refactor. Targeted developers who lived in SSMS and wanted the best IDE experience.</div>
+            <div class="tdm-lim"><span class="lim-i">→</span><span>Evolved into SQL Prompt Bundle (2) in Apr 2008, which added SQL Data Generator and updated the product mix.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Oct 2006</div>
+        </div>
+
+        <div class="trans-node below">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">The anchor bundle emerges</div><div class="trans-txt">"The SQL Toolbelt became the definitive Redgate bundle — the one answer to 'what does Redgate sell?' for the next 15 years."</div></div>
+          </div>
+        </div>
+
+        <!-- ERA 3: The Toolbelt Era -->
+        <div class="era-node" style="color:var(--red)">
+          <div class="era-vline"></div>
+          <div class="era-top"><div class="era-chip">Era 03</div><div class="era-name">The Toolbelt Era</div><div class="era-yrs">2007 – 2023</div></div>
+          <div class="era-dot"></div>
+          <div class="era-bot">One flagship bundle.<br>Specialist add-ons.</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-sellable">Sellable to Existing Customers</span></div>
+            <div class="tdm-pn">SQL Toolbelt</div><div class="tdm-per">Nov 2007 – present</div>
+            <div class="tdm-why">The kitchen-sink bundle — every SQL Server tool Redgate made, in one purchase. Became the default answer for DBAs and developer teams who wanted the full suite. Anchored Redgate's commercial strategy for 15 years.</div>
+            <div class="tdm-lim"><span class="lim-i">ℹ</span><span>Still offered for existing customers. New customers are directed to SQL Toolbelt Essentials instead.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Nov 2007</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-sellable">Sellable to Existing Customers</span></div>
+            <div class="tdm-pn">SQL Prompt Bundle (2)</div><div class="tdm-per">Apr 2008 – present</div>
+            <div class="tdm-why">Refreshed developer-IDE bundle: SQL Prompt, SQL Doc Professional, SQL Dependency Tracker, SQL Data Generator, and SQL Search. A sharper developer value proposition without the backup and monitoring tools included in the full Toolbelt.</div>
+            <div class="tdm-lim"><span class="lim-i">ℹ</span><span>Still offered for existing customers who want the focused developer IDE experience.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Apr 2008</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-sellable">Sellable to Existing Customers</span></div>
+            <div class="tdm-pn">SQL Developer Bundle</div><div class="tdm-per">Jul 2009 – present</div>
+            <div class="tdm-why">A developer-focused alternative to the full Toolbelt — comparison, source control, scripting, and IDE tools without the backup and monitoring products. Created to serve teams where the DBA already had backup tools and developers wanted a lighter-weight bundle.</div>
+            <div class="tdm-lim"><span class="lim-i">ℹ</span><span>Still offered for existing customers. Covers the developer use cases that SQL Toolbelt Essentials also addresses.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Jul 2009</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-sellable">Sellable to Existing Customers</span></div>
+            <div class="tdm-pn">SQL DBA Bundle (2)</div><div class="tdm-per">Feb 2013 – present</div>
+            <div class="tdm-why">A DBA-operations bundle focused on backup, monitoring, comparison, and scripting. Replaced the original SQL DBA Bundle (which had included the retired HyperBac and Virtual Restore products) with a cleaner set of maintained tools.</div>
+            <div class="tdm-lim"><span class="lim-i">ℹ</span><span>Still offered for existing DBA-focused customers. Covers the DBA use cases within the broader SQL Toolbelt Essentials.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Feb 2013</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-sellable">Sellable to Existing Customers</span></div>
+            <div class="tdm-pn">.NET Developer Bundle (2)</div><div class="tdm-per">Jun 2011 – present</div>
+            <div class="tdm-why">ANTS Performance Profiler, ANTS Memory Profiler, and .NET Reflector VSPro — the core .NET diagnostics and decompilation suite. The .NET equivalent of Redgate's SQL developer toolkit.</div>
+            <div class="tdm-lim"><span class="lim-i">ℹ</span><span>Still offered for existing .NET-focused customers.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Jun 2011</div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn"><span class="badge b-sellable">Sellable to Existing Customers</span></div>
+            <div class="tdm-pn">.NET Development Suite &amp; .NET Toolbelt</div><div class="tdm-per">Nov 2012 – present</div>
+            <div class="tdm-why">.NET Development Suite added SQL Prompt and .NET Demon to the ANTS + Reflector core for a broader developer experience. .NET Toolbelt further added SmartAssembly. Two tiers for different .NET team sizes and needs.</div>
+            <div class="tdm-lim"><span class="lim-i">ℹ</span><span>Both still offered for existing .NET customers with different feature breadth.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">Nov 2012</div>
+        </div>
+
+        <div class="trans-node above">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"The subscription era required a clean, modern bundle that new customers could buy without navigating a complex product matrix. Simplification was the goal."</div></div>
+          </div>
+        </div>
+
+        <!-- ERA 4: Subscription Era -->
+        <div class="era-node" style="color:var(--teal)">
+          <div class="era-vline"></div>
+          <div class="era-top"><div class="era-chip">Era 04</div><div class="era-name">Subscription Era</div><div class="era-yrs">2023 – Present</div></div>
+          <div class="era-dot"></div>
+          <div class="era-bot">One new-customer bundle.<br>Clean subscription.</div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="cur-badge">● Actively Sellable</div>
+            <div class="tdm-sn"><span class="badge b-active">Active</span><span class="badge b-sellable" style="margin-left:4px">Sellable to Existing Customers</span></div>
+            <div class="tdm-pn">SQL Toolbelt Essentials</div><div class="tdm-per">2023 – present</div>
+            <div class="tdm-why">The only Redgate bundle sold to new customers today. Covers the core developer and DBA SQL Server use cases — comparison, source control, data generation, documentation, IDE enhancement, and testing — in a single modern subscription.</div>
+            <div class="tdm-lim"><span class="lim-i">✓</span><span>Clean subscription model. New customers get the right set of tools without navigating the historical product matrix.</span></div>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2023</div>
+        </div>
+
+        <div class="end-cap"></div>
+      </div>
+    </div>
+    <div class="tl-slider-wrap" id="bundle-evolution-slider-wrap">
+      <input type="range" class="tl-slider" id="bundle-evolution-slider" min="0" max="100" step="0.1" value="0">
+    </div>
+  </div>
 
   <!-- ═══════════════════════════════════════════
        MODAL
@@ -2373,7 +2645,20 @@
         this.container = document.getElementById(containerId);
         this.track     = document.getElementById(trackId);
         this.progFill  = document.getElementById(progId);
+        this.slider    = document.getElementById(containerId.replace('-container','-slider'));
         this.x = 0; this.target = 0; this.maxX = 0; this.raf = null;
+
+        if (this.slider) {
+          this.slider.addEventListener('input', () => {
+            if (isVertical) {
+              const pct = parseFloat(this.slider.value) / 100;
+              this.container.scrollTop = pct * (this.container.scrollHeight - this.container.clientHeight);
+            } else {
+              this.target = -(parseFloat(this.slider.value) / 100) * this.maxX;
+              this.kick();
+            }
+          });
+        }
 
         this.container.addEventListener('wheel', e => {
           if (isVertical) return;
@@ -2393,7 +2678,15 @@
         }, { passive: true });
 
         this.container.addEventListener('scroll', () => {
-          if (isVertical) this.revealCards();
+          if (isVertical) {
+            this.revealCards();
+            if (this.slider) {
+              const max = this.container.scrollHeight - this.container.clientHeight;
+              const pct = max > 0 ? (this.container.scrollTop / max * 100) : 0;
+              this.slider.value = pct.toFixed(1);
+              this.slider.style.setProperty('--sl-pct', pct.toFixed(1) + '%');
+            }
+          }
         }, { passive: true });
 
         window.addEventListener('resize', () => this.measure(), { passive: true });
@@ -2448,8 +2741,12 @@
       }
 
       updateProg() {
-        if (!this.progFill || !this.maxX) return;
-        this.progFill.style.width = (-this.x / this.maxX * 100).toFixed(1) + '%';
+        const pct = this.maxX ? (-this.x / this.maxX * 100) : 0;
+        if (this.progFill) this.progFill.style.width = pct.toFixed(1) + '%';
+        if (this.slider && !isVertical) {
+          this.slider.value = pct.toFixed(1);
+          this.slider.style.setProperty('--sl-pct', pct.toFixed(1) + '%');
+        }
       }
 
       revealCards() {
@@ -2474,7 +2771,8 @@
         company:  ['company-container',  'company-track',  'company-prog'],
         tdm:      ['tdm-container',      'tdm-track',      'tdm-prog'],
         flyway:   ['flyway-container',   'flyway-track',   'flyway-prog'],
-        toolbelt: ['toolbelt-container', 'toolbelt-track', 'toolbelt-prog'],
+        toolbelt:          ['toolbelt-container',          'toolbelt-track',          'toolbelt-prog'],
+        'bundle-evolution':['bundle-evolution-container',  'bundle-evolution-track',  'bundle-evolution-prog'],
       };
       return (timelines[tab] = new Timeline(...map[tab]));
     }
@@ -2495,28 +2793,30 @@
     document.getElementById('navBrand').addEventListener('click', e => { e.preventDefault(); switchTab('company'); });
 
     // ─── Bundle filter ─────────────────────────
-    let activeFilter = false;
+    let bundleFilter = 'all';
 
     function applyBundleFilter() {
       document.querySelectorAll('.bundle-card').forEach(card => {
-        const isRetired = card.querySelector('.b-retired') !== null;
-        card.classList.toggle('b-hidden', activeFilter && isRetired);
+        let hide = false;
+        if (bundleFilter === 'active')   hide = card.querySelector('.b-active')   === null;
+        if (bundleFilter === 'sellable') hide = card.querySelector('.b-sellable') === null;
+        card.classList.toggle('b-hidden', hide);
       });
     }
 
-    document.getElementById('filterAll').addEventListener('click', () => {
-      activeFilter = false;
-      document.getElementById('filterAll').classList.add('active');
-      document.getElementById('filterActive').classList.remove('active');
+    function setFilter(f) {
+      bundleFilter = f;
+      ['filterAll','filterActive','filterSellable'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', el.id === 'filter' + f.charAt(0).toUpperCase() + f.slice(1));
+      });
+      document.getElementById('filterAll').classList.toggle('active', f === 'all');
       applyBundleFilter();
-    });
+    }
 
-    document.getElementById('filterActive').addEventListener('click', () => {
-      activeFilter = true;
-      document.getElementById('filterActive').classList.add('active');
-      document.getElementById('filterAll').classList.remove('active');
-      applyBundleFilter();
-    });
+    document.getElementById('filterAll').addEventListener('click',      () => setFilter('all'));
+    document.getElementById('filterActive').addEventListener('click',   () => setFilter('active'));
+    document.getElementById('filterSellable').addEventListener('click', () => setFilter('sellable'));
 
     function toggleSection(which) {
       const gridId = which === 'sql' ? 'sqlGrid' : 'netGrid';
