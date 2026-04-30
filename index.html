@@ -104,7 +104,7 @@
 
     /* ── SPINE ────────────────────────────────── */
     .spine {
-      position:absolute; top:50%; left:0; right:0;
+      position:absolute; top:50%; left:calc(6vw + 298px); right:0;
       height:2px; transform:translateY(-50%);
       background:linear-gradient(to right,transparent 0%,var(--red2) 2%,var(--red) 10%,var(--red) 90%,var(--red2) 98%,transparent 100%);
       opacity:.5; pointer-events:none; z-index:1;
@@ -132,7 +132,7 @@
 
     /* ── INTRO NODE ───────────────────────────── */
     .intro-node  { position:relative; flex-shrink:0; width:320px }
-    .intro-inner { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:280px }
+    .intro-inner { position:absolute; bottom:calc(50% + 18px); left:50%; transform:translateX(-50%); width:280px }
     .intro-kick  { font-size:.65rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:.65rem; display:flex; align-items:center; gap:.5rem }
     .intro-kick::before { content:''; width:20px; height:1.5px; background:var(--red); opacity:.6 }
     .intro-title { font-size:clamp(1.6rem,3vw,2.4rem); font-weight:900; letter-spacing:-.05em; line-height:1.1; margin-bottom:.75rem }
@@ -350,7 +350,7 @@
 
     /* Spine — vertical */
     html.vertical .spine {
-      top:0; bottom:0; left:50%; right:auto;
+      top:calc(2rem + 300px); bottom:0; left:50%; right:auto;
       width:2px; height:auto;
       transform:translateX(-50%);
       background:linear-gradient(to bottom,transparent 0%,var(--red2) 2%,var(--red) 10%,var(--red) 90%,var(--red2) 98%,transparent 100%);
@@ -821,6 +821,27 @@
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2006</div>
         </div>
 
+        <div class="prod-node below" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Era 02 · ~2006" data-title="SQL Data Generator" data-sub="Generate realistic test data for SQL Server — without writing scripts">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🎲</div><div><div class="pc-name">SQL Data Generator</div><div class="pc-tag">Realistic test data</div></div></div>
+            <div class="pc-desc">Populate SQL Server databases with realistic test data using configurable generators — names, emails, dates, amounts — without writing INSERT scripts by hand.</div>
+            <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Data Generator removes the tedious, error-prone task of writing INSERT scripts to populate test databases. It provides a library of realistic data generators — names, email addresses, phone numbers, monetary amounts, dates — that can be configured per-column and run against any SQL Server database.</p>
+              <p>Part of the SQL Toolbelt bundle. Particularly useful alongside SQL Data Compare and SQL Clone for teams that need consistent, realistic data in non-production environments without copying sensitive production data.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>50+ built-in generators for common data types: names, addresses, emails, dates, amounts</li>
+                <li>Regex-based generators for custom formats</li>
+                <li>Respects referential integrity — foreign key columns get matching values automatically</li>
+                <li>Save and share generator configurations for consistent test data across the team</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2006</div>
+        </div>
+
         <div class="prod-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
              data-eyebrow="Era 02 · ~2007" data-title="SQL Backup Pro" data-sub="Fast, compressed SQL Server backup with encryption and verification">
           <div class="prod-card">
@@ -836,6 +857,27 @@
                 <li>AES encryption for backup files in transit and at rest</li>
                 <li>Integrity verification to catch corrupt backups before they're needed in a crisis</li>
                 <li>Scheduling and alerting integrated with SQL Server Agent</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2007</div>
+        </div>
+
+        <div class="prod-node above" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
+             data-eyebrow="Era 02 · ~2007" data-title="SQL Dependency Tracker" data-sub="Visualise and explore SQL Server object dependencies">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🕸️</div><div><div class="pc-name">SQL Dependency Tracker</div><div class="pc-tag">Dependency mapping</div></div></div>
+            <div class="pc-desc">Map and visualise dependencies between SQL Server objects — stored procedures, views, tables, and functions. Understand the blast radius of any schema change before making it.</div>
+            <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Dependency Tracker solves the "what will break?" question that precedes any significant schema change. It builds a complete dependency graph of all SQL Server objects — tables, views, procedures, functions, synonyms — and lets you explore what depends on what, interactively.</p>
+              <p>Before making a schema change, a developer can trace exactly which objects reference the object being changed, and which objects those reference in turn — turning a risky blind change into an informed decision.</p>
+              <h4>Key capabilities</h4>
+              <ul>
+                <li>Interactive dependency graph with drill-down navigation</li>
+                <li>Cross-database dependency tracking across multiple databases on the same server</li>
+                <li>Impact analysis: highlight everything affected by a proposed change</li>
+                <li>Export dependency maps for documentation and review</li>
               </ul>
             </template>
           </div>
@@ -926,48 +968,6 @@
             </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2010</div>
-        </div>
-
-        <div class="prod-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
-             data-eyebrow="Era 02 · ~2006" data-title="SQL Data Generator" data-sub="Generate realistic test data for SQL Server — without writing scripts">
-          <div class="prod-card">
-            <div class="pc-top"><div class="pc-icon">🎲</div><div><div class="pc-name">SQL Data Generator</div><div class="pc-tag">Realistic test data</div></div></div>
-            <div class="pc-desc">Populate SQL Server databases with realistic test data using configurable generators — names, emails, dates, amounts — without writing INSERT scripts by hand.</div>
-            <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
-            <template class="card-detail">
-              <p>SQL Data Generator removes the tedious, error-prone task of writing INSERT scripts to populate test databases. It provides a library of realistic data generators — names, email addresses, phone numbers, monetary amounts, dates — that can be configured per-column and run against any SQL Server database.</p>
-              <p>Part of the SQL Toolbelt bundle. Particularly useful alongside SQL Data Compare and SQL Clone for teams that need consistent, realistic data in non-production environments without copying sensitive production data.</p>
-              <h4>Key capabilities</h4>
-              <ul>
-                <li>50+ built-in generators for common data types: names, addresses, emails, dates, amounts</li>
-                <li>Regex-based generators for custom formats</li>
-                <li>Respects referential integrity — foreign key columns get matching values automatically</li>
-                <li>Save and share generator configurations for consistent test data across the team</li>
-              </ul>
-            </template>
-          </div>
-          <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2006</div>
-        </div>
-
-        <div class="prod-node below" style="--dc:var(--blue);--dg:rgba(74,158,232,.3)"
-             data-eyebrow="Era 02 · ~2007" data-title="SQL Dependency Tracker" data-sub="Visualise and explore SQL Server object dependencies">
-          <div class="prod-card">
-            <div class="pc-top"><div class="pc-icon">🕸️</div><div><div class="pc-name">SQL Dependency Tracker</div><div class="pc-tag">Dependency mapping</div></div></div>
-            <div class="pc-desc">Map and visualise dependencies between SQL Server objects — stored procedures, views, tables, and functions. Understand the blast radius of any schema change before making it.</div>
-            <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
-            <template class="card-detail">
-              <p>SQL Dependency Tracker solves the "what will break?" question that precedes any significant schema change. It builds a complete dependency graph of all SQL Server objects — tables, views, procedures, functions, synonyms — and lets you explore what depends on what, interactively.</p>
-              <p>Before making a schema change, a developer can trace exactly which objects reference the object being changed, and which objects those reference in turn — turning a risky blind change into an informed decision.</p>
-              <h4>Key capabilities</h4>
-              <ul>
-                <li>Interactive dependency graph with drill-down navigation</li>
-                <li>Cross-database dependency tracking across multiple databases on the same server</li>
-                <li>Impact analysis: highlight everything affected by a proposed change</li>
-                <li>Export dependency maps for documentation and review</li>
-              </ul>
-            </template>
-          </div>
-          <div class="stub"></div><div class="prod-dot"></div><div class="yr">~2007</div>
         </div>
 
         <!-- PIVOT 2 -->
