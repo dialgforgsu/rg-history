@@ -2910,12 +2910,17 @@
 
     const extIcon = `<svg viewBox="0 0 10 10"><path d="M1 9L9 1M9 1H3M9 1V7"/></svg>`;
 
-    // Wire up clickable cards — inject docs links and open-modal handler
+    // Wire up clickable cards — open docs URL in new tab if available, else open modal
     document.querySelectorAll('.prod-card, .tdm-ci, .piv-card').forEach(card => {
       const node = card.closest('[data-title]');
       if (!node) return;
 
-      card.addEventListener('click', e => { e.stopPropagation(); openModal(node); });
+      card.addEventListener('click', e => {
+        e.stopPropagation();
+        const url = docsMap[node.dataset.title];
+        if (url) { window.open(url, '_blank', 'noopener,noreferrer'); }
+        else { openModal(node); }
+      });
     });
 
     // ─── Boot ─────────────────────────────────
