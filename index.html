@@ -118,13 +118,25 @@
 
     /* ── SCROLL HINT ──────────────────────────── */
     .tl-hint {
-      position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
-      display:flex; align-items:center; gap:.9rem;
-      background:rgba(232,49,42,.12); backdrop-filter:blur(16px);
+      position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
+      display:flex; align-items:center; gap:.55rem;
+      background:rgba(232,49,42,.08); backdrop-filter:blur(12px);
+      border:1px solid rgba(232,49,42,.35); border-radius:100px;
+      padding:.38rem 1rem;
+      font-size:.68rem; color:rgba(232,49,42,.8); letter-spacing:.07em; text-transform:uppercase;
+      pointer-events:none; z-index:10; white-space:nowrap;
+      animation:fadeHint 4s ease forwards;
+      transition:background .3s, border-color .3s;
+    }
+    .tl-hint svg { animation:nudge 1.4s ease-in-out infinite }
+    @keyframes nudge { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
+
+    /* hero variant — main page only */
+    .tl-hint--hero {
+      bottom:28px; gap:.9rem;
+      background:rgba(232,49,42,.12);
       border:1.5px solid rgba(232,49,42,.45); border-radius:16px;
       padding:.75rem 1.5rem;
-      pointer-events:none; z-index:10; white-space:nowrap;
-      animation:fadeHint 7s ease forwards;
       animation:pulseGlow 1.8s ease-in-out 3, fadeHint 7s ease forwards;
     }
     .tl-hint-icon { display:flex; flex-direction:column; align-items:center; gap:3px; flex-shrink:0 }
@@ -693,7 +705,7 @@
   <div class="pane active" id="pane-company">
     <div class="tl-container" id="company-container">
       <div class="tl-progress"><div class="tl-pfill" id="company-prog"></div></div>
-      <div class="tl-hint">
+      <div class="tl-hint tl-hint--hero">
         <div class="tl-hint-icon">
           <svg class="tl-hint-wheel" width="22" height="34" viewBox="0 0 22 34" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="1" y="1" width="20" height="32" rx="10"/>
@@ -1363,16 +1375,8 @@
     <div class="tl-container" id="tdm-container">
       <div class="tl-progress"><div class="tl-pfill" id="tdm-prog"></div></div>
       <div class="tl-hint">
-        <div class="tl-hint-icon">
-          <svg class="tl-hint-wheel" width="22" height="34" viewBox="0 0 22 34" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="1" width="20" height="32" rx="10"/>
-            <line x1="11" y1="7" x2="11" y2="13"/>
-          </svg>
-        </div>
-        <div class="tl-hint-text">
-          <span class="tl-hint-label">Scroll to follow the evolution</span>
-          <span class="tl-hint-sub">Use your mouse wheel to navigate</span>
-        </div>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
+        Scroll to follow the evolution
       </div>
       <div class="tl-track" id="tdm-track">
         <div class="spine"></div>
@@ -1569,16 +1573,8 @@
     <div class="tl-container" id="flyway-container">
       <div class="tl-progress"><div class="tl-pfill" id="flyway-prog"></div></div>
       <div class="tl-hint">
-        <div class="tl-hint-icon">
-          <svg class="tl-hint-wheel" width="22" height="34" viewBox="0 0 22 34" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="1" width="20" height="32" rx="10"/>
-            <line x1="11" y1="7" x2="11" y2="13"/>
-          </svg>
-        </div>
-        <div class="tl-hint-text">
-          <span class="tl-hint-label">Scroll to follow the evolution</span>
-          <span class="tl-hint-sub">Use your mouse wheel to navigate</span>
-        </div>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
+        Scroll to follow the evolution
       </div>
       <div class="tl-track" id="flyway-track">
         <div class="spine"></div>
@@ -1778,16 +1774,8 @@
     <div class="tl-container" id="toolbelt-container">
       <div class="tl-progress"><div class="tl-pfill" id="toolbelt-prog"></div></div>
       <div class="tl-hint">
-        <div class="tl-hint-icon">
-          <svg class="tl-hint-wheel" width="22" height="34" viewBox="0 0 22 34" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="1" width="20" height="32" rx="10"/>
-            <line x1="11" y1="7" x2="11" y2="13"/>
-          </svg>
-        </div>
-        <div class="tl-hint-text">
-          <span class="tl-hint-label">Scroll to explore the bundles</span>
-          <span class="tl-hint-sub">Use your mouse wheel to navigate</span>
-        </div>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
+        Scroll to explore the bundles
       </div>
       <div class="tl-track" id="toolbelt-track">
         <div class="spine"></div>
@@ -2448,16 +2436,8 @@
     <div class="tl-container" id="bundle-evolution-container">
       <div class="tl-progress"><div class="tl-pfill" id="bundle-evolution-prog"></div></div>
       <div class="tl-hint">
-        <div class="tl-hint-icon">
-          <svg class="tl-hint-wheel" width="22" height="34" viewBox="0 0 22 34" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="1" width="20" height="32" rx="10"/>
-            <line x1="11" y1="7" x2="11" y2="13"/>
-          </svg>
-        </div>
-        <div class="tl-hint-text">
-          <span class="tl-hint-label">Scroll to follow the evolution</span>
-          <span class="tl-hint-sub">Use your mouse wheel to navigate</span>
-        </div>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="rgba(232,49,42,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14M9 1l5 5-5 5"/></svg>
+        Scroll to follow the evolution
       </div>
       <div class="tl-track" id="bundle-evolution-track">
         <div class="spine"></div>
