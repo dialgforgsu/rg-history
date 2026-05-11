@@ -2887,30 +2887,31 @@
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // ─── Docs links ────────────────────────────
+    // ─── Docs links (URLs verified live — only entries with working pages) ───
     const docsMap = {
+      // Combined card title (HTML entity decoded by dataset API)
+      'SQL Compare & SQL Data Compare':  'https://documentation.red-gate.com/sc',
+      // Individual products
       'SQL Compare':               'https://documentation.red-gate.com/sc',
       'SQL Data Compare':          'https://documentation.red-gate.com/sdc',
-      'ANTS Performance Profiler': 'https://documentation.red-gate.com/ants',
-      'ANTS Memory Profiler':      'https://documentation.red-gate.com/ants',
+      'ANTS Performance Profiler': 'https://documentation.red-gate.com/app',
+      'ANTS Memory Profiler':      'https://documentation.red-gate.com/amp',
+      'SmartAssembly':             'https://documentation.red-gate.com/sa',
       'SQL Prompt':                'https://documentation.red-gate.com/sp',
-      'SQL Doc':                   'https://documentation.red-gate.com/sqd',
-      'SQL Source Control':        'https://documentation.red-gate.com/ssc',
-      'SQL Search':                'https://documentation.red-gate.com/sqls',
+      'SQL Data Generator':        'https://documentation.red-gate.com/sdg',
       'SQL Backup Pro':            'https://documentation.red-gate.com/sbu',
-      '.NET Reflector':            'https://documentation.red-gate.com/reflector',
+      'SQL Dependency Tracker':    'https://documentation.red-gate.com/sdt',
       'SQL Monitor':               'https://documentation.red-gate.com/sm',
       'SQL Test':                  'https://documentation.red-gate.com/sqt',
-      'SQL Data Masker':           'https://documentation.red-gate.com/sdm',
       'SQL Change Automation':     'https://documentation.red-gate.com/sca',
-      'SQL Data Catalog':          'https://documentation.red-gate.com/sdc',
+      'ReadyRoll':                 'https://documentation.red-gate.com/sca',
       'SQL Clone':                 'https://documentation.red-gate.com/clone',
-      'SQL Provision':             'https://documentation.red-gate.com/sp4',
       'Flyway':                    'https://documentation.red-gate.com/fd',
       'Redgate Monitor':           'https://documentation.red-gate.com/monitor',
-      'Redgate Clone':             'https://documentation.red-gate.com/rgclone',
       'Test Data Manager':         'https://documentation.red-gate.com/tdm',
-      'Redgate Data Modeler':      'https://documentation.red-gate.com/rdm',
+      // No working documentation URL found for:
+      // SQL Doc, SQL Source Control, SQL Search, .NET Reflector, SQL Data Masker,
+      // SQL Data Catalog, SQL Provision, Redgate Clone, Redgate Data Modeler, Redgate Deploy
     };
 
     function createExtIcon() {
@@ -2922,17 +2923,11 @@
       return svg;
     }
 
-    // Wire up clickable cards — open docs URL in new tab if available, else open modal
+    // Wire up clickable cards — always open modal; docs link appears inside it
     document.querySelectorAll('.prod-card, .tdm-ci, .piv-card').forEach(card => {
       const node = card.closest('[data-title]');
       if (!node) return;
-
-      card.addEventListener('click', e => {
-        e.stopPropagation();
-        const url = docsMap[node.dataset.title];
-        if (url) { window.open(url, '_blank', 'noopener,noreferrer'); }
-        else { openModal(node); }
-      });
+      card.addEventListener('click', e => { e.stopPropagation(); openModal(node); });
     });
 
     // ─── Boot ─────────────────────────────────
