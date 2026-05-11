@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Redgate — 25 Years of Data Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2021,7 +2023,7 @@
         <button class="filter-btn" id="filterSellable">Sellable to Existing Customers</button>
       </div>
 
-      <div class="bundles-section-label" id="sqlSectionLabel" onclick="toggleSection('sql')">SQL Bundles <span class="sec-chevron">▾</span></div>
+      <div class="bundles-section-label" id="sqlSectionLabel">SQL Bundles <span class="sec-chevron">▾</span></div>
       <div class="bundle-grid" id="sqlGrid">
 
         <!-- SQL Bundle -->
@@ -2303,7 +2305,7 @@
 
       </div><!-- /bundle-grid SQL -->
 
-      <div class="bundles-section-label" id="netSectionLabel" onclick="toggleSection('net')">.NET Bundles <span class="sec-chevron">▾</span></div>
+      <div class="bundles-section-label" id="netSectionLabel">.NET Bundles <span class="sec-chevron">▾</span></div>
       <div class="bundle-grid" id="netGrid">
 
         <!-- ANTS Bundle -->
@@ -2817,6 +2819,8 @@
     document.getElementById('filterAll').addEventListener('click',      () => setFilter('all'));
     document.getElementById('filterActive').addEventListener('click',   () => setFilter('active'));
     document.getElementById('filterSellable').addEventListener('click', () => setFilter('sellable'));
+    document.getElementById('sqlSectionLabel').addEventListener('click', () => toggleSection('sql'));
+    document.getElementById('netSectionLabel').addEventListener('click', () => toggleSection('net'));
 
     function toggleSection(which) {
       const gridId = which === 'sql' ? 'sqlGrid' : 'netGrid';
@@ -2870,7 +2874,8 @@
         const btn = document.createElement('a');
         btn.href = url; btn.target = '_blank'; btn.rel = 'noopener noreferrer';
         btn.className = 'modal-docs-btn';
-        btn.innerHTML = 'View documentation ' + extIcon;
+        btn.appendChild(document.createTextNode('View documentation '));
+        btn.appendChild(createExtIcon());
         modalBody.appendChild(btn);
       }
       modal.classList.add('open');
@@ -2908,7 +2913,14 @@
       'Redgate Data Modeler':      'https://documentation.red-gate.com/rdm',
     };
 
-    const extIcon = `<svg viewBox="0 0 10 10"><path d="M1 9L9 1M9 1H3M9 1V7"/></svg>`;
+    function createExtIcon() {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 10 10');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M1 9L9 1M9 1H3M9 1V7');
+      svg.appendChild(path);
+      return svg;
+    }
 
     // Wire up clickable cards — open docs URL in new tab if available, else open modal
     document.querySelectorAll('.prod-card, .tdm-ci, .piv-card').forEach(card => {
