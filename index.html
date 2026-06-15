@@ -1585,7 +1585,7 @@
             <div class="intro-title">The Path to<br><span class="accent">Flyway</span></div>
             <div class="intro-sub">From schema comparison to the world's most popular open-source database migration tool — how Redgate's deployment story evolved over 20 years.</div>
             <div class="intro-meta">
-              <span class="intro-pill hot">6 stages</span>
+              <span class="intro-pill hot">7 stages</span>
               <span class="intro-pill">1999 – 2019</span>
               <span class="intro-pill">30+ databases</span>
             </div>
@@ -1645,14 +1645,42 @@
 
         <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Source control gave you history. But teams needed the pipeline to automatically deploy those changes from dev through to production."</div></div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Source control gave you history — but deployments were still manual. Teams needed a way to automate the comparison and script generation that happened inside SQL Compare."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
-             data-eyebrow="Stage 03 · ~2013" data-title="SQL Change Automation" data-sub="State-based CI/CD — automated database deployments integrated with pipelines">
+        <div class="tdm-node above" style="--dc:var(--green);--dg:rgba(80,200,120,.3)"
+             data-eyebrow="Stage 03 · ~2013" data-title="DLM Automation" data-sub="PowerShell-driven database deployments — automating SQL Compare's engine in CI/CD pipelines">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Change Automation</div><div class="tdm-per">c. 2013</div>
+            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">DLM Automation</div><div class="tdm-per">c. 2013</div>
+            <div class="tdm-why">PowerShell cmdlets that wrapped SQL Compare's engine — letting teams automate the generate-and-deploy process without clicking through a GUI. The first step from "version-controlled" to "automatically deployed."</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Script-level automation only — no integrated pipeline UI, no native Azure DevOps / Jenkins plugins. Teams had to wire everything together manually with PowerShell.</span></div>
+            <template class="card-detail">
+              <p>DLM Automation gave teams their first taste of fully automated database deployments. By exposing SQL Compare's comparison and script-generation engine as PowerShell cmdlets, it let CI/CD pipelines generate and apply the exact change script needed to bring a target database in line with the source-controlled schema — without human intervention.</p>
+              <p>It was a significant step forward, but still required teams to own the pipeline plumbing themselves. Integrating it into a build server meant writing and maintaining custom PowerShell, wiring up credentials, and handling failures manually — there was no plug-in, no UI, no first-class integration with Azure DevOps or Jenkins.</p>
+              <h4>What DLM Automation established</h4>
+              <ul>
+                <li>Proved that SQL Compare's engine could run headlessly as part of a pipeline step</li>
+                <li>Database deployment could be a non-interactive, repeatable process — not a manual DBA ceremony</li>
+                <li>PowerShell as the integration layer was powerful but required significant setup per team</li>
+                <li>The need for first-class pipeline plugins and a richer CI/CD experience drove what became SQL Change Automation</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2013</div>
+        </div>
+
+        <div class="trans-node above">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"PowerShell cmdlets were too low-level for most teams. We needed first-class pipeline plugins and a proper product experience — not just a scripting toolkit."</div></div>
+          </div>
+        </div>
+
+        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Stage 04 · ~2014" data-title="SQL Change Automation" data-sub="State-based CI/CD — automated database deployments integrated with pipelines">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 04</div><div class="tdm-pn">SQL Change Automation</div><div class="tdm-per">c. 2014</div>
             <div class="tdm-why">State-based CI/CD for databases — automatically compare source to target and deploy the difference. Integrated with Azure DevOps, TeamCity, and Jenkins to bring database changes into the same pipelines as application code.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>State-based deployment worked well for DBAs but didn't match how many developers thought — they wanted ordered, versioned migration scripts.</span></div>
@@ -1669,19 +1697,19 @@
               </ul>
             </template>
           </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2013</div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
         </div>
 
-        <div class="trans-node above">
+        <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Developers wanted migrations — explicit, versioned scripts they controlled. ReadyRoll already had this. We acquired it to bring that approach in-house."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
-             data-eyebrow="Stage 04 · Acquired · ~2015" data-title="ReadyRoll" data-sub="Migrations-based deployments — acquired to bring the developer model in-house">
+        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Stage 05 · Acquired · ~2015" data-title="ReadyRoll" data-sub="Migrations-based deployments — acquired to bring the developer model in-house">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 04 · Acquired</div><div class="tdm-pn">ReadyRoll</div><div class="tdm-per">c. 2015</div>
+            <div class="tdm-sn">Stage 05 · Acquired</div><div class="tdm-pn">ReadyRoll</div><div class="tdm-per">c. 2015</div>
             <div class="tdm-why">Migrations-based database deployments — ordered, versioned scripts that gave developers full control over exactly what ran, in what order, in every environment. Acquired to complement SQL Change Automation's state-based approach.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>A standalone acquisition that needed deeper platform integration and expansion beyond SQL Server to realise its full potential.</span></div>
@@ -1701,16 +1729,16 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
         </div>
 
-        <div class="trans-node below">
+        <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"ReadyRoll needed to become a first-class Redgate product — integrated with the full platform and positioned as Redgate's unified deployment answer."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
-             data-eyebrow="Stage 05 · ~2018" data-title="Redgate Deploy" data-sub="ReadyRoll rebranded as Redgate's unified database deployment product">
+        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
+             data-eyebrow="Stage 06 · ~2018" data-title="Redgate Deploy" data-sub="ReadyRoll rebranded as Redgate's unified database deployment product">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 05</div><div class="tdm-pn">Redgate Deploy</div><div class="tdm-per">c. 2018</div>
+            <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Redgate Deploy</div><div class="tdm-per">c. 2018</div>
             <div class="tdm-why">ReadyRoll rebranded and evolved into Redgate Deploy — Redgate's unified database deployment product, combining migrations-based and state-based approaches with deep CI/CD pipeline integrations.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-az">Azure SQL</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still primarily SQL Server-focused. The open-source community had already chosen Flyway as the standard for cross-platform, developer-first migrations.</span></div>
@@ -1729,17 +1757,17 @@
           <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
         </div>
 
-        <div class="trans-node above">
+        <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
             <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Flyway had millions of users across every major database. Acquiring it gave us the platform-agnostic, developer-first migration tool — and the community that came with it."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
-             data-eyebrow="Stage 06 · Acquired · 2019 – Present · Current Platform" data-title="Flyway" data-sub="World's most popular open-source database migration tool — acquired 2019">
+        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
+             data-eyebrow="Stage 07 · Acquired · 2019 – Present · Current Platform" data-title="Flyway" data-sub="World's most popular open-source database migration tool — acquired 2019">
           <div class="tdm-card"><div class="tdm-ci">
             <div class="cur-badge">Current Platform</div>
-            <div class="tdm-sn">Stage 06 · Acquired</div><div class="tdm-pn">Flyway</div><div class="tdm-per">2019 – Present</div>
+            <div class="tdm-sn">Stage 07 · Acquired</div><div class="tdm-pn">Flyway</div><div class="tdm-per">2019 – Present</div>
             <div class="tdm-why">Acquired from creator Axel Fontaine — the world's most popular open-source database migration tool. Flyway completed Redgate's deployment story: developer-first, open-source, running on every major database platform.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-my">MySQL</span><span class="db db-ora">Oracle</span><span class="db db-more">+ 26 more</span></div></div>
             <template class="card-detail">
