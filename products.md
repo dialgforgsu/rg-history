@@ -1,6 +1,8 @@
 # Redgate Products
 
-Source: red-gate.com/products · Retrieved 2026-04-29
+Source: [red-gate.com/products](https://www.red-gate.com/products/) · Retrieved 2026-04-29
+
+> **This file is a point-in-time snapshot, not a live feed.** Refresh cadence: review against [red-gate.com/products](https://www.red-gate.com/products/) **every 6 months** (and after any major launch/retirement), then update the "Retrieved" date above and commit. The dashboard shows "Data current as of June 2026" — bump that label in `index.html` when this snapshot changes. For current pricing and product details always defer to red-gate.com.
 
 ---
 

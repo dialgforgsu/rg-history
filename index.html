@@ -659,6 +659,66 @@
       font-size:.82rem; color:var(--text); line-height:1.7; font-style:italic;
     }
     html.light .modal-highlight { background:rgba(232,49,42,.05) }
+
+    /* ── SITE FOOTER (data freshness + live link) ── */
+    .site-foot {
+      position:fixed; left:0; bottom:0; z-index:250;
+      display:flex; align-items:center; gap:.4rem;
+      padding:.3rem .7rem;
+      font-size:.62rem; color:var(--muted); letter-spacing:.02em;
+      background:var(--nav-bg); backdrop-filter:blur(12px);
+      border-top:1px solid var(--bd); border-right:1px solid var(--bd);
+      border-radius:0 8px 0 0; max-width:calc(100vw - 1rem);
+      transition:background .3s, border-color .3s, color .3s;
+    }
+    .site-foot a { color:var(--red); text-decoration:none; font-weight:600; white-space:nowrap }
+    .site-foot a:hover { text-decoration:underline }
+    .site-foot .foot-sep { opacity:.45 }
+
+    /* ── PDF / EXPORT BUTTON ─────────────────── */
+    .pdf-btn {
+      width:36px; height:36px; border-radius:9px; border:1px solid var(--bd2);
+      background:var(--s2); color:var(--muted); cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; transition:all .2s;
+    }
+    .pdf-btn:hover { color:var(--red); background:var(--s3); border-color:rgba(232,49,42,.3) }
+    .pdf-btn svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round }
+
+    /* ── RESPONSIVE NAV (narrow / portrait monitors) ── */
+    @media (max-width:1180px) {
+      .nav { gap:.6rem; padding:0 .9rem }
+      .nav-spacer { display:none }
+      .tab-bar {
+        flex:1 1 auto; min-width:0; justify-content:flex-start;
+        overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+      }
+      .tab-bar::-webkit-scrollbar { display:none }
+    }
+    @media (max-width:760px) {
+      .nav { gap:.45rem; padding:0 .55rem }
+      .nav-brand-text { display:none }
+      .tab-btn { padding:.34rem .7rem; font-size:.72rem }
+      .theme-btn, .layout-btn, .pdf-btn { width:32px; height:32px }
+      .site-foot { font-size:.57rem; padding:.28rem .55rem }
+    }
+
+    /* ── PRINT / PDF EXPORT ──────────────────── */
+    @media print {
+      .nav, .tl-hint, .tl-progress, .tl-slider-wrap, .site-foot, .modal-overlay { display:none !important }
+      html, body {
+        overflow:visible !important; height:auto !important; background:#fff !important;
+        -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      }
+      .pane { position:static !important; display:none !important }
+      .pane.active { display:block !important }
+      .tl-container { position:static !important; overflow:visible !important; height:auto !important }
+      .tl-track { transform:none !important }
+      .bundles-pane { overflow:visible !important; height:auto !important }
+      .prod-card, .piv-card, .tdm-ci { opacity:1 !important; transform:none !important }
+      .prod-node, .tdm-node, .pivot-node, .bundle-card, .bundle-grid, .era-node, .trans-node { break-inside:avoid }
+    }
   </style>
 </head>
 <body>
@@ -666,7 +726,7 @@
   <header class="nav">
     <a href="#" class="nav-brand" id="navBrand">
       <span class="brand-dot"></span>
-      Redgate History
+      <span class="nav-brand-text">Redgate History</span>
     </a>
     <div class="nav-spacer"></div>
     <div class="tab-bar">
@@ -677,6 +737,13 @@
       <button class="tab-btn" data-tab="bundles">Bundle History</button>
       <button class="tab-btn" data-tab="bundle-evolution">Bundle Evolution</button>
     </div>
+    <button class="pdf-btn" id="pdfBtn" title="Save the current timeline as a PDF (opens the print dialog — choose “Save as PDF”)">
+      <svg viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </button>
     <button class="layout-btn" id="layoutBtn" title="Toggle vertical / horizontal layout">
       <svg class="icon-horiz" viewBox="0 0 16 16">
         <line x1="1" y1="8" x2="15" y2="8"/>
@@ -698,6 +765,12 @@
       <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     </button>
   </header>
+
+  <footer class="site-foot">
+    <span>Data current as of June 2026</span>
+    <span class="foot-sep">·</span>
+    <a href="https://www.red-gate.com/products/" target="_blank" rel="noopener noreferrer">Live pricing &amp; products ↗</a>
+  </footer>
 
   <!-- ═══════════════════════════════════════════
        COMPANY TIMELINE
@@ -2698,7 +2771,12 @@
     });
 
     // ─── Layout state ──────────────────────────
-    let isVertical = localStorage.getItem('rg-layout') === 'vertical';
+    // Respect a saved choice; otherwise default to vertical on portrait
+    // monitors so the timeline fits a tall, narrow screen out of the box.
+    const storedLayout = localStorage.getItem('rg-layout');
+    let isVertical = storedLayout
+      ? storedLayout === 'vertical'
+      : window.matchMedia('(orientation:portrait)').matches;
     if (isVertical) html.classList.add('vertical');
 
     // ─── Wheel-driven smooth horizontal scroll ─
@@ -2911,6 +2989,32 @@
           tracks.forEach(t => { t.style.opacity = '1' });
         });
       }, 180);
+    });
+
+    // ─── Save as PDF ───────────────────────────
+    // Print the active timeline. Vertical layout stacks every node in normal
+    // document flow, which paginates cleanly into a PDF; restore afterwards.
+    const pdfBtn = document.getElementById('pdfBtn');
+    let pdfRestoreHorizontal = false;
+
+    pdfBtn.addEventListener('click', () => {
+      if (!isVertical) {
+        pdfRestoreHorizontal = true;
+        isVertical = true;
+        html.classList.add('vertical');
+        Object.values(timelines).forEach(tl => tl.enterVertical());
+      }
+      // Cards animate in on scroll — force them all visible before printing.
+      document.querySelectorAll('.prod-card, .piv-card, .tdm-ci').forEach(c => c.classList.add('in'));
+      requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
+    });
+
+    window.addEventListener('afterprint', () => {
+      if (!pdfRestoreHorizontal) return;
+      pdfRestoreHorizontal = false;
+      isVertical = false;
+      html.classList.remove('vertical');
+      Object.values(timelines).forEach(tl => tl.enterHorizontal());
     });
 
     // ─── Modal ─────────────────────────────────

@@ -4,6 +4,8 @@ Historical record of Redgate product bundles — what each bundle included and w
 
 Source: [documentation.red-gate.com/xx/bundle-history](https://documentation.red-gate.com/xx/bundle-history) · Last updated April 2016
 
+> **Point-in-time snapshot, not a live feed.** Refresh cadence: review against the source **every 6 months** (and whenever a bundle is added or retired), then update the "Last updated" date above and commit.
+
 ---
 
 ## SQL Bundles

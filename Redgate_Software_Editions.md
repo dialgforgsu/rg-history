@@ -1,6 +1,8 @@
 # Redgate Software Editions — Subscription Software (On-Premise)
 
 > Source: [red-gate.com/support/license/software-editions](https://www.red-gate.com/support/license/software-editions/#subscription-software-(on-premise))
+>
+> **Point-in-time snapshot, not a live feed.** Refresh cadence: review against the source **every 6 months** (and after any edition/pricing change), then commit. For current pricing always defer to red-gate.com.
 
 Your licenses can be found by logging in to your [Redgate account](https://portal.red-gate.com/).
 
