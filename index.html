@@ -704,24 +704,133 @@
       .site-foot { font-size:.57rem; padding:.28rem .55rem }
     }
 
-    /* ── PRINT / PDF EXPORT ──────────────────── */
+    /* ── PRINT-ONLY HEADER (hidden on screen) ── */
+    .print-only { display:none }
+
+    /* ── PRINT / PDF EXPORT ──────────────────────
+       Reflow the on-screen timeline into a compact, light, single-column
+       document (two columns for the bundle grid) so it reads cleanly and
+       fits in as few pages as possible. ───────────────────────────────── */
     @media print {
-      .nav, .tl-hint, .tl-progress, .tl-slider-wrap, .site-foot, .modal-overlay { display:none !important }
-      html, body {
-        overflow:visible !important; height:auto !important; background:#fff !important;
-        -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      @page { margin: 12mm }
+
+      /* Force a clean light palette regardless of the on-screen theme */
+      html, html.light, html.vertical {
+        --bg:#fff; --s1:#fff; --s2:#fafbfc; --s3:#f1f4f7;
+        --bd:#dce1e8; --bd2:#c7cfd9;
+        --text:#11161c; --muted:#3a4450; --dim:#7c8693; --nav-bg:#fff;
       }
+      html, body {
+        overflow:visible !important; height:auto !important;
+        background:#fff !important; color:var(--text) !important;
+        -webkit-print-color-adjust:exact; print-color-adjust:exact;
+        font-size:10pt; line-height:1.45;
+      }
+
+      /* Hide chrome, decoration and interactive-only bits */
+      .nav, .tl-hint, .tl-progress, .tl-slider-wrap, .site-foot,
+      .modal-overlay, .bundles-filter-bar,
+      .spine, .era-vline, .era-dot, .era-bot, .prod-dot, .piv-dot, .tdm-dot,
+      .stub, .tdm-stub, .trans-arr, .tb-div-arr, .tdm-yr, .end-cap { display:none !important }
+
+      /* Print-only running header */
+      .print-only { display:flex !important }
+      .print-head {
+        align-items:baseline; justify-content:space-between; gap:1rem;
+        margin:0 0 9pt; padding-bottom:5pt; border-bottom:2px solid var(--red);
+      }
+      .print-head strong { font-size:13pt; letter-spacing:-.02em }
+      .print-head span   { font-size:7.5pt; color:var(--muted); text-align:right }
+
+      /* Only the active pane, in normal flow */
       .pane { position:static !important; display:none !important }
       .pane.active { display:block !important }
       .tl-container { position:static !important; overflow:visible !important; height:auto !important }
-      .tl-track { transform:none !important }
-      .bundles-pane { overflow:visible !important; height:auto !important }
-      .prod-card, .piv-card, .tdm-ci { opacity:1 !important; transform:none !important }
-      .prod-node, .tdm-node, .pivot-node, .bundle-card, .bundle-grid, .era-node, .trans-node { break-inside:avoid }
+      .tl-track {
+        display:block !important; transform:none !important;
+        width:auto !important; min-width:0 !important;
+        height:auto !important; min-height:0 !important; padding:0 !important;
+      }
+
+      /* Every timeline node → a static, auto-height block */
+      .intro-node, .era-node, .prod-node, .pivot-node,
+      .tdm-node, .trans-node, .tb-divider {
+        position:static !important; display:block !important;
+        width:auto !important; height:auto !important; min-height:0 !important;
+        transform:none !important; break-inside:avoid;
+      }
+      .intro-inner, .era-top, .prod-card, .piv-card, .tdm-card, .tdm-ci,
+      .trans-in, .tb-div-in {
+        position:static !important; transform:none !important; scale:1 !important;
+        left:auto !important; right:auto !important; top:auto !important; bottom:auto !important;
+        width:auto !important; max-width:none !important; opacity:1 !important;
+        text-align:left !important; align-items:flex-start !important;
+      }
+
+      /* Intro block */
+      .intro-node { margin-bottom:6pt }
+      .intro-title { font-size:15pt !important; margin-bottom:3pt }
+      .intro-title .accent {
+        background:none !important; -webkit-text-fill-color:var(--red) !important; color:var(--red) !important;
+      }
+      .intro-sub { font-size:9pt; margin-bottom:4pt }
+      .intro-meta { gap:4pt }
+
+      /* Era → compact section heading (kept with its first card) */
+      .era-node { margin:11pt 0 4pt; padding-bottom:3pt; border-bottom:1px solid var(--bd2); break-after:avoid }
+      .era-top  { white-space:normal !important }
+      .era-name { display:inline; font-size:11pt }
+      .era-yrs  { display:inline; margin-left:7pt }
+
+      /* Cards → tight, white, full width */
+      .prod-card, .tdm-ci, .piv-card, .bundle-card {
+        background:#fff !important; border:1px solid var(--bd) !important;
+        box-shadow:none !important; border-radius:6px !important;
+        padding:6pt 8pt !important; margin:0 0 5pt !important; break-inside:avoid;
+      }
+      .piv-card { border-color:rgba(232,49,42,.4) !important }
+
+      /* Year label sits above the product card */
+      .prod-node { display:flex !important; flex-direction:column !important }
+      .prod-node .yr {
+        order:-1; position:static !important; transform:none !important;
+        left:auto !important; top:auto !important; bottom:auto !important;
+        font-size:8pt; margin:0 0 1pt;
+      }
+
+      /* Typographic trims */
+      .pc-name, .tdm-pn, .piv-title { font-size:10.5pt }
+      .pc-desc, .tdm-why, .piv-desc { font-size:8.5pt; margin-bottom:3pt }
+      .tdm-per { font-size:8pt; margin-bottom:4pt }
+      .tdm-lim { font-size:7.5pt }
+      .db-list { margin-bottom:4pt }
+
+      /* Transition / divider callouts → slim notes */
+      .trans-node, .tb-divider { margin:4pt 0 }
+      .trans-bub, .tb-div-box { background:#fff !important; padding:5pt 8pt }
+      .trans-txt, .tb-div-txt { font-size:8.5pt }
+
+      /* Bundle history → 2-up grid, compact tables */
+      .bundles-pane { padding:0 !important; height:auto !important; overflow:visible !important }
+      .bundles-header { margin-bottom:10pt }
+      .bundles-title  { font-size:15pt }
+      .bundles-sub    { font-size:9pt }
+      .bundle-grid {
+        display:grid !important; grid-template-columns:1fr 1fr; gap:6pt;
+        margin:0 0 8pt !important;
+      }
+      .bundle-grid.collapsed { display:none !important }
+      .bundle-table { font-size:7.5pt }
+      .bundle-table th, .bundle-table td { padding:.18rem .4rem .18rem 0 }
     }
   </style>
 </head>
 <body>
+
+  <div class="print-head print-only">
+    <strong>Redgate — 25 Years of Data Tools</strong>
+    <span>Interactive product history · Data current as of June 2026 · red-gate.com/products</span>
+  </div>
 
   <header class="nav">
     <a href="#" class="nav-brand" id="navBrand">
@@ -2992,30 +3101,9 @@
     });
 
     // ─── Save as PDF ───────────────────────────
-    // Print the active timeline. Vertical layout stacks every node in normal
-    // document flow, which paginates cleanly into a PDF; restore afterwards.
-    const pdfBtn = document.getElementById('pdfBtn');
-    let pdfRestoreHorizontal = false;
-
-    pdfBtn.addEventListener('click', () => {
-      if (!isVertical) {
-        pdfRestoreHorizontal = true;
-        isVertical = true;
-        html.classList.add('vertical');
-        Object.values(timelines).forEach(tl => tl.enterVertical());
-      }
-      // Cards animate in on scroll — force them all visible before printing.
-      document.querySelectorAll('.prod-card, .piv-card, .tdm-ci').forEach(c => c.classList.add('in'));
-      requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
-    });
-
-    window.addEventListener('afterprint', () => {
-      if (!pdfRestoreHorizontal) return;
-      pdfRestoreHorizontal = false;
-      isVertical = false;
-      html.classList.remove('vertical');
-      Object.values(timelines).forEach(tl => tl.enterHorizontal());
-    });
+    // The print stylesheet reflows the active pane into a compact, light,
+    // document-flow layout, so we just open the print dialog directly.
+    document.getElementById('pdfBtn').addEventListener('click', () => window.print());
 
     // ─── Modal ─────────────────────────────────
     const modal      = document.getElementById('modal');
