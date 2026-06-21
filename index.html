@@ -608,6 +608,7 @@
       border-bottom:1px solid var(--bd); vertical-align:top; line-height:1.4;
     }
     .bundle-table tbody tr:last-child td { border-bottom:none }
+    .bundle-foot-note { margin-top:.7rem; font-size:.62rem; line-height:1.45; color:var(--dim); font-style:italic }
     .bundle-table td:first-child { color:var(--text); font-weight:500; width:58% }
     .bundle-table .ended td { color:var(--dim); opacity:.65 }
     .bundle-table .ended td:first-child {
@@ -1306,14 +1307,14 @@
         </div>
 
         <div class="prod-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
-             data-eyebrow="Era 03 · 2015 · Acquisition" data-title="SQL Change Automation" data-sub="Migrations-based CI/CD for databases (formerly ReadyRoll)">
+             data-eyebrow="Era 03 · 2015 · Acquisition" data-title="ReadyRoll" data-sub="Migrations-based database deployments — acquired in 2015, later unified into SQL Change Automation">
           <div class="prod-card">
-            <div class="pc-top"><div class="pc-icon">🚀</div><div><div class="pc-name">SQL Change Automation</div><div class="pc-tag">ReadyRoll acquired</div></div></div>
-            <div class="pc-desc">Migrations-based CI/CD for databases, integrating directly with Azure DevOps and Jenkins — filling the final gap in automated delivery pipelines.</div>
+            <div class="pc-top"><div class="pc-icon">🚀</div><div><div class="pc-name">ReadyRoll</div><div class="pc-tag">Migrations-based CI/CD, acquired</div></div></div>
+            <div class="pc-desc">Migrations-based database deployments — versioned, ordered scripts integrating with Azure DevOps and Jenkins. Acquired in 2015; in June 2018 it was unified with DLM Automation under the SQL Change Automation name.</div>
             <div class="pc-foot"><span class="tag">CI/CD</span><span class="badge b-acq">Acquired</span></div>
             <template class="card-detail">
               <p>ReadyRoll was an independent product that had built a loyal following among developers who wanted migrations-based database deployments — versioned, ordered scripts that gave them explicit control over exactly what ran in each environment.</p>
-              <p>Redgate acquired ReadyRoll in 2015 and rebranded it SQL Change Automation, integrating it deeply with the existing SQL Source Control workflow and adding first-class Azure DevOps and Jenkins pipeline support.</p>
+              <p>Redgate acquired ReadyRoll in 2015 and kept the name initially, integrating it with the SQL Source Control workflow and adding first-class Azure DevOps and Jenkins pipeline support. In June 2018, ReadyRoll and DLM Automation were brought together under a single name — SQL Change Automation — combining the migrations-based and state-based deployment approaches in one product.</p>
               <h4>What made it different from state-based deployment</h4>
               <ul>
                 <li>Migration scripts are explicit and versioned — developers see exactly what will run</li>
@@ -1325,6 +1326,27 @@
             </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2015</div>
+        </div>
+
+        <div class="prod-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Era 03 · 2016" data-title="DLM Automation" data-sub="Continuous integration and automated deployment for SQL Server — SQL CI and SQL Release, unified">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">🔁</div><div><div class="pc-name">DLM Automation</div><div class="pc-tag">SQL CI + SQL Release, unified</div></div></div>
+            <div class="pc-desc">One set of PowerShell cmdlets for CI and automated deployment of SQL Server databases, with free build-server plugins. The state-based counterpart to ReadyRoll — both were unified under the SQL Change Automation name in 2018.</div>
+            <div class="pc-foot"><span class="tag">CI/CD</span><span class="badge b-evolved">→ SCA</span></div>
+            <template class="card-detail">
+              <p>DLM Automation (released July 2016) was Redgate's answer for automating database delivery as part of "Database Lifecycle Management" — the DLM branding Redgate used across this period. It combined two earlier tools into a single product: <strong>SQL CI</strong>, a command-line tool for continuous integration on build servers, and <strong>SQL Release</strong> (2014), a set of PowerShell cmdlets for deploying database changes through release-management tools.</p>
+              <p>The unified product shipped as ~16 PowerShell cmdlets, letting teams script custom build-and-deploy workflows with an optional manual review step before production. Free add-ons integrated it with Visual Studio Team Services (Azure DevOps), TeamCity, Jenkins, Bamboo, and Octopus Deploy.</p>
+              <h4>How it relates to SQL Change Automation</h4>
+              <ul>
+                <li>Took the state-based / SQL Compare engine into automated CI/CD pipelines</li>
+                <li>Ran alongside ReadyRoll, which Redgate had acquired in 2015 for the migrations-based approach</li>
+                <li>On 18 June 2018, DLM Automation was renamed SQL Change Automation — the name that unified the two delivery approaches under one product</li>
+                <li>Existing DLM Automation licences carried straight over to SQL Change Automation</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">2016</div>
         </div>
 
         <div class="prod-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
@@ -1831,73 +1853,44 @@
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--green);--dg:rgba(80,200,120,.3)"
-             data-eyebrow="Stage 03 · ~2013" data-title="DLM Automation" data-sub="PowerShell-driven database deployments — automating SQL Compare's engine in CI/CD pipelines">
+        <div class="tdm-node above" style="--dc:var(--teal);--dg:rgba(0,201,167,.3)"
+             data-eyebrow="Stage 03 · 2014" data-title="SQL CI &amp; SQL Release" data-sub="The first automation building blocks — command-line CI and PowerShell deployment for SQL Server databases">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">DLM Automation</div><div class="tdm-per">c. 2013</div>
-            <div class="tdm-why">PowerShell cmdlets that wrapped SQL Compare's engine — letting teams automate the generate-and-deploy process without clicking through a GUI. The first step from "version-controlled" to "automatically deployed."</div>
+            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL CI &amp; SQL Release</div><div class="tdm-per">2014</div>
+            <div class="tdm-why">The first taste of automated database delivery: SQL CI ran continuous integration from the command line, and SQL Release (2014) deployed changes through PowerShell cmdlets — both wrapping SQL Compare's engine. The step from "version-controlled" to "automatically deployed."</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Script-level automation only — no integrated pipeline UI, no native Azure DevOps / Jenkins plugins. Teams had to wire everything together manually with PowerShell.</span></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Two separate, low-level tools — teams had to wire up their own pipeline plumbing with custom scripts. No single product, no first-class Azure DevOps / Jenkins plugins yet.</span></div>
             <template class="card-detail">
-              <p>DLM Automation gave teams their first taste of fully automated database deployments. By exposing SQL Compare's comparison and script-generation engine as PowerShell cmdlets, it let CI/CD pipelines generate and apply the exact change script needed to bring a target database in line with the source-controlled schema — without human intervention.</p>
-              <p>It was a significant step forward, but still required teams to own the pipeline plumbing themselves. Integrating it into a build server meant writing and maintaining custom PowerShell, wiring up credentials, and handling failures manually — there was no plug-in, no UI, no first-class integration with Azure DevOps or Jenkins.</p>
-              <h4>What DLM Automation established</h4>
+              <p>SQL CI and SQL Release were Redgate's first automation building blocks. SQL CI was a command-line tool for running continuous integration against a database on a build server; SQL Release (2014) was a set of PowerShell cmdlets for deploying database changes through release-management tools. Both exposed SQL Compare's comparison and script-generation engine so pipelines could generate and apply the exact change script needed — without human intervention.</p>
+              <p>It was a real step forward, but teams owned the plumbing themselves: writing and maintaining custom scripts, wiring up credentials, and handling failures manually across two separate tools. The clear next step was a single, integrated product.</p>
+              <h4>What they established for the Flyway journey</h4>
               <ul>
-                <li>Proved that SQL Compare's engine could run headlessly as part of a pipeline step</li>
+                <li>Proved SQL Compare's engine could run headlessly as a pipeline step</li>
                 <li>Database deployment could be a non-interactive, repeatable process — not a manual DBA ceremony</li>
-                <li>PowerShell as the integration layer was powerful but required significant setup per team</li>
-                <li>The need for first-class pipeline plugins and a richer CI/CD experience drove what became SQL Change Automation</li>
+                <li>Command line + PowerShell were powerful integration layers but required significant per-team setup</li>
+                <li>The fragmentation of two low-level tools drove the unified product that became DLM Automation</li>
               </ul>
             </template>
           </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2013</div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2014</div>
         </div>
 
         <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"PowerShell cmdlets were too low-level for most teams. We needed first-class pipeline plugins and a proper product experience — not just a scripting toolkit."</div></div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Command-line and PowerShell building blocks proved database automation worked — but they were low-level and state-based. Developers increasingly wanted an explicit migrations model they controlled."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node below" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
-             data-eyebrow="Stage 04 · ~2014" data-title="SQL Change Automation" data-sub="State-based CI/CD — automated database deployments integrated with pipelines">
+        <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
+             data-eyebrow="Stage 04 · Acquired · 2015" data-title="ReadyRoll" data-sub="Migrations-based deployments — acquired to bring the developer model in-house">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 04</div><div class="tdm-pn">SQL Change Automation</div><div class="tdm-per">c. 2014</div>
-            <div class="tdm-why">State-based CI/CD for databases — automatically compare source to target and deploy the difference. Integrated with Azure DevOps, TeamCity, and Jenkins to bring database changes into the same pipelines as application code.</div>
+            <div class="tdm-sn">Stage 04 · Acquired</div><div class="tdm-pn">ReadyRoll</div><div class="tdm-per">2015</div>
+            <div class="tdm-why">Migrations-based database deployments — ordered, versioned scripts that gave developers full control over exactly what ran, in what order, in every environment. Acquired in 2015 to bring the developer-favoured migrations model in-house, alongside Redgate's own state-based tooling.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>State-based deployment worked well for DBAs but didn't match how many developers thought — they wanted ordered, versioned migration scripts.</span></div>
-            <template class="card-detail">
-              <p>SQL Change Automation closed the automation gap left by SQL Source Control. Using the same comparison engine as SQL Compare, it could automatically generate and deploy the difference between a source-controlled schema and a target database — as a step in an Azure DevOps, Jenkins, or TeamCity pipeline.</p>
-              <p>For DBA-heavy teams, this was the missing piece. Database deployments could now run automatically as part of the same pipeline that deployed application code, with approvals, gates, and audit trails.</p>
-              <h4>The state-based model — and its limits</h4>
-              <ul>
-                <li>Compares the desired state (source-controlled schema) to the current state (target database)</li>
-                <li>Generates the minimal change script needed to bring target in line with source</li>
-                <li>Works well when DBAs own the schema and think in terms of current state</li>
-                <li>Developers often prefer explicit migration scripts — ordered, named, and versioned</li>
-                <li>The developer mental model mismatch was the opening ReadyRoll had been filling independently</li>
-              </ul>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2014</div>
-        </div>
-
-        <div class="trans-node below">
-          <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Developers wanted migrations — explicit, versioned scripts they controlled. ReadyRoll already had this. We acquired it to bring that approach in-house."</div></div>
-          </div>
-        </div>
-
-        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
-             data-eyebrow="Stage 05 · Acquired · ~2015" data-title="ReadyRoll" data-sub="Migrations-based deployments — acquired to bring the developer model in-house">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 05 · Acquired</div><div class="tdm-pn">ReadyRoll</div><div class="tdm-per">c. 2015</div>
-            <div class="tdm-why">Migrations-based database deployments — ordered, versioned scripts that gave developers full control over exactly what ran, in what order, in every environment. Acquired to complement SQL Change Automation's state-based approach.</div>
-            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>A standalone acquisition that needed deeper platform integration and expansion beyond SQL Server to realise its full potential.</span></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Now Redgate had two deployment models in two separate products — migrations (ReadyRoll) and state-based (the SQL CI / SQL Release tooling). Customers wanted one product, not two.</span></div>
             <template class="card-detail">
               <p>ReadyRoll was an independent product that had built strong traction among developers who preferred the migrations model over state-based comparison. Each migration was an explicit, numbered script: V1__create_users.sql, V2__add_index.sql. Flyway's open-source community had popularised exactly this approach.</p>
-              <p>Redgate acquired ReadyRoll to bring the migrations model inside the Redgate platform — giving customers a choice between state-based (SQL Change Automation) and migrations-based (ReadyRoll) deployment strategies.</p>
+              <p>Redgate acquired ReadyRoll in 2015 to bring the migrations model inside the platform — giving customers a choice between state-based and migrations-based deployment. But it sat alongside Redgate's own state-based automation as a separate product and brand, which pointed toward the need to unify the two.</p>
               <h4>Why the migrations model resonates with developers</h4>
               <ul>
                 <li>Every migration is explicit — no surprises about what will run</li>
@@ -1908,24 +1901,53 @@
               </ul>
             </template>
           </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2015</div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2015</div>
+        </div>
+
+        <div class="trans-node below">
+          <div class="trans-in"><div class="trans-arr">→</div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"Two deployment models in two separate products was confusing to sell and support. We consolidated our own state-based tooling into one product — then unified it with ReadyRoll."</div></div>
+          </div>
+        </div>
+
+        <div class="tdm-node above" style="--dc:var(--gold);--dg:rgba(245,166,35,.3)"
+             data-eyebrow="Stage 05 · 2016 → 2018" data-title="SQL Change Automation" data-sub="DLM Automation, then SQL Change Automation — state-based and migrations-based delivery, unified">
+          <div class="tdm-card"><div class="tdm-ci">
+            <div class="tdm-sn">Stage 05 · DLM Automation → SCA</div><div class="tdm-pn">SQL Change Automation</div><div class="tdm-per">2016 → 2018</div>
+            <div class="tdm-why">DLM Automation (2016) combined SQL CI and SQL Release into one product with first-class build-server plugins. In June 2018 it was renamed SQL Change Automation, unifying state-based (DLM Automation) and migrations-based (ReadyRoll) delivery under a single name.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
+            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Powerful and finally unified — but still SQL Server-centric, with no path to PostgreSQL, MySQL, or Oracle where the wider market was moving.</span></div>
+            <template class="card-detail">
+              <p>DLM Automation (shipped July 2016) consolidated the earlier SQL CI and SQL Release tools into one product — a set of PowerShell cmdlets with free plugins for Azure DevOps, TeamCity, Jenkins, Bamboo, and Octopus Deploy. It used SQL Compare's engine to generate and deploy the difference between a source-controlled schema and a target database, as a first-class pipeline step.</p>
+              <p>On 18 June 2018, Redgate renamed DLM Automation to SQL Change Automation — bringing the state-based automation (DLM Automation) and the migrations-based approach (ReadyRoll) together under one product and name, so teams could choose either model without choosing a different product.</p>
+              <h4>What unification delivered — and its limit</h4>
+              <ul>
+                <li>One product, both models: state-based comparison and explicit versioned migrations</li>
+                <li>First-class pipeline plugins replaced hand-rolled PowerShell plumbing</li>
+                <li>Approvals, gates, and audit trails for database deployments alongside application code</li>
+                <li>Existing DLM Automation licences carried straight over to SQL Change Automation</li>
+                <li>Still SQL Server only — the multi-platform gap remained wide open</li>
+              </ul>
+            </template>
+          </div></div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2016 → 2018</div>
         </div>
 
         <div class="trans-node above">
           <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"ReadyRoll needed to become a first-class Redgate product — integrated with the full platform and positioned as Redgate's unified deployment answer."</div></div>
+            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"One unified product, both models — but still tied to SQL Server. Redgate pushed toward a single, broader deployment brand: Redgate Deploy."</div></div>
           </div>
         </div>
 
         <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
-             data-eyebrow="Stage 06 · ~2018" data-title="Redgate Deploy" data-sub="ReadyRoll rebranded as Redgate's unified database deployment product">
+             data-eyebrow="Stage 06 · 2019" data-title="Redgate Deploy" data-sub="Redgate's unified database deployment brand — bringing the deployment tools under one banner">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Redgate Deploy</div><div class="tdm-per">c. 2018</div>
-            <div class="tdm-why">ReadyRoll rebranded and evolved into Redgate Deploy — Redgate's unified database deployment product, combining migrations-based and state-based approaches with deep CI/CD pipeline integrations.</div>
+            <div class="tdm-sn">Stage 06</div><div class="tdm-pn">Redgate Deploy</div><div class="tdm-per">2019</div>
+            <div class="tdm-why">Redgate's unified deployment brand — pulling SQL Change Automation's state-based and migrations-based delivery together under a single offering with deep CI/CD pipeline integrations.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-az">Azure SQL</span></div></div>
             <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still primarily SQL Server-focused. The open-source community had already chosen Flyway as the standard for cross-platform, developer-first migrations.</span></div>
             <template class="card-detail">
-              <p>Redgate Deploy was ReadyRoll grown up — integrated into the Redgate platform, branded consistently, and expanded to include Azure SQL alongside SQL Server. It represented Redgate's best answer to automated database deployment in the 2018 timeframe.</p>
+              <p>Redgate Deploy was SQL Change Automation broadened into a consistent deployment brand — integrated into the Redgate platform and expanded to include Azure SQL alongside SQL Server. It represented Redgate's best answer to automated database deployment around 2019.</p>
               <p>But outside Redgate's customer base, a different story was playing out. The open-source community had coalesced around Flyway as the standard for database migrations — it was language-agnostic, database-agnostic, and had millions of active users Redgate had no reach into.</p>
               <h4>The gap Redgate Deploy couldn't close</h4>
               <ul>
@@ -2195,13 +2217,13 @@
 
         <!-- 14 · SQL Change Automation · ~2015 · Toolbelt -->
         <div class="tdm-node below" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
-             data-eyebrow="SQL Toolbelt · ~2015 · Acquisition" data-title="SQL Change Automation" data-sub="Migrations-based CI/CD for SQL Server — formerly ReadyRoll">
+             data-eyebrow="SQL Toolbelt · 2016 → 2018" data-title="SQL Change Automation" data-sub="CI/CD for SQL Server — formed in 2018 from DLM Automation and ReadyRoll">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Toolbelt · ~2015 · Acquired</div><div class="tdm-pn">SQL Change Automation</div>
+            <div class="tdm-sn">Toolbelt · DLM Automation → SCA</div><div class="tdm-pn">SQL Change Automation</div>
             <div class="tdm-why">Versioned, ordered migration scripts automatically deployed through Azure DevOps, Jenkins, or TeamCity pipelines. Closes the loop between SQL Source Control and automated delivery.</div>
-            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-acq" style="margin-left:4px">Acquired</span></div>
+            <div class="pc-foot" style="margin-top:.6rem"><span class="badge b-tb">Toolbelt</span><span class="badge b-evolved" style="margin-left:4px">Renamed 2018</span></div>
             <template class="card-detail">
-              <p>SQL Change Automation (formerly ReadyRoll) is the pipeline automation layer — it takes the database changes tracked in SQL Source Control and deploys them automatically through CI/CD pipelines. Each migration is an explicit, versioned script that runs exactly once.</p>
+              <p>SQL Change Automation is the Toolbelt's pipeline automation layer — it takes the database changes tracked in SQL Source Control and deploys them automatically through CI/CD pipelines. It carries two lineages: <strong>DLM Automation</strong> (shipped 2016 from the earlier SQL CI + SQL Release tools) for state-based delivery, and the acquired <strong>ReadyRoll</strong> (2015) for migrations-based delivery. Redgate unified both under the SQL Change Automation name in June 2018.</p>
               <h4>Toolbelt-only — not in Essentials</h4>
               <ul>
                 <li>Requires an established CI/CD pipeline — more advanced teams need this first</li>
@@ -2423,7 +2445,10 @@
             <tr><td>SQL Source Control</td><td>Jun 2010</td><td>—</td></tr>
             <tr><td>SQL Search</td><td>Feb 2012</td><td>—</td></tr>
             <tr><td>SQL Test</td><td>Apr 2012</td><td>—</td></tr>
+            <tr class="ended"><td>DLM Automation</td><td>Jul 2016</td><td>Jun 2018</td></tr>
+            <tr><td>SQL Change Automation</td><td>Jun 2018</td><td>—</td></tr>
           </tbody></table>
+          <div class="bundle-foot-note">Post-snapshot lineage (from Redgate product sources): DLM Automation joined ~Jul 2016, then was renamed SQL Change Automation on 18 Jun 2018.</div>
         </div>
 
         <!-- SQL Prompt Bundle (2) -->
@@ -3156,6 +3181,7 @@
       'SQL Monitor':               'https://documentation.red-gate.com/sm',
       'SQL Test':                  'https://documentation.red-gate.com/sqt',
       'SQL Change Automation':     'https://documentation.red-gate.com/sca',
+      'DLM Automation':            'https://documentation.red-gate.com/sca',
       'ReadyRoll':                 'https://documentation.red-gate.com/sca',
       'SQL Clone':                 'https://documentation.red-gate.com/clone',
       'Flyway':                    'https://documentation.red-gate.com/fd',

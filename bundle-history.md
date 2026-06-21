@@ -145,6 +145,10 @@ Source: [documentation.red-gate.com/xx/bundle-history](https://documentation.red
 | SQL Source Control | 30 Jun 2010 | — |
 | SQL Search | 1 Feb 2012 | — |
 | SQL Test | 20 Apr 2012 | — |
+| DLM Automation | ~Jul 2016 | 18 Jun 2018 |
+| SQL Change Automation | 18 Jun 2018 | — |
+
+> **Note — post-snapshot additions:** The two rows above are not in the April 2016 source snapshot. They are added from Redgate product sources: DLM Automation (which combined SQL CI and SQL Release) shipped ~July 2016 and was renamed **SQL Change Automation** on 18 June 2018. Sources: [DLM Automation licenses and SQL Change Automation](https://documentation.red-gate.com/sca/troubleshooting/troubleshoot-licensing/dlm-automation-licenses-and-sql-change-automation), [Database automation made easier](https://www.red-gate.com/blog/database-automation-made-easier).
 
 ---
 
