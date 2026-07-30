@@ -1609,10 +1609,10 @@
           <div class="intro-inner">
             <div class="intro-kick">Product Evolution</div>
             <div class="intro-title">The Road to<br><span class="accent">Test Data Management</span></div>
-            <div class="intro-sub">Five stages across 15+ years, each one sharpening the answer — landing on two focused, mature tools that do the job better together than any single platform could.</div>
+            <div class="intro-sub">Three stages, each one sharpening the answer — landing on two focused, mature tools that still do the job today.</div>
             <div class="intro-meta">
-              <span class="intro-pill hot">5 stages</span>
-              <span class="intro-pill">SQL Server → Multi-platform</span>
+              <span class="intro-pill hot">3 stages</span>
+              <span class="intro-pill">SQL Server, done right</span>
             </div>
           </div>
         </div>
@@ -1698,88 +1698,28 @@
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.3)"
-             data-eyebrow="Stage 03 · ~2018–2021" data-title="SQL Provision" data-sub="SQL Data Masker + SQL Clone unified into one workflow">
+        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.5)"
+             data-eyebrow="Stage 03 · 2018 – Present · Current Approach" data-title="SQL Provision" data-sub="SQL Data Masker + SQL Clone unified into one workflow — still Redgate's answer today">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Provision</div><div class="tdm-per">c. 2018 – 2021</div>
-            <div class="tdm-why">SQL Data Masker + SQL Clone unified into a single provisioning workflow. Teams could mask production data <em>and</em> provision virtual copies from one product for the first time.</div>
+            <div class="cur-badge">Current Approach</div>
+            <div class="tdm-sn">Stage 03</div><div class="tdm-pn">SQL Provision</div><div class="tdm-per">2018 – Present</div>
+            <div class="tdm-why">SQL Data Masker + SQL Clone unified into a single provisioning workflow. Teams mask production data <em>and</em> provision virtual copies from one product — the proven, focused answer for Test Data Management.</div>
             <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Still SQL Server and Windows only. Cloud adoption and container-based workflows were accelerating — the virtualisation model had a ceiling.</span></div>
             <template class="card-detail">
-              <p>SQL Provision was the first Redgate product to address the complete test data provisioning workflow in a single tool. It combined the masking capabilities of SQL Data Masker with the cloning capabilities of SQL Clone, orchestrated through a single interface and automation API.</p>
-              <p>A team could now define a masking ruleset, point it at production, run it to produce a masked "gold copy," and then provision virtual clones from that gold copy — all within one product, all scriptable for automation pipelines.</p>
-              <h4>What the unified workflow enabled</h4>
+              <p>SQL Provision was the first Redgate product to address the complete test data provisioning workflow in a single tool. It combines the masking capabilities of SQL Data Masker with the cloning capabilities of SQL Clone, orchestrated through a single interface and automation API.</p>
+              <p>A team defines a masking ruleset, points it at production, runs it to produce a masked "gold copy," and then provisions virtual clones from that gold copy — all within one product, all scriptable for automation pipelines. Years on, it's still the combination Redgate recommends: two mature, focused tools, refined with everything learned since.</p>
+              <h4>What the unified workflow delivers</h4>
               <ul>
                 <li>Single product to own the complete mask → provision → refresh cycle</li>
                 <li>Automated refresh pipelines: nightly masked refresh, instant clone provisioning on demand</li>
                 <li>Self-service developer portals: devs request a clone, get it in seconds without DBA involvement</li>
                 <li>Consistent masking across all clones — no risk of one team getting unmasked data</li>
-              </ul>
-              <p>But the architecture had a hard ceiling: VHD-based virtualisation required Windows and SQL Server. As Docker and Kubernetes adoption grew, the question became when — not if — teams would need non-SQL-Server, non-Windows test data.</p>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
-        </div>
-
-        <div class="trans-node above">
-          <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we rebuilt the architecture</div><div class="trans-txt">"Teams were moving to Docker and cloud, and the Windows-only VHD virtualisation underneath SQL Provision couldn't follow them there. The underlying technology needed a rethink — SQL Clone and SQL Data Masker's jobs hadn't changed, but how we delivered them needed to."</div></div>
-          </div>
-        </div>
-
-        <div class="tdm-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
-             data-eyebrow="Stage 04 · ~2021–2022" data-title="Redgate Clone" data-sub="Container-based database virtualisation — rebuilt from scratch for the cloud era">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="tdm-sn">Stage 04</div><div class="tdm-pn">Redgate Clone</div><div class="tdm-per">c. 2021 – 2022</div>
-            <div class="tdm-why">A rebuild from scratch — container-based database virtualisation using Docker. Fast, cloud-friendly, no longer tied to Windows storage APIs. Opened the door to multi-platform support.</div>
-            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-my">MySQL</span><span class="db db-ora">Oracle</span></div></div>
-            <div class="tdm-lim"><span class="lim-i">⚠</span><span>Installation required Spoon containerisation and Kubernetes clusters — infrastructure most customers didn't have or couldn't operate. Cloning alone also left masking and governance unsolved.</span></div>
-            <template class="card-detail">
-              <p>Redgate Clone was a complete architectural rethink. Rather than using Windows VHD virtualisation, it used container-based database virtualisation built on Spoon technology, deployable via Kubernetes clusters. A "clone" was a new container spun from a base image — cross-platform, cloud-native, and no longer tied to Windows storage APIs.</p>
-              <p>This architectural shift unlocked genuine multi-platform support: SQL Server, PostgreSQL, MySQL, and Oracle could all be cloned through the same mechanism. The platform abstraction was now handled at the container layer, not the OS.</p>
-              <h4>The installation problem</h4>
-              <p>The technology worked — but getting there was a significant undertaking. Redgate Clone required customers to provision and manage Kubernetes clusters just to run it, and the underlying Spoon containerisation layer added further complexity that most database teams hadn't encountered before.</p>
-              <ul>
-                <li>Kubernetes cluster required for deployment — a high bar for teams without dedicated platform engineering</li>
-                <li>Spoon-based containerisation was unfamiliar technology outside specialist DevOps teams</li>
-                <li>Many customers had the problem Redgate Clone solved but not the infrastructure to run it</li>
-                <li>Installation complexity meant the product rarely reached the developers it was designed for</li>
-                <li>Support burden was high — troubleshooting Kubernetes networking and container configuration was outside Redgate's core expertise</li>
-              </ul>
-              <p>The gap between what Redgate Clone promised and what customers could actually deploy pointed directly toward the need for a fully managed, platform-level solution — the foundation for Test Data Manager.</p>
-            </template>
-          </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2021</div>
-        </div>
-
-        <div class="trans-node below">
-          <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">What we learned</div><div class="trans-txt">"Kubernetes and container tooling set the bar too high for most database teams. The fastest way back to real value was doubling down on the two tools that already worked brilliantly together."</div></div>
-          </div>
-        </div>
-
-        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.5)"
-             data-eyebrow="Stage 05 · 2023 – Present · Current Approach" data-title="SQL Provision" data-sub="SQL Clone + SQL Data Masker — the proven, focused answer for Test Data Management">
-          <div class="tdm-card"><div class="tdm-ci">
-            <div class="cur-badge">Current Approach</div>
-            <div class="tdm-sn">Stage 05</div><div class="tdm-pn">SQL Provision</div><div class="tdm-per">2023 – Present</div>
-            <div class="tdm-why">The proven combination for Test Data Management: SQL Clone's fast, storage-efficient virtual copies, paired with SQL Data Masker's compliant, realistic anonymisation — two focused tools, one seamless workflow.</div>
-            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
-            <template class="card-detail">
-              <p>After testing an all-in-one platform and a container-based rebuild, the clearest path forward turned out to be the one closest to what teams use every day: fast, reliable virtual copies, paired with realistic, compliant masking. SQL Clone and SQL Data Masker — bundled together as SQL Provision — deliver exactly that, refined with everything learned along the way.</p>
-              <p>Two mature products, each excellent at one job, working through a single workflow: mask a "gold copy" once with SQL Data Masker, then provision as many virtual clones from it as the team needs with SQL Clone. No cluster to run, no new platform to learn — just the fastest route from production to safe, realistic test data.</p>
-              <h4>What SQL Provision delivers</h4>
-              <ul>
-                <li>Virtual clones in seconds via copy-on-write storage — a fraction of the footprint of a full restore</li>
-                <li>Realistic, referentially-intact masking that keeps real PII out of non-production environments</li>
-                <li>One workflow: mask once, then provision as many clones as the team needs, on demand</li>
-                <li>Self-service developer access without routing every request through a DBA</li>
-                <li>Proven at scale across thousands of SQL Server estates, with no cluster infrastructure to install or operate</li>
+                <li>Proven at scale across thousands of SQL Server estates, with no cluster or container infrastructure to install or operate</li>
               </ul>
               <p>For teams that also need estate-wide sensitive data discovery, SQL Data Catalog remains available as a complementary classification layer feeding straight into SQL Data Masker's rules.</p>
             </template>
           </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2023</div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">~2018</div>
         </div>
 
         <div class="end-cap"></div>
