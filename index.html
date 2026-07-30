@@ -841,7 +841,7 @@
     <div class="nav-spacer"></div>
     <div class="tab-bar">
       <button class="tab-btn active" data-tab="company">Company Timeline</button>
-      <button class="tab-btn" data-tab="tdm">Test Data Manager</button>
+      <button class="tab-btn" data-tab="tdm">Test Data Management</button>
       <button class="tab-btn" data-tab="flyway">Flyway</button>
       <button class="tab-btn" data-tab="toolbelt">SQL Toolbelt/Essentials</button>
       <button class="tab-btn" data-tab="bundles">Bundle History</button>
@@ -1378,7 +1378,7 @@
             <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
             <template class="card-detail">
               <p>SQL Clone solved the speed and storage problem of backup-restore provisioning. Using Windows VHD-based copy-on-write, a "clone" shares a single read-only image with writes redirected to a small private difference file. A full isolated copy of a multi-hundred-gigabyte database provisions in seconds and uses megabytes of additional storage.</p>
-              <p>SQL Clone is a standalone product — it handles virtual copy delivery. It can work alongside Test Data Manager (TDM handles the masking and subsetting; TDM-prepared data can be placed onto a SQL Clone image), but the two products are fully independent.</p>
+              <p>SQL Clone handles virtual copy delivery, and pairs with SQL Data Masker as SQL Provision — Redgate's current combination for Test Data Management, with masked "gold copy" data placed onto a SQL Clone image.</p>
               <h4>How it works</h4>
               <ul>
                 <li>One read-only image holds the full database snapshot</li>
@@ -1522,24 +1522,44 @@
         </div>
 
         <div class="prod-node below" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
-             data-eyebrow="Era 04 · 2022" data-title="Test Data Manager" data-sub="Masking, subsetting, and governance for safe, realistic test data">
+             data-eyebrow="Era 04 · 2022" data-title="Test Data Manager" data-sub="An all-in-one attempt at masking, subsetting, and governance">
           <div class="prod-card">
-            <div class="pc-top"><div class="pc-icon">🎭</div><div><div class="pc-name">Test Data Manager</div><div class="pc-tag">The complete TDM platform</div></div></div>
-            <div class="pc-desc">Mask, subset, and govern test data across SQL Server, PostgreSQL, Oracle, and MySQL. Works alongside SQL Clone to deliver safe, realistic copies at speed. See the TDM tab for the full evolution story.</div>
-            <div class="pc-foot"><span class="tag">Multi-DB</span><span class="badge b-active">Active</span></div>
+            <div class="pc-top"><div class="pc-icon">🎭</div><div><div class="pc-name">Test Data Manager</div><div class="pc-tag">The all-in-one experiment</div></div></div>
+            <div class="pc-desc">A unified platform for masking, subsetting, and governing test data across SQL Server, PostgreSQL, Oracle, and MySQL. Valuable lessons here shaped where Redgate's test data strategy went next.</div>
+            <div class="pc-foot"><span class="tag">Multi-DB</span><span class="badge b-evolved">→ SQL Provision</span></div>
             <template class="card-detail">
-              <p>Test Data Manager is the culmination of 15+ years of Redgate's test data journey — from SQL Backup to SQL Data Masker to SQL Provision to finally a unified platform focused on masking, subsetting, and governance. Every lesson from each prior stage is built in.</p>
-              <p>TDM focuses on masking, subsetting, and governance — making production data safe and realistic for testing. It is a separate product from SQL Clone: SQL Clone handles the virtual copy provisioning (spinning up a writable database image in seconds), while TDM handles what goes into those copies. The two tools complement each other — masked and subsetted data prepared by TDM can be placed onto a clone spun up by SQL Clone, but neither product requires the other.</p>
-              <h4>Full story on the TDM tab</h4>
+              <p>Test Data Manager brought masking, subsetting, and governance together under one roof — the most ambitious attempt yet at a single platform for the entire test data workflow, built on everything learned since SQL Clone and SQL Data Masker first shipped.</p>
+              <p>The experience clarified which parts of the job customers wanted from a unified platform, and which parts they preferred handled by two focused, best-in-class tools. That insight shaped SQL Provision's return as Redgate's flagship answer for Test Data Management.</p>
+              <h4>What it contributed</h4>
               <ul>
-                <li>5 stages of evolution across SQL Server, PostgreSQL, Oracle, and MySQL</li>
-                <li>Masking + subsetting + governance in a single platform</li>
-                <li>Built-in classification engine — no separate tool required to discover sensitive data</li>
-                <li>Works alongside SQL Clone — but is a fully independent product</li>
+                <li>Proved out classification-driven masking across four database platforms</li>
+                <li>Validated subsetting as a genuine customer need</li>
+                <li>Informed the governance and self-service patterns SQL Provision uses today</li>
               </ul>
             </template>
           </div>
           <div class="stub"></div><div class="prod-dot"></div><div class="yr">2022</div>
+        </div>
+
+        <div class="prod-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.4)"
+             data-eyebrow="Era 04 · 2023 · Current Flagship" data-title="SQL Provision" data-sub="SQL Clone + SQL Data Masker — Redgate's focused answer for Test Data Management">
+          <div class="prod-card">
+            <div class="pc-top"><div class="pc-icon">⚙️</div><div><div class="pc-name">SQL Provision</div><div class="pc-tag">Test Data Management, done right</div></div></div>
+            <div class="pc-desc">SQL Clone and SQL Data Masker, refined and reunited. Fast virtual copies plus compliant, realistic masking — the proven combination for safe test data at speed. See the Test Data Management tab for the full story.</div>
+            <div class="pc-foot"><span class="tag">SQL Server</span><span class="badge b-active">Active</span></div>
+            <template class="card-detail">
+              <p>SQL Provision pairs two mature, focused products rather than asking customers to adopt an entirely new platform: SQL Clone for fast, storage-efficient virtual copies, and SQL Data Masker for realistic, compliant anonymisation.</p>
+              <p>Together they give teams a complete mask-then-provision workflow without the overhead of a separate governance platform or container infrastructure to manage.</p>
+              <h4>Full story on the Test Data Management tab</h4>
+              <ul>
+                <li>Mask a gold copy once with SQL Data Masker</li>
+                <li>Provision unlimited virtual clones from it in seconds with SQL Clone</li>
+                <li>No Kubernetes cluster or new platform to learn</li>
+                <li>Proven at scale across thousands of SQL Server estates</li>
+              </ul>
+            </template>
+          </div>
+          <div class="stub"></div><div class="prod-dot"></div><div class="yr">2023</div>
         </div>
 
         <div class="prod-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.35)"
@@ -1588,8 +1608,8 @@
         <div class="intro-node">
           <div class="intro-inner">
             <div class="intro-kick">Product Evolution</div>
-            <div class="intro-title">The Road to<br><span class="accent">Test Data Manager</span></div>
-            <div class="intro-sub">Six stages across 15+ years. Each one solved the problem the previous product left behind.</div>
+            <div class="intro-title">The Road to<br><span class="accent">Test Data Management</span></div>
+            <div class="intro-sub">Five stages across 15+ years, each one sharpening the answer — landing on two focused, mature tools that do the job better together than any single platform could.</div>
             <div class="intro-meta">
               <span class="intro-pill hot">5 stages</span>
               <span class="intro-pill">SQL Server → Multi-platform</span>
@@ -1734,32 +1754,32 @@
 
         <div class="trans-node below">
           <div class="trans-in"><div class="trans-arr">→</div>
-            <div class="trans-bub"><div class="trans-lbl">Why we moved on</div><div class="trans-txt">"The technology was right but the installation was too hard. Most customers couldn't run Kubernetes just to get a clone. And cloning alone still wasn't the full answer."</div></div>
+            <div class="trans-bub"><div class="trans-lbl">What we learned</div><div class="trans-txt">"Kubernetes and container tooling set the bar too high for most database teams. The fastest way back to real value was doubling down on the two tools that already worked brilliantly together."</div></div>
           </div>
         </div>
 
-        <div class="tdm-node above" style="--dc:var(--red);--dg:rgba(232,49,42,.5)"
-             data-eyebrow="Stage 05 · 2022 – Present · Current Platform" data-title="Test Data Manager" data-sub="Mask, subset, and govern test data — across any database, at scale">
+        <div class="tdm-node above" style="--dc:var(--purple);--dg:rgba(160,112,212,.5)"
+             data-eyebrow="Stage 05 · 2023 – Present · Current Approach" data-title="SQL Provision" data-sub="SQL Clone + SQL Data Masker — the proven, focused answer for Test Data Management">
           <div class="tdm-card"><div class="tdm-ci">
-            <div class="cur-badge">Current Platform</div>
-            <div class="tdm-sn">Stage 05</div><div class="tdm-pn">Test Data Manager</div><div class="tdm-per">2022 – Present</div>
-            <div class="tdm-why">Mask, subset, and govern test data — safely and at scale. Works alongside SQL Clone, but is a fully separate product focused purely on the data, not the delivery mechanism.</div>
-            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span><span class="db db-pg">PostgreSQL</span><span class="db db-ora">Oracle</span><span class="db db-my">MySQL</span></div></div>
+            <div class="cur-badge">Current Approach</div>
+            <div class="tdm-sn">Stage 05</div><div class="tdm-pn">SQL Provision</div><div class="tdm-per">2023 – Present</div>
+            <div class="tdm-why">The proven combination for Test Data Management: SQL Clone's fast, storage-efficient virtual copies, paired with SQL Data Masker's compliant, realistic anonymisation — two focused tools, one seamless workflow.</div>
+            <div class="db-list"><div class="db-lbl">Databases Supported</div><div class="db-row"><span class="db db-ss">SQL Server</span></div></div>
             <template class="card-detail">
-              <p>Test Data Manager brings together the capabilities Redgate developed across 15 years of test data tooling: classification-driven masking, subsetting, self-service developer access, and governance controls — in a single unified platform.</p>
-              <p>TDM is focused entirely on the <em>data</em>: making it safe, right-sized, and available. It is not a cloning tool. SQL Clone is a separate Redgate product that handles virtual copy delivery — spinning up a writable database image in seconds from a snapshot. The two products complement each other well: TDM-masked and subsetted data can be placed onto a clone spun up by SQL Clone, giving teams fast access to realistic, safe test data. But each product stands alone and neither requires the other.</p>
-              <h4>What TDM handles</h4>
+              <p>After testing an all-in-one platform and a container-based rebuild, the clearest path forward turned out to be the one closest to what teams use every day: fast, reliable virtual copies, paired with realistic, compliant masking. SQL Clone and SQL Data Masker — bundled together as SQL Provision — deliver exactly that, refined with everything learned along the way.</p>
+              <p>Two mature products, each excellent at one job, working through a single workflow: mask a "gold copy" once with SQL Data Masker, then provision as many virtual clones from it as the team needs with SQL Clone. No cluster to run, no new platform to learn — just the fastest route from production to safe, realistic test data.</p>
+              <h4>What SQL Provision delivers</h4>
               <ul>
-                <li>Classify — discover and tag sensitive columns using TDM's built-in Anonymize engine</li>
-                <li>Mask — transform production data into safe, realistic test data</li>
-                <li>Subset — create smaller, referentially intact slices of large databases</li>
-                <li>Govern — control who can access what data, with audit trails and approval workflows</li>
-                <li>Refresh — automate the cycle so teams always have current, safe test data</li>
+                <li>Virtual clones in seconds via copy-on-write storage — a fraction of the footprint of a full restore</li>
+                <li>Realistic, referentially-intact masking that keeps real PII out of non-production environments</li>
+                <li>One workflow: mask once, then provision as many clones as the team needs, on demand</li>
+                <li>Self-service developer access without routing every request through a DBA</li>
+                <li>Proven at scale across thousands of SQL Server estates, with no cluster infrastructure to install or operate</li>
               </ul>
-              <p>Supported across SQL Server, PostgreSQL, Oracle, and MySQL — the four databases that represent the vast majority of enterprise application stacks.</p>
+              <p>For teams that also need estate-wide sensitive data discovery, SQL Data Catalog remains available as a complementary classification layer feeding straight into SQL Data Masker's rules.</p>
             </template>
           </div></div>
-          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2022</div>
+          <div class="tdm-stub"></div><div class="tdm-dot"></div><div class="tdm-yr">2023</div>
         </div>
 
         <div class="end-cap"></div>
